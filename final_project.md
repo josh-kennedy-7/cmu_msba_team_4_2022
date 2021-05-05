@@ -273,6 +273,7 @@ Principle component analysis captured ~90% of dataset variability contained with
 ## Model Build, Test, and Analysis (rename header?)
 
 ### Baseline Results - MLP
+
 An attempt was made at training a flat model without filtering the features and with no pre-processing. The model failed to pick any signal, as can be seen in the following plot:
 
 ![pic1](images/Baseline.png)
@@ -280,7 +281,9 @@ An attempt was made at training a flat model without filtering the features and 
 **Fig. 9** - *Confusion Matrix and Estimated Error for k = 5*
 
 ### Classification Transform
+
 The problem was transformed from a continuous to a discrete output to try to improve the performance of the model. This experiment had two variations: the first distributed the prices in equal sized buckets (with trials for 3, 4 and 5); the second was binary and only provided directionality in terms of price increase or decrease with respect to the previous period. The dispersion and range of prices within any given training and testing set was very similar, so to avoid recalculating the buckets on each trial, the whole set was used. Since the dataset was shuffled, the risk of bias remained very low, however other temporality concerns arose (to be discussed later in the report). 
+
 In the price bucket variety, classification accuracy decreased as the number of buckets increased. At the same time, an estimated RMSE loss was reduced (the estimated RMSE was based on the difference of the averages of the buckets instead than on the difference of the average of the bucket and the actual price, so the estimated RMSE is lower that the actual RMSE). This can be seen in the following confusion matrix:
 
 ![pic1](images/ConfusionMatrixB5.png)
@@ -296,16 +299,26 @@ In the price bucket variety, classification accuracy decreased as the number of 
 **Fig. 12** - *Confusion Matrix and Estimated Error for k = 3*
 
 The price directionality variety model was sub-par. The model selected only one of the labels for the entire dataset (it was not consistent in the election, since both labels have an occurrence probability of 50%).
+
 The three main limitations of a discrete approach to the problem were the implication that price was limited to a fixed range known in advance, inaccurate classification, and the rigidity of a discrete prediction. Furthermore, the decrease of the estimated RMSE as the number of buckets increased, is a strong indicator to keep the model as a continuous approach. 
+
 Finally, since trials were made shuffling the whole set, the model was filling voids in the past instead of predicting the future. This realization was taken into account in the next models so that data was split by time rather than by volume.
 
 ### LeNet Adaptation
 
 A challenge to train with the available data was that the number of features (484) was greater than the number of examples (121). Furthermore, the existing number of features did not show sufficient explanatory power in previous models. To deal with this, four different alternatives were explored, and those that were successful were merged into a model:
 
-* **Synthetizing new examples to train the model.** This was done with a PCA encoding that kept the maximum possible amount of components in the whole dataset (including the target), and then random noise was injected into the decoder. However, given that the maximum decoding matrix size achievable was 121 X 121, 364 features were lost in the process (producing a loss in variance explanation), and therefore the output was not similar enough to the original dataset to be used as a training set. A manual selection that removed the additional 364 features before applying the PCA encoding and decoding could have solved the problem, however due to time constraints, this approach was not attempted.
-* **Selecting the most significant covariates.** A PCA encoder was used to select the most meaningful components, and train the model using them instead of the actual features. Several trials were made with different cutoff parameters, and the final decision was to keep the most relevant 16 components (with a loss of 21% in the variance explanation). 
-* **Adding covariates that could complement the existing information.** During exploratory analysis, it was found that tuna prices followed a cyclical pattern, and that prices at a given point in time are related to adjacent historic prices. Time cyclicity was included into the model by breaking the signal into Fourier harmonics. To ensure that low frequencies remained the most relevant, the first harmonic parameters for time offset and length of the period were determined by minimizing MSE. Using those parameters, the six lowest frequencies were calculated and incorporated to the dataset.
+#### **Synthetizing new examples to train the model.** 
+
+This was done with a PCA encoding that kept the maximum possible amount of components in the whole dataset (including the target), and then random noise was injected into the decoder. However, given that the maximum decoding matrix size achievable was 121 X 121, 364 features were lost in the process (producing a loss in variance explanation), and therefore the output was not similar enough to the original dataset to be used as a training set. A manual selection that removed the additional 364 features before applying the PCA encoding and decoding could have solved the problem, however due to time constraints, this approach was not attempted.
+
+#### **Selecting the most significant covariates.**
+
+A PCA encoder was used to select the most meaningful components, and train the model using them instead of the actual features. Several trials were made with different cutoff parameters, and the final decision was to keep the most relevant 16 components (with a loss of 21% in the variance explanation). 
+
+#### **Adding covariates that could complement the existing information.** 
+
+During exploratory analysis, it was found that tuna prices followed a cyclical pattern, and that prices at a given point in time are related to adjacent historic prices. Time cyclicity was included into the model by breaking the signal into Fourier harmonics. To ensure that low frequencies remained the most relevant, the first harmonic parameters for time offset and length of the period were determined by minimizing MSE. Using those parameters, the six lowest frequencies were calculated and incorporated to the dataset.
 
 ![pic1](images/LowFreqHarmonic.png)
 
@@ -314,7 +327,9 @@ A challenge to train with the available data was that the number of features (48
 The advantage of using Machine Learning instead of applying Fourier Series directly, was that coefficients for each harmonic could be determined in context with the rest of the covariates.
 Additionally to the harmonics, two price related covariates were added to the dataset: the price average for the last 6 periods and the change in price between t-2 and t-1. 
 
-* **Establishing a network that could generalize a large set of features.** A CNN based on LeNet’s architecture was used to train the model. The input for this model were the resulting 16 main components after applying PCA plus the additional 8 variables. This was arranged in a 3 X 8 input matrix. The temporal split between the train and the test sets was made at 65/35% to ensure that the cycle described by the first harmonic was completely included in the training set. Data was randomized only for the train set after the split. The results of this model were better that the previous attempts, and a RMSE of 397 was obtained (for context, the average price was $1,577), with a correlation of 0.76.  
+#### **Establishing a network that could generalize a large set of features.** 
+
+A CNN based on LeNet’s architecture was used to train the model. The input for this model were the resulting 16 main components after applying PCA plus the additional 8 variables. This was arranged in a 3 X 8 input matrix. The temporal split between the train and the test sets was made at 65/35% to ensure that the cycle described by the first harmonic was completely included in the training set. Data was randomized only for the train set after the split. The results of this model were better that the previous attempts, and a RMSE of 397 was obtained (for context, the average price was $1,577), with a correlation of 0.76.  
 
 ![pic1](images/PredictLeNet.png)
 
@@ -334,17 +349,13 @@ This model relies on the assumption that the price cyclicity observed will conti
 
 ### LSTM, Rolling Window
 
-@Reed
+Known data seasonality and the success of the first LSTM inspired a secondary LSTM approach. The objective was to structure input data to capture seasonality without creating too much dependence on the structure of the data's macro-trend.
 
-- Attempt to limit LSTM to predicting only using prior 12 months of data
-- Limit possibility that network is being trained on the macro trends
-- Failure - implementation too complex, unable to validate true behavior or implement well enough to attempt meta-parameter opimization
+Examples were restricted to 12-length sequences, 4 sequences per batch for training. Test data was the most recent 12-period sequence, validation was the 12-period sequence prior to that.
 
-Known data seasonality and the success of the first LSTM inspired a secondary LSTM approach. Data was restricted to multiple batches of 12-period sequences
+Results were inconclusive as the project ended prior to full implementation.
 
 ### Temporal Fusion Transformer (TFT)
-
-@Reed
 
 Data complexity led to an investigation of open source libraries and tools designed to perform time series analysis on targets with many covariates. PyTorch Forecasting [#TODO CITE ME], an extension of PyTorch Lightning [#TODO CITE ME] emerged as a candidate for open source application. 
 
@@ -362,6 +373,7 @@ PyTorch Forecasting's Disadvantages Included:
 The Temporal Fusion Transformer is a recently introduced neural network architecture that combines elements of recurrent and convolutional neural nets. [#TODO CITE PAPER HERE]
 
 ![pic1](images/model_results_tft_diagram_frompaper.png)
+
 **Fig. n** - #TODO: Place Image *TFT Architecture*[CITE PAPER]
 
 Its advantages include:
@@ -372,15 +384,21 @@ Its advantages include:
 
 TFT implementation used example code from PyTorch Forecasting libraries. Experimental forecasting horizons included 1, 2, 4, and 60 periods (months). Experimental maximum sequence lengths included 6, 12, 20, 24, and 60 periods (months). Training and Validation data were split by witholding the most recent forecasting horizon from the data set (e.g. the last 4 months) and then training on random sequence length selections within the earlier data.
 
+The TFT's recurrent block was analyzed using a hyper-parameter optimizer. Hidden network size was varied between 12 and 32, the attention head size was varied between 1 and 4, gradient clip was between 0.01 and 0.5, and the dropout between 0.05 and 0.3. Frequently larger networks were found optimal (~20 hidden depth) but computational resource limitations precluded their full use or investigation. Assured access to more powerful GPUs would have enabled more exploration.
+
 ![pic1](images/model_results_tft_output_4ahead.png)
+
 **Fig. n** - #TODO: Place Image *TFT Results 4 period*
 
 As typical with forecasting neural networks accuracy suffered as a strong function of forecast horizon and generally improved when allowed to train on greater sequence lengths.
 
 ![pic1](images/model_results_tft_output_1ahead.png)
+
 **Fig. n** - #TODO: Place Image *TFT Results 1 period*
 
-TFT implementation was not robust and hard to validate. True implementation would require examination of Pytorch Forecasting's libraries to prove faithful representation. Additionally, as tested the TFT's accuracy was highly dependent on hyper-parameters. No decomposition or normalization was performed on TFT inputs in order to test the claimed integrated variable selection and scaling routines of PyTorch Forecasting. The TFT's capability to schedule certain weights by "grouping" categories of inputs was not tested.
+TFT implementation was not robust and hard to validate and evaluate. Use of the single, latest time period for validation
+
+True implementation would require examination of Pytorch Forecasting's libraries to prove faithful representation. Additionally, as tested the TFT's accuracy was highly dependent on hyper-parameters. No decomposition or normalization was performed on TFT inputs in order to test the claimed integrated variable selection and scaling routines of PyTorch Forecasting. The TFT's capability to schedule certain weights by "grouping" categories of inputs was not tested.
 
 While inconsistent the TFT's capabilities and PyTorch Lightning features suggest them as a prime candidate for study given more time for validation and implementation.
 
