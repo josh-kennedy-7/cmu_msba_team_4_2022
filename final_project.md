@@ -100,7 +100,7 @@ These components combine in some way to provide the observed time series. For ex
 Statsmodel python library provides a function seasonal_compose() to automatically decompose a time series. We use additive model as our quick peek at the time series shows linear trend and seasonality.
 
 ![pic1](images/roopa1.png)
-**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
+**Fig. n** - *Automatic Time Series Decomposition*
 
 We also generated a model using manual polynomial fitting to find the seasonalities in our data.
 
@@ -299,7 +299,7 @@ https://towardsdatascience.com/an-overview-of-time-series-forecasting-models-a2f
 > [[2]](#2)Athul Anish. “Time Series Analysis”,
 https://medium.com/swlh/time-series-analysis-7006ea1c3326
 
-> [[3]](#3)Statworx Blog. “Time series forecasting with random forest”,
+> [[3]](#3)Statworx Blog, “Time series forecasting with random forest”,
 https://medium.com/@statworx_blog/time-series-forecasting-part-i-e30a16bac58a
 
 > [[4]](#4)Indraneel Dutta Baruah, Analytics Vidya. “Combining Time Series Analysis with Artificial Intelligence: the future of forecasting”,
