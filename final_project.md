@@ -270,7 +270,7 @@ Lasso @Josh
 
 ## References and Citations
 #### 3rd Party Python Packages & Functions
-Placeholder 
+Jaime Ferrando Huertas, https://github.com/jiwidi/time-series-forecasting-with-python
 
 #### Dataset Citations
 > [[1]](#1) Hersbach, H., Bell, B., Berrisford, P., Biavati, G., Horányi, A., Muñoz Sabater, J., Nicolas, J., Peubey, C., Radu, R., Rozum, I., Schepers, D., Simmons, A., Soci, C., Dee, D., Thépaut, J-N. (2019): ERA5 monthly averaged data on single levels from 1979 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS). (Accessed on [01-MAY-2021]), https://10.24381/cds.f17050d7
@@ -295,6 +295,23 @@ Placeholder
 
 > [[1]](#1)Davide Bruba. "An overview of time series forecasting models", 
 https://towardsdatascience.com/an-overview-of-time-series-forecasting-models-a2fa7a358fcb
+
+Athul Anish. “Time Series Analysis”,
+https://medium.com/swlh/time-series-analysis-7006ea1c3326
+
+Statworx Blog. “Time series forecasting with random forest”,
+https://medium.com/@statworx_blog/time-series-forecasting-part-i-e30a16bac58a
+
+Indraneel Dutta Baruah, Analytics Vidya. “Combining Time Series Analysis with Artificial Intelligence: the future of forecasting”,
+https://medium.com/analytics-vidhya/combining-time-series-analysis-with-artificial-intelligence-the-future-of-forecasting-5196f57db913
+
+Aman Arora, “Why Random Forests can’t predict trends and how to overcome this problem?”,
+https://medium.datadriveninvestor.com/why-wont-time-series-data-and-random-forests-work-very-well-together-3c9f7b271631
+
+Jason Browniee, “How to Decompose Time Series Data into Trend and Seasonality”
+https://machinelearningmastery.com/decompose-time-series-data-trend-seasonality/
+
+
 
 
 ## Source Code
