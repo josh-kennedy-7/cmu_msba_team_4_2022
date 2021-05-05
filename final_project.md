@@ -1,4 +1,4 @@
-# Are International Tuna Prices Impacted by Environmental Variables?
+# Are International Tuna Prices Impacted by Environmental Variables? <br>
 *Hugo Cesar Camou Campoy, Josh Kennedy, Reed Abraham, Roopa Bharadwaj*
 Machine Learning for Business Applications 1
 Tepper School of Business, Carnegie Mellon University
