@@ -5,7 +5,7 @@ This repository houses all of the code related to the Class of 2022 Group 4 ML f
 
 ### Built With
 
-The models, research, and findings were developed using the f
+The models, research, and findings were developed using the following packages:
 
 * [d2l](http://d2l.ai/)
 * [PyTorch](https://pytorch.org/)
