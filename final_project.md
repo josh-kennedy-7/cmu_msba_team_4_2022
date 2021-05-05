@@ -11,7 +11,7 @@ May 5, 2021
 
 International and local efforts are crucial to guarantee the balance between the sustainability of the catch and the worth of the industry. Tuna is most consumed fish and the second most important fish by wild capture in the world (with 5.2 million metric tons in 2018 ), and the industry around it contributes more that 40 billion dollars to the global economy per year. Even when catch has been increasing year after year, tuna prices have plummeted since 2012 , destroying in the process 1.8 billion dollars in value, not to mention that increased catch threatens the sustainability of the activity. This is aggravated by a lack of international coordination: there is not one single sanctioning body that concentrates efforts on a global context. For example, in the Pacific Ocean, the fastest growth and main producing region of tuna, three different international associations (IATTC , WCPFC and the CCSBT ) establish the norms for the catch, sometimes with overlap in the areas. Even in a regional scale, lack of coordination is evident: in this year, IATTC did not establish international catch quotas for the eastern Pacific, after its members failed to reach consensus . An accurate and unbiased prediction of prices, paired with other environmental and production models can provide the confidence to work on a global context, and the necessary context to determine the optimal regulatory framework.
 
-Price prediction for commodities in general and food supplies in particular is a topic of common interest. Academic research has intensively proposed price and production (catch) prediction models using traditional statistical analysis (e.g. Onour, Ibrahim and Sergi, Bruno, Modeling and forecasting volatility in the global food commodity prices (January 1, 2011)), financial valuation approaches (e.g. Chen, Yu-Chin and Rogoff, Kenneth S. and Rossi, Barbara, Predicting Agri-Commodity Prices: An Asset Pricing Approach (May 10, 2010)), random forests and vector machines (e.g. Dabin Zhang, Shanyin Cheng, Liwen Ling and Qiang Xia, Forecasting Agricultural Commodity Prices Using Model Selection Framework With Time Series Features and Forecast Horizons (February 4, 2020)), and machine learning (e.g. Jabez Harris, A Machine Learning Approach to Forecasting Consumer Food Prices (August 2017)) with different degrees of success. Currently, no method or model is universally accepted as a reliable and standard predictor.
+Price prediction for commodities in general and food supplies in particular is a topic of common interest. Academic research has intensively proposed price and production (catch) prediction models using traditional statistical analysis (e.g. *Onour, Ibrahim and Sergi, Bruno, Modeling and forecasting volatility in the global food commodity prices (January 1, 2011)*), financial valuation approaches (e.g. *Chen, Yu-Chin and Rogoff, Kenneth S. and Rossi, Barbara, Predicting Agri-Commodity Prices: An Asset Pricing Approach (May 10, 2010)*), random forests and vector machines (e.g. *Dabin Zhang, Shanyin Cheng, Liwen Ling and Qiang Xia, Forecasting Agricultural Commodity Prices Using Model Selection Framework With Time Series Features and Forecast Horizons (February 4, 2020)*), and machine learning (e.g. *Jabez Harris, A Machine Learning Approach to Forecasting Consumer Food Prices (August 2017)*) with different degrees of success. Currently, no method or model is universally accepted as a reliable and standard predictor.
 
 Machine Learning is an adequate tool to develop a pricing model, and can potentially surpass the prediction accuracy of other methods. Traditional statistical analysis relies on the assumption of invariability in time, which does not hold in the tuna industry context. Juvenile depletion caused by excess catch, global warming affectations in the life cycle of tuna, and changes in food consumption preferences can all impact pricing. A machine learning model can deal with these circumstances by continuously getting new information and updating its predictions automatically. In this way, an ML model can remain current for the next prediction horizon.
 
@@ -273,26 +273,54 @@ Principle component analysis captured ~90% of dataset variability contained with
 ## Model Build, Test, and Analysis (rename header?)
 
 ### Baseline Results - MLP
+An attempt was made at training a flat model without filtering the features and with no pre-processing. The model failed to pick any signal, as can be seen in the following plot:
 
-@Reed @Hugo
+![pic1](images/Baseline.png)
 
-- Show unsatisfactory
-- With + without normalization
-- Too many parameters, not enough depth
-- does not adequately capture periodicity
-
-![pic1]()
-**Fig. n** - #TODO: Place Image *TFT Architecture*[CITE PAPER]
+**Fig. 9** - *Confusion Matrix and Estimated Error for k = 5*
 
 ### Classification Transform
+The problem was transformed from a continuous to a discrete output to try to improve the performance of the model. This experiment had two variations: the first distributed the prices in equal sized buckets (with trials for 3, 4 and 5); the second was binary and only provided directionality in terms of price increase or decrease with respect to the previous period. The dispersion and range of prices within any given training and testing set was very similar, so to avoid recalculating the buckets on each trial, the whole set was used. Since the dataset was shuffled, the risk of bias remained very low, however other temporality concerns arose (to be discussed later in the report). 
+In the price bucket variety, classification accuracy decreased as the number of buckets increased. At the same time, an estimated RMSE loss was reduced (the estimated RMSE was based on the difference of the averages of the buckets instead than on the difference of the average of the bucket and the actual price, so the estimated RMSE is lower that the actual RMSE). This can be seen in the following confusion matrix:
 
-@Hugo
+![pic1](images/ConfusionMatrixB5.png)
 
-- Failure (Hugo comments?)
+**Fig. 10** - *Confusion Matrix and Estimated Error for k = 5*
+
+![pic1](images/ConfusionMatrixB4.png)
+
+**Fig. 11** - *Confusion Matrix and Estimated Error for k = 4*
+
+![pic1](images/ConfusionMatrixB3.png)
+
+**Fig. 12** - *Confusion Matrix and Estimated Error for k = 3*
+
+The price directionality variety model was sub-par. The model selected only one of the labels for the entire dataset (it was not consistent in the election, since both labels have an occurrence probability of 50%).
+The three main limitations of a discrete approach to the problem were the implication that price was limited to a fixed range known in advance, inaccurate classification, and the rigidity of a discrete prediction. Furthermore, the decrease of the estimated RMSE as the number of buckets increased, is a strong indicator to keep the model as a continuous approach. 
+Finally, since trials were made shuffling the whole set, the model was filling voids in the past instead of predicting the future. This realization was taken into account in the next models so that data was split by time rather than by volume.
 
 ### LeNet Adaptation
 
-@Hugo
+A challenge to train with the available data was that the number of features (484) was greater than the number of examples (121). Furthermore, the existing number of features did not show sufficient explanatory power in previous models. To deal with this, four different alternatives were explored, and those that were successful were merged into a model:
+
+* **Synthetizing new examples to train the model.** This was done with a PCA encoding that kept the maximum possible amount of components in the whole dataset (including the target), and then random noise was injected into the decoder. However, given that the maximum decoding matrix size achievable was 121 X 121, 364 features were lost in the process (producing a loss in variance explanation), and therefore the output was not similar enough to the original dataset to be used as a training set. A manual selection that removed the additional 364 features before applying the PCA encoding and decoding could have solved the problem, however due to time constraints, this approach was not attempted.
+* **Selecting the most significant covariates.** A PCA encoder was used to select the most meaningful components, and train the model using them instead of the actual features. Several trials were made with different cutoff parameters, and the final decision was to keep the most relevant 16 components (with a loss of 21% in the variance explanation). 
+* **Adding covariates that could complement the existing information.** During exploratory analysis, it was found that tuna prices followed a cyclical pattern, and that prices at a given point in time are related to adjacent historic prices. Time cyclicity was included into the model by breaking the signal into Fourier harmonics. To ensure that low frequencies remained the most relevant, the first harmonic parameters for time offset and length of the period were determined by minimizing MSE. Using those parameters, the six lowest frequencies were calculated and incorporated to the dataset.
+
+![pic1](images/LowFreqHarmonic.png)
+
+**Fig. 13** - *Adjustment of Lowest Frequency Harmonic*
+
+The advantage of using Machine Learning instead of applying Fourier Series directly, was that coefficients for each harmonic could be determined in context with the rest of the covariates.
+Additionally to the harmonics, two price related covariates were added to the dataset: the price average for the last 6 periods and the change in price between t-2 and t-1. 
+
+* **Establishing a network that could generalize a large set of features.** A CNN based on LeNet’s architecture was used to train the model. The input for this model were the resulting 16 main components after applying PCA plus the additional 8 variables. This was arranged in a 3 X 8 input matrix. The temporal split between the train and the test sets was made at 65/35% to ensure that the cycle described by the first harmonic was completely included in the training set. Data was randomized only for the train set after the split. The results of this model were better that the previous attempts, and a RMSE of 397 was obtained (for context, the average price was $1,577), with a correlation of 0.76.  
+
+![pic1](images/PredictLeNet.png)
+
+**Fig. 14** - *Performance of LeNet Network*
+
+This model relies on the assumption that the price cyclicity observed will continue in the future, i.e. that it was not a matter of chance. The full cycle encompasses roughly five years, and could be produced by multi-annual weather patterns such as El Niño or La Niña. However, the recurrence of this pattern in the future is uncertain (and outside the scope of this project), and should be further analyzed to assure the applicability of the model in a general context.
 
 - Actually not Lenet just did a really good job of pre-processing the datawith PCA
 - 7 harmonics of various parameters included in PCA so 'pseudo-history' is included in model
