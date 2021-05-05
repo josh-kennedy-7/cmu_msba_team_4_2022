@@ -216,23 +216,41 @@ Fitting a Linear Model or a Neural Net, in this case, might be sufficient to pre
 
 ### Data Characteristics
 
+#TODO: Write the summary
+
 #### Non-Uniform Data length
 
+Some data had longer histories than others (#TODO: Elaborate)
 
 #### High Colinearity
 
-Heterogenous data sources and a "more-is-better" collection approach yielded an initial dataset with very high colinearity. 
+Heterogenous data sources and a "more-is-better" collection approach yielded an initial dataset with very high colinearity.
 
 ![pic1]()
 **Fig. n** - #TODO: Place Image *Josh's colinarity screenshot should go here*
 
-#### GeoSpatial & Time Series Combination
-
-`Placeholder text`
+All climate data included a variety of statistics for every collection time step. Economic data frequently included common metrics such as maximums, minimums, and variances within the reporting period. While useful for human analysis it is unlikely many of these fields contributed meaningfully to our models. This was quantified through variable selection methods and dimensionality reduction attempts.
 
 #### Feature Count vs. Sample Size
 
-`Placeholder text`
+Clipping the data at the minimum available length yielded 121 months of data versus 432 covariates targeting a single output variable (the monthly price of skipjack tuna). A 4 to 1 covariate to history length is unfavorable (#TODO find some citation on recommended data length) for deep learning applications.
+
+The width vs. depth of our data points to a set of preliminary directions:
+
+- Using dimensionality reduction methods
+- Avoiding deep or nested networks
+- Exploiting other information contained in the series structure or pattern
+
+#### GeoSpatial & Time Series Combination
+
+All features were time series non-categorical data except for the calendar month and calendar year. Climate data sources had associated latitude and longitude metadata. Data structural characteristics were of key concern to mitigate the unfavorable data length to covariate count. Two strategies were identified:
+
+- Capture repeatable time series characteristics
+- Include geospatial relative or absolute positions as covariates
+
+The latter (geospatial covariates) was identified as being significantly harder than the former (time series characteristics) and de-prioritized due to project schedule requirements. Climate data were flattened and not associated with relative position aside from covariate names.
+
+Temporal characteristics were maintained and explored both through use of networks with memory (recurrent neural networks, long short term memory) and including time harmonics in the same example for input into multi-layer perceptrons.
 
 ### Feature Selection and Preprocessing
 
@@ -305,6 +323,13 @@ Principle component analysis captured ~90% of dataset variability contained with
 - Promising initial results but implementation in PyTorch Forecasting was questionable and detailed / vetted implementation was beyond the scope of the project
 
 ### Future Work
+
+
+interesting technologies:
+
+- multi modal neural networks
+- spherical convolutional neural networks
+- expansions on the temporal fusion transformer
 
 - speculation on what we could do with infinite time horizon
 
