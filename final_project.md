@@ -281,6 +281,9 @@ Principle component analysis captured ~90% of dataset variability contained with
 - Too many parameters, not enough depth
 - does not adequately capture periodicity
 
+![pic1]()
+**Fig. n** - #TODO: Place Image *TFT Architecture*[CITE PAPER]
+
 ### Classification Transform
 
 @Hugo
@@ -309,16 +312,54 @@ Principle component analysis captured ~90% of dataset variability contained with
 - Limit possibility that network is being trained on the macro trends
 - Failure - implementation too complex, unable to validate true behavior or implement well enough to attempt meta-parameter opimization
 
+
+
 ### Temporal Fusion Transformer (TFT)
 
 @Reed
 
-- Link to paper
-- Recent architecture featured in "PyTorch Forecasting"
-- Combines attributes of RNN, LSTM, and CNN - capable of combining timeseries data as well as categoricals (say: months)
-- Promising initial results but implementation in PyTorch Forecasting was questionable and detailed / vetted implementation was beyond the scope of the project
+Data complexity led to an investigation of open source libraries and tools designed to perform time series analysis on targets with many covariates. PyTorch Forecasting [#TODO CITE ME], an extension of PyTorch Lightning [#TODO CITE ME] emerged as a candidate for open source application. 
+
+PyTorch Forecasting's Advantages Included:
+
+- Pre-written building-blocks for net design including structures for custom data objects, data loaders, and a pre-structured model trainer and evaluator object.
+- Boilerplates for complex model structures such as the "Temporal Fusion Transformer" (TFT).
+- Built-in plotting, evaluation, and hyper-parameter methods.
+
+PyTorch Forecasting's Disadvantages Included:
+
+- Low-visibility into pre-written routines and methods.
+- Coding and structural conventions and practices are time-consuming to learn.
+
+The Temporal Fusion Transformer is a recently introduced neural network architecture that combines elements of recurrent and convolutional neural nets. [#TODO CITE PAPER HERE]
+
+![pic1]()
+**Fig. n** - #TODO: Place Image *TFT Architecture*[CITE PAPER]
+
+Its advantages include:
+
+- Built-in variable selection
+- Capability to fuse categorical and time-series data
+- Capability to differentiate between unknown and known future data for a given prediction horizon (e.g. future prices versus the month for the next 3 cycles).
+
+TFT implementation used example code from PyTorch Forecasting libraries. Experimental forecasting horizons included 1, 2, 4, and 60 periods (months). Experimental maximum sequence lengths included 6, 12, 20, 24, and 60 periods (months). Training and Validation data were split by witholding the most recent forecasting horizon from the data set (e.g. the last 4 months) and then training on random sequence length selections within the earlier data.
+
+![pic1]()
+**Fig. n** - #TODO: Place Image *TFT Results 4 period*
+
+As typical with forecasting neural networks accuracy suffered as a strong function of forecast horizon and generally improved when allowed to train on greater sequence lengths.
+
+![pic1]()
+**Fig. n** - #TODO: Place Image *TFT Results 1 period*
+
+TFT implementation was not robust and hard to validate. True implementation would require examination of Pytorch Forecasting's libraries to prove faithful representation. Additionally, as tested the TFT's accuracy was highly dependent on hyper-parameters. No decomposition or normalization was performed on TFT inputs in order to test the claimed integrated variable selection and scaling routines of PyTorch Forecasting. The TFT's capability to schedule certain weights by "grouping" categories of inputs was not tested.
+
+While inconsistent the TFT's capabilities and PyTorch Lightning features suggest them as a prime candidate for study given more time for validation and implementation.
 
 ### Future Work
+
+
+
 
 
 interesting technologies:
@@ -344,10 +385,13 @@ interesting technologies:
 - How can this be used in the real world?
 
 ## References and Citations
-#### 3rd Party Python Packages & Functions
+
+### 3rd Party Python Packages & Functions
+
 > [[7]](#7) Jaime Ferrando Huertas, https://github.com/jiwidi/time-series-forecasting-with-python
 
-#### Dataset Citations
+### Dataset Citations
+
 > [[1]](#1) Hersbach, H., Bell, B., Berrisford, P., Biavati, G., Horányi, A., Muñoz Sabater, J., Nicolas, J., Peubey, C., Radu, R., Rozum, I., Schepers, D., Simmons, A., Soci, C., Dee, D., Thépaut, J-N. (2019): ERA5 monthly averaged data on single levels from 1979 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS). (Accessed on [01-MAY-2021]), https://10.24381/cds.f17050d7
 
 
@@ -377,6 +421,8 @@ interesting technologies:
 
 > [[1]](#1) International Monetary Fund, Global price of Shrimp [PSHRIUSDM], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PSHRIUSDM, May 2, 2021.
 
+### Time Series Citations
+
 > [[1]](#1)Davide Bruba. "An overview of time series forecasting models", 
 <https://towardsdatascience.com/an-overview-of-time-series-forecasting-models-a2fa7a358fcb>
 
@@ -394,9 +440,6 @@ https://medium.datadriveninvestor.com/why-wont-time-series-data-and-random-fores
 
 > [[6]](#6)Jason Browniee, “How to Decompose Time Series Data into Trend and Seasonality”
 https://machinelearningmastery.com/decompose-time-series-data-trend-seasonality/
-
-
-
 
 ## Source Code
 
