@@ -77,7 +77,7 @@ All of these sources were filtered and joined together via custom Python E/T job
 
 ### Time Series Forecasting
 
-A time series is usually modelled through a stochastic process `Y(t)`, i.e. a sequence of random variables. In a forecasting setting we find ourselves at time t and we are interested in estimating `Y(t+h)`, using only information available at time t.
+"A time series is usually modelled through a stochastic process `Y(t)`, i.e. a sequence of random variables. In a forecasting setting we find ourselves at time t and we are interested in estimating `Y(t+h)`, using only information available at time t."[[1]](#1)
 
 The usage of time series models here is twofold:
 * Obtain an understanding of the underlying forces and structure that produced the data
@@ -292,6 +292,10 @@ Placeholder
 > [[1]](#1) U.S. Bureau of Labor Statistics, Export Price Index (End Use): Fish and Shellfish [IQ01000], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/IQ01000, May 2, 2021.
 
 > [[1]](#1) International Monetary Fund, Global price of Shrimp [PSHRIUSDM], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PSHRIUSDM, May 2, 2021.
+
+> [[1]](#1)Davide Bruba. "An overview of time series forecasting models", 
+https://towardsdatascience.com/an-overview-of-time-series-forecasting-models-a2fa7a358fcb
+
 
 ## Source Code
 We have published all of our source code to a public Github repo:
