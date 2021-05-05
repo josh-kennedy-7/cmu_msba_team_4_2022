@@ -4,7 +4,7 @@ Machine Learning for Business Applications 1 <br>
 Tepper School of Business, Carnegie Mellon University <br>
 May 5, 2021
 
-The aim of this project is to predict international prices of skipjack tuna given a series of environmental and economic factors.
+**The aim of this project is to predict international prices of skipjack tuna given a series of environmental and economic factors.**
 
 ### Introduction & Overview
 
