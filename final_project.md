@@ -100,20 +100,18 @@ These components combine in some way to provide the observed time series. For ex
 Statsmodel python library provides a function seasonal_compose() to automatically decompose a time series. We use additive model as our quick peek at the time series shows linear trend and seasonality.
 
 ![pic1](images/roopa1.png)
-**Fig. n** - *Automatic Time Series Decomposition*
+**Fig. 1** - *Automatic Time Series Decomposition*
 
 We also generated a model using manual polynomial fitting to find the seasonalities in our data.
 
 ![pic1](images/roopa2.png)
-**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
+**Fig. 2** - *Polynomial fit to find seasonalities*
 
 This shows that seasonalities are present in our data.
 
 ### Stationarity
 
 "Stationarity is an important characteristic of time series. A time series is stationary if it has constant mean and variance over time. Most models work only with stationary data as this makes it easier to model."[[7]](#7)
-
-Often, stock prices are not a stationary process, since we might see a growing trend, or its volatility might increase over time (meaning that variance is changing).
 
 #### Check for Stationarity
 
@@ -126,7 +124,7 @@ We also used augmented Dickey-Fuller test, which is a type of statistical test c
 The null hypothesis of the test is that the time series can be represented by a unit root, that it is not stationary (has some time-dependent structure). The alternate hypothesis (rejecting the null hypothesis) is that the time series is stationary." [[7]](#7)
 
 ![pic1](images/roopa3.png)
-**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
+**Fig. 3** - *Dickey-Fuller test, Auto and Partial Correlation, Rolling mean and standard deviation*
 
 
 With a p value of 0.23, we apply methods to make our target series stationary like log scale transformation or smoothing.
@@ -156,11 +154,11 @@ The following plots show the predictions on or 36 months test data by using Auto
 
 ##### **Auto Regression (AR)**
 ![pic1](images/roopa4.png)
-**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
+**Fig. 4** - *Auto Regression model*
 
 ##### **Seasonal Autoregressive Integrated Moving-Average (SARIMA)**
 ![pic1](images/roopa5.png)
-**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
+**Fig. 5** -*Seasonal Autoregressive Integrated Moving-Average (SARIMA) model*
 
 #### Multivariate Time Series Analysis
 
@@ -170,14 +168,14 @@ In this section we attempted to use methods like Random Forest and XGBoost for t
 "Random forest is an ensemble of decision tree algorithms. A number of decision trees are created where each tree is created from a different sample. It can be used for both classification and regression. In our case the final prediction is the average prediction across the decision trees (we used 5)."[[4]](#4)
 
 ![pic1](images/roopa6.png)
-**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
+**Fig. 6** - *Random Forest model*
 
 ##### **XGBoost**
 
 "XGBoost (Extreme Gradient Boost) provides a high-performance implementation of gradient boosted decision trees. Rather than training all of the models in isolation of one another like random forest, XG Boost trains models in succession"[[4]](#4)
 
 ![pic1](images/roopa7.png)
-**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
+**Fig. 7** *XGBoost model*
 ### Evaluation Metrics
 
 There are many measures that can be used to analyze the performance of our prediction so we will be using the top 4 most used metrics for time series forecasting. 
@@ -188,7 +186,7 @@ There are many measures that can be used to analyze the performance of our predi
 * R2 Coefficient of Determination (r2)
 
 ![pic1](images/roopa8.png)
-**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
+**Fig. 8** - *Result metrics*
 
 "For any data, that a Random Forest/XGBoost has not seen before, at best, it can predict an average of training values that it has seen before. If the Validation set consists of data points that are greater or less than the training data points, a Random Forest will provide us with Average results as it is not able to Extrapolate and understand the growing/decreasing trend in our data. 
 
