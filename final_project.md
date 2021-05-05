@@ -200,12 +200,14 @@ There are many measures that can be used to analyze the performance of our predi
 
 "For any data, that a Random Forest/XGBoost has not seen before, at best, it can predict an average of training values that it has seen before. If the Validation set consists of data points that are greater or less than the training data points, a Random Forest will provide us with Average results as it is not able to Extrapolate and understand the growing/decreasing trend in our data. 
 
-Therefore, a Random Forest model does not scale very well for time-series data and might need to be constantly updated in Production or trained with some Random data that lies outside our range of Training set."[[5]](#5)
+Therefore, a Random Forest model does not scale well for time-series data and might need to be constantly updated in Production or trained with some Random data that lies outside our range of Training set."[[5]](#5)
 
 Answering questions like “What would the price of SkipJack Tuna be for next Year?” becomes really difficult when using Random Forests.
+
 ### Conclusions
 
 Fitting a Linear Model or a Neural Net, in this case, might be sufficient to predict data which has increasing or decreasing trends. 
+
 ## Model Selection and ML Thought Process
 
 @Reed
@@ -216,11 +218,11 @@ Fitting a Linear Model or a Neural Net, in this case, might be sufficient to pre
 
 #### Non-Uniform Data length
 
-Some data had longer histories than others (#TODO: Elaborate)
+Climate data generally had a longer total history than market data. 
 
 #### High Colinearity
 
-Heterogenous data sources and a "more-is-better" collection approach yielded an initial dataset with very high colinearity.
+Heterogenous data sources and a "more-is-better" collection approach yielded an initial dataset with high colinearity.
 
 ![pic1]()
 **Fig. n** - #TODO: Place Image *Josh's colinarity screenshot should go here*
@@ -349,7 +351,7 @@ This model relies on the assumption that the price cyclicity observed will conti
 
 ### LSTM, Rolling Window
 
-Known data seasonality and the success of the first LSTM inspired a secondary LSTM approach. The objective was to structure input data to capture seasonality without creating too much dependence on the structure of the data's macro-trend.
+Known data seasonality and the success of the first LSTM inspired a secondary LSTM approach. The objective was to structure input data to capture seasonality without creating dependence on the structure of the data's macro-trend.
 
 Examples were restricted to 12-length sequences, 4 sequences per batch for training. Test data was the most recent 12-period sequence, validation was the 12-period sequence prior to that.
 
@@ -404,17 +406,17 @@ While inconsistent the TFT's capabilities and PyTorch Lightning features suggest
 
 ### Future Work
 
+Pricing projection based on diverse inputs is an area of research interest. Given more time a number of novel technologies and techniques could be applied to this problem.
 
+#### Multi Modal Neural Networks
 
+#TODO write this part blah blah blah data fusion blah blah diverse information inputs etc.
 
+#### Spherical Convolutional Neural Networks
 
-interesting technologies:
+The structural information inherent in the climate information based on the data location was ignored for all models in this project. Traditional convolutional neural networks would not capture the structural information appropriately due to the 2-dimensional rectilinear structure of their inputs. For example 180 degrees West would be interpreted as maximum distance from 180 degrees East.
 
-- multi modal neural networks
-- spherical convolutional neural networks
-- expansions on the temporal fusion transformer
-
-- speculation on what we could do with infinite time horizon
+There are several examples of CNN input structures modified for spherical geometry data. [#TODO PAPER EXAMPLE] There are additional examples of spherical CNNs being modified for geospatial data. Optimal modeling of the climate data would include a pass through a spherical CNN.
 
 ## Model Results
 
