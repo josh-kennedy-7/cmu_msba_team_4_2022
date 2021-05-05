@@ -8,7 +8,7 @@ May 5, 2021
 
 ## Introduction & Overview
 
-International and local efforts are crucial to guarantee the balance between the sustainability of the catch and the worth of the industry. Tuna is most consumed fish and the second most important fish by wild capture in the world (with 5.2 million metric tons in 2018 ), and the industry around it contributes more that 40 billion dollars to the global economy per year. Even when catch has been increasing year after year, tuna prices have plummeted since 2012 , destroying in the process 1.8 billion dollars in value, not to mention that increased catch threatens the sustainability of the activity. This is aggravated by a lack of international coordination: there is not one single sanctioning body that concentrates efforts on a global context. For example, in the Pacific Ocean, the fastest growth and main producing region of tuna, three different international associations (IATTC , WCPFC and the CCSBT ) establish the norms for the catch, sometimes with overlap in the areas. Even in a regional scale, lack of coordination is evident: in this year, IATTC did not establish international catch quotas for the eastern Pacific, after its members failed to reach consensus . An accurate and unbiased prediction of prices, paired with other environmental and production models can provide the confidence to work on a global context, and the necessary context to determine the optimal regulatory framework.
+International and local efforts are crucial to guarantee the balance between the sustainability of the catch and the worth of the industry. Tuna is most consumed fish and the second most important fish by wild capture in the world (with 5.2 million metric tons in 2018[[1]](#1)), and the industry around it contributes more that 40 billion dollars to the global economy per year. Even when catch has been increasing year after year, tuna prices have plummeted since 2012[[2]](#2), destroying in the process 1.8 billion dollars in value, not to mention that increased catch threatens the sustainability of the activity. This is aggravated by a lack of international coordination: there is not one single sanctioning body that concentrates efforts on a global context. For example, in the Pacific Ocean, the fastest growth and main producing region of tuna, three different international associations (IATTC [[3]](#3), WCPFC [[4]](#4) and the CCSBT [[5]](#5)) establish the norms for the catch, sometimes with overlap in the areas. Even in a regional scale, lack of coordination is evident: in this year, IATTC did not establish international catch quotas for the eastern Pacific, after its members failed to reach consensus[[6]](#6). An accurate and unbiased prediction of prices, paired with other environmental and production models can provide the confidence to work on a global context, and the necessary context to determine the optimal regulatory framework.
 
 Price prediction for commodities in general and food supplies in particular is a topic of common interest. Academic research has intensively proposed price and production (catch) prediction models using traditional statistical analysis (e.g. *Onour, Ibrahim and Sergi, Bruno, Modeling and forecasting volatility in the global food commodity prices (January 1, 2011)*), financial valuation approaches (e.g. *Chen, Yu-Chin and Rogoff, Kenneth S. and Rossi, Barbara, Predicting Agri-Commodity Prices: An Asset Pricing Approach (May 10, 2010)*), random forests and vector machines (e.g. *Dabin Zhang, Shanyin Cheng, Liwen Ling and Qiang Xia, Forecasting Agricultural Commodity Prices Using Model Selection Framework With Time Series Features and Forecast Horizons (February 4, 2020)*), and machine learning (e.g. *Jabez Harris, A Machine Learning Approach to Forecasting Consumer Food Prices (August 2017)*) with different degrees of success. Currently, no method or model is universally accepted as a reliable and standard predictor.
 
@@ -223,7 +223,7 @@ An attempt was made at training a flat model without filtering the features and 
 
 ![pic1](images/Baseline.png)
 
-**Fig. 9** - *Confusion Matrix and Estimated Error for k = 5*
+**Fig. 9** - *Baseline Model Performance with no Pre-processing*
 
 #### Classification Transform
 The problem was transformed from a continuous to a discrete output to try to improve the performance of the model. This experiment had two variations: the first distributed the prices in equal sized buckets (with trials for 3, 4 and 5); the second was binary and only provided directionality in terms of price increase or decrease with respect to the previous period. The dispersion and range of prices within any given training and testing set was very similar, so to avoid recalculating the buckets on each trial, the whole set was used. Since the dataset was shuffled, the risk of bias remained very low, however other temporality concerns arose (to be discussed later in the report). 
@@ -298,6 +298,19 @@ This model relies on the assumption that the price cyclicity observed will conti
  - How can this be used in the real world?
 
 ## References and Citations
+#### Industry Background References
+> [[1]](#1) https://www.pewtrusts.org/en/about/news-room/press-releases-and-statements/2020/10/06/pew-commercial-tuna-fishing-contributes-more-than-40-billion-annually-to-global-economy
+
+> [[2]](#2) https://www.pewtrusts.org/en/research-and-analysis/reports/2020/10/netting-billions-2020-a-global-tuna-valuation
+
+> [[3]](#3) Inter-American Tropical Tuna Commission, https://www.iattc.org/
+ 
+> [[4]](#4) Western and Central Pacific Fisheries Commission, https://www.wcpfc.int/
+
+> [[5]](#5) Commission for the Conservation of Southern Bluefin Tuna, https://www.ccsbt.org/
+
+> [[6]](#6) https://www.seafoodsource.com/news/environment-sustainability/iattc-leaves-tropical-tuna-unmanaged-as-meeting-fails-to-reach-consensus-by-one-vote
+
 #### 3rd Party Python Packages & Functions
 > [[7]](#7) Jaime Ferrando Huertas, https://github.com/jiwidi/time-series-forecasting-with-python
 
@@ -339,8 +352,6 @@ https://medium.datadriveninvestor.com/why-wont-time-series-data-and-random-fores
 
 > [[6]](#6)Jason Browniee, “How to Decompose Time Series Data into Trend and Seasonality”
 https://machinelearningmastery.com/decompose-time-series-data-trend-seasonality/
-
-
 
 
 ## Source Code
