@@ -53,13 +53,17 @@ Federal Reserve Economic Data (FRED) provided a number of datasets related to co
 ## Model Data Sources
 As a result of the available data, the majority of our model inputs are monthly aggregations of environmental factors. A detailed summary of the various inputs can be found here:
 
-**NOAA:** Monthly land-ocean temperature datasets were compiled via ASCII Time Series Data Access. Source: https://www.ncdc.noaa.gov/noaa-merged-land-ocean-global-surface-temperature-analysis-noaaglobaltemp-v5
+**NOAA:** Monthly land-ocean temperature datasets were compiled via ASCII Time Series Data Access.
+> https://www.ncdc.noaa.gov/noaa-merged-land-ocean-global-surface-temperature-analysis-noaaglobaltemp-v5
 
-**Copernicus:** Our broad Monthly Sea Dataset was compiled via the "Climate Data Store" in GRIB format. We then used the Pygrib package to extract, transform, and join to our NOAA dataset. Source: https://cds.climate.copernicus.eu/cdsapp#!/home
+**Copernicus:** Our broad Monthly Sea Dataset was compiled via the "Climate Data Store" in GRIB format. We then used the Pygrib package to extract, transform, and join to our NOAA dataset. 
+> https://cds.climate.copernicus.eu/cdsapp#!/home
 
-**NSIDC:** Our Monthly Sea Ice Dataset was compiled via FTP. Source: https://nsidc.org/data/g02135
+**NSIDC:** Our Monthly Sea Ice Dataset was compiled via FTP. 
+> https://nsidc.org/data/g02135
 
-**FRED:** A number of features were collected from FRED (Source: https://fred.stlouisfed.org/):
+**FRED:** A number of features were collected from FRED.
+> https://fred.stlouisfed.org/
 
  - Seafood Product Preparation & Packaging Producer Price Index
  - Fish and Seafood Markets Producer Price Index
@@ -73,7 +77,7 @@ All of these sources were filtered and joined together via custom Python E/T job
 
 ### Time Series Forecasting
 
-A time series is usually modelled through a stochastic process Y(t), i.e. a sequence of random variables. In a forecasting setting we find ourselves at time t and we are interested in estimating Y(t+h), using only information available at time t.
+A time series is usually modelled through a stochastic process `Y(t)`, i.e. a sequence of random variables. In a forecasting setting we find ourselves at time t and we are interested in estimating `Y(t+h)`, using only information available at time t.
 
 The usage of time series models here is twofold:
 * Obtain an understanding of the underlying forces and structure that produced the data
@@ -96,12 +100,12 @@ These components combine in some way to provide the observed time series. For ex
 Statsmodel python library provides a function seasonal_compose() to automatically decompose a time series. We use additive model as our quick peek at the time series shows linear trend and seasonality.
 
 ![pic1](images/roopa1.png)
-**Fig. n** - *A caption of the figure goes here*
+**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
 
 We also generated a model using manual polynomial fitting to find the seasonalities in our data.
 
 ![pic1](images/roopa2.png)
-**Fig. n** - *A caption of the figure goes here*
+**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
 
 This shows that seasonalities are present in our data.
 
@@ -113,7 +117,7 @@ Often, stock prices are not a stationary process, since we might see a growing t
 
 #### Check for Stationarity
 
-We use autocorrelation and partial autocorrelation plots to show how correlated are values at time t with the next values in time t+1, t+2….t+n
+We use autocorrelation and partial autocorrelation plots to show how correlated are values at time t with the next values in time `t+1, t+2, ..., t+n`.
 
 If the data would be non-stationary the autocorrelation values will be highly correlated with distant points in time showing possible seasonalities or trends. Stationary series autocorrelation values will quickly decrease over time t. This shows us that information is carried over time and then the series will not constant over time.
 
@@ -122,7 +126,7 @@ We also used augmented Dickey-Fuller test, which is a type of statistical test c
 The null hypothesis of the test is that the time series can be represented by a unit root, that it is not stationary (has some time-dependent structure). The alternate hypothesis (rejecting the null hypothesis) is that the time series is stationary.
 
 ![pic1](images/roopa3.png)
-**Fig. n** - *A caption of the figure goes here*
+**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
 
 
 With a p value of 0.23, we apply methods to make our target series stationary like log scale transformation or smoothing.
@@ -150,30 +154,30 @@ Basically, the ARIMA models combine these two approaches. Since they require the
 The SARIMA model (Seasonal ARIMA) extends the ARIMA by adding a linear combination of seasonal past values and/or forecast errors. 
 The following plots show the predictions on or 36 months test data by using Auto Regression (AR) and SARIMA models.
 
-##### Auto Regression (AR)
+##### **Auto Regression (AR)**
 ![pic1](images/roopa4.png)
-**Fig. n** - *A caption of the figure goes here*
+**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
 
-##### Seasonal Autoregressive Integrated Moving-Average (SARIMA)
+##### **Seasonal Autoregressive Integrated Moving-Average (SARIMA)**
 ![pic1](images/roopa5.png)
-**Fig. n** - *A caption of the figure goes here*
+**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
 
 #### Multivariate Time Series Analysis
 
 In this section we attempted to use methods like Random Forest and XGBoost for time series forecasting. 
-##### Random Forest (RF)
+##### **Random Forest (RF)**
 
 Random forest is an ensemble of decision tree algorithms. A number of decision trees are created where each tree is created from a different sample. It can be used for both classification and regression. In our case the final prediction is the average prediction across the decision trees (we used 5). 
 
 ![pic1](images/roopa6.png)
-**Fig. n** - *A caption of the figure goes here*
+**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
 
-##### XGBoost
+##### **XGBoost**
 
 XGBoost (Extreme Gradient Boost) provides a high-performance implementation of gradient boosted decision trees. Rather than training all of the models in isolation of one another like random forest, XG Boost trains models in succession
 
 ![pic1](images/roopa7.png)
-**Fig. n** - *A caption of the figure goes here*
+**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
 ### Evaluation Metrics
 
 There are many measures that can be used to analyze the performance of our prediction so we will be using the top 4 most used metrics for time series forecasting. 
@@ -184,7 +188,7 @@ There are many measures that can be used to analyze the performance of our predi
 * R2 Coefficient of Determination (r2)
 
 ![pic1](images/roopa8.png)
-**Fig. n** - *A caption of the figure goes here*
+**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
 
 For any data, that a Random Forest/XGBoost has not seen before, at best, it can predict an average of training values that it has seen before. If the Validation set consists of data points that are greater or less than the training data points, a Random Forest will provide us with Average results as it is not able to Extrapolate and understand the growing/decreasing trend in our data. 
 
@@ -269,25 +273,25 @@ Lasso @Josh
 Placeholder 
 
 #### Dataset Citations
-Hersbach, H., Bell, B., Berrisford, P., Biavati, G., Horányi, A., Muñoz Sabater, J., Nicolas, J., Peubey, C., Radu, R., Rozum, I., Schepers, D., Simmons, A., Soci, C., Dee, D., Thépaut, J-N. (2019): ERA5 monthly averaged data on single levels from 1979 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS). (Accessed on [01-MAY-2021]), https://10.24381/cds.f17050d7
+> [[1]](#1) Hersbach, H., Bell, B., Berrisford, P., Biavati, G., Horányi, A., Muñoz Sabater, J., Nicolas, J., Peubey, C., Radu, R., Rozum, I., Schepers, D., Simmons, A., Soci, C., Dee, D., Thépaut, J-N. (2019): ERA5 monthly averaged data on single levels from 1979 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS). (Accessed on [01-MAY-2021]), https://10.24381/cds.f17050d7
 
-Zhang, H.-M., B. Huang, J. Lawrimore, M. Menne, Thomas M. Smith, NOAA Global Surface Temperature Dataset (NOAAGlobalTemp), Version 4.0. NOAA National Centers for Environmental Information. doi: https://10.7289/V5FN144H [01-MAY-2021].
+> [[1]](#1) Zhang, H.-M., B. Huang, J. Lawrimore, M. Menne, Thomas M. Smith, NOAA Global Surface Temperature Dataset (NOAAGlobalTemp), Version 4.0. NOAA National Centers for Environmental Information. doi: https://10.7289/V5FN144H [01-MAY-2021].
 
-Fetterer, F., K. Knowles, W. N. Meier, M. Savoie, and A. K. Windnagel. 2017, updated daily. Sea Ice Index, Version 3. Boulder, Colorado USA. NSIDC: National Snow and Ice Data Center. doi: https://doi.org/10.7265/N5K072F8. [01-MAY-2021].
+> [[1]](#1) Fetterer, F., K. Knowles, W. N. Meier, M. Savoie, and A. K. Windnagel. 2017, updated daily. Sea Ice Index, Version 3. Boulder, Colorado USA. NSIDC: National Snow and Ice Data Center. doi: https://doi.org/10.7265/N5K072F8. [01-MAY-2021].
 
-International Monetary Fund, Global price of Fish [PSALMUSDM], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PSALMUSDM, May 2, 2021.
+> [[1]](#1) International Monetary Fund, Global price of Fish [PSALMUSDM], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PSALMUSDM, May 2, 2021.
 
-U.S. Bureau of Labor Statistics, Producer Price Index by Industry: Seafood Product Preparation and Packaging: Fresh and Frozen Seafood Processing [PCU3117103117102], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PCU3117103117102, May 2, 2021.
+> [[1]](#1) U.S. Bureau of Labor Statistics, Producer Price Index by Industry: Seafood Product Preparation and Packaging: Fresh and Frozen Seafood Processing [PCU3117103117102], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PCU3117103117102, May 2, 2021.
 
-U.S. Bureau of Labor Statistics, Producer Price Index by Industry: Specialty Food Stores: Fish and Seafood Markets [PCU445200445200102], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PCU445200445200102, May 2, 2021.
+> [[1]](#1) U.S. Bureau of Labor Statistics, Producer Price Index by Industry: Specialty Food Stores: Fish and Seafood Markets [PCU445200445200102], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PCU445200445200102, May 2, 2021.
 
-U.S. Bureau of Labor Statistics, Tuna, Light, Chunk, Per Lb. (453.6 Gm) in U.S. City Average [APU0000707111], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/APU0000707111, May 2, 2021.
+> [[1]](#1) U.S. Bureau of Labor Statistics, Tuna, Light, Chunk, Per Lb. (453.6 Gm) in U.S. City Average [APU0000707111], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/APU0000707111, May 2, 2021.
 
-U.S. Bureau of Labor Statistics, Import Price Index (End Use): Fish and Shellfish [IR01000], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/IR01000, May 2, 2021.
+> [[1]](#1) U.S. Bureau of Labor Statistics, Import Price Index (End Use): Fish and Shellfish [IR01000], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/IR01000, May 2, 2021.
 
-U.S. Bureau of Labor Statistics, Export Price Index (End Use): Fish and Shellfish [IQ01000], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/IQ01000, May 2, 2021.
+> [[1]](#1) U.S. Bureau of Labor Statistics, Export Price Index (End Use): Fish and Shellfish [IQ01000], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/IQ01000, May 2, 2021.
 
-International Monetary Fund, Global price of Shrimp [PSHRIUSDM], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PSHRIUSDM, May 2, 2021.
+> [[1]](#1) International Monetary Fund, Global price of Shrimp [PSHRIUSDM], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PSHRIUSDM, May 2, 2021.
 
 ## Source Code
 We have published all of our source code to a public Github repo:
