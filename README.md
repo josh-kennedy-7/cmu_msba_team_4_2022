@@ -1,7 +1,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This repository houses all of the code related to the Class of 2022 Group 4 ML for Business Applications 1 Final Project.
+This repository houses all of the code related to the Class of 2022 Group 4 ML for Business Applications 1 Final Project. The aim of this project is to predict international prices of skipjack tuna given a series of environmental and economic factors.
 
 ## Built With
 
