@@ -14,14 +14,13 @@ International and local efforts are crucial to guarantee the balance between the
 Price prediction for commodities in general and food supplies in particular is a topic of common interest. Academic research has intensively proposed price and production (catch) prediction models using traditional statistical analysis (e.g. *Onour, Ibrahim and Sergi, Bruno, Modeling and forecasting volatility in the global food commodity prices (January 1, 2011)*), financial valuation approaches (e.g. *Chen, Yu-Chin and Rogoff, Kenneth S. and Rossi, Barbara, Predicting Agri-Commodity Prices: An Asset Pricing Approach (May 10, 2010)*), random forests and vector machines (e.g. *Dabin Zhang, Shanyin Cheng, Liwen Ling and Qiang Xia, Forecasting Agricultural Commodity Prices Using Model Selection Framework With Time Series Features and Forecast Horizons (February 4, 2020)*), and machine learning (e.g. *Jabez Harris, A Machine Learning Approach to Forecasting Consumer Food Prices (August 2017)*) with different degrees of success. Currently, no method or model is universally accepted as a reliable and standard predictor.
 
 Machine Learning is an adequate tool to develop a pricing model, and can potentially surpass the prediction accuracy of other methods. Traditional statistical analysis relies on the assumption of invariability in time, which does not hold in the tuna industry context. Juvenile depletion caused by excess catch, global warming affectations in the life cycle of tuna, and changes in food consumption preferences can all impact pricing. A machine learning model can deal with these circumstances by continuously getting new information and updating its predictions automatically. In this way, an ML model can remain current for the next prediction horizon.
+![pic1](images/tuna_price_over_time.png)
 
 ## Data Collection
 
 ### Starting Point & Data Collection
 
-Our approach began without many assumptions as to whether Tuna Prices can be modeled or predicted. We wanted to begin without any biases as to what factors might influence the price.
-
-As such, we started by generating a list of the broad areas of data we believed might be predictive in our analysis and model. The initial list included a variety of sources & hypotheses:
+Our approach began without many assumptions as to whether Tuna Prices can be modeled or predicted. We wanted to begin without any biases as to what factors might influence the price. As such, we started by generating a list of the broad areas of data we believed might be predictive in our analysis and model. The initial list included a variety of sources & hypotheses:
 
 *Environmental Data: Was the lifecycle of Tuna somehow impacted by changing global conditions?*
 
@@ -224,7 +223,7 @@ Climate data generally had a longer total history than market data.
 
 Heterogenous data sources and a "more-is-better" collection approach yielded an initial dataset with high colinearity.
 
-![pic1]()
+![pic1](images/colinearity_example.png)
 **Fig. n** - #TODO: Place Image *Josh's colinarity screenshot should go here*
 
 All climate data included a variety of statistics for every collection time step. Economic data frequently included common metrics such as maximums, minimums, and variances within the reporting period. While useful for human analysis it is unlikely many of these fields contributed meaningfully to our models. This was quantified through variable selection methods and dimensionality reduction attempts.
@@ -252,9 +251,10 @@ Temporal characteristics were maintained and explored both through use of networ
 
 ### Feature Selection and Preprocessing
 
-#### Lasso Analysis
+#### Ridge Regularization
 
-Lasso @Josh
+Since we began with 430 features with unknown, but certain, relationships, we knew that feature selection would be important to our model. Building a correlation matrix, we can easily see certain elements that would detract from the model (see figure X for colinearity example). By implementing a Ridge regression for regularization, we are able to identify 210 features that could be removed from the data.
+> Inspiration and methodology from Akash Dubey
 
 #### Principle Components
 
@@ -344,10 +344,9 @@ This model relies on the assumption that the price cyclicity observed will conti
 
 ### LSTM
 
-@Josh
+Since our target appears to experience seasonality and is time-based in nature, an LSTM network seemed well suited to apply to our dataset. We found strong results when applying a standard implementation of this type of model: loss of 0.00509 over 3,000 epochs with lr of 0.03
 
-- Standard implementation of LSTM attempting to forward predict last time sample
-- Works exceptionally well
+![pic1](images/lstm_output.png)
 
 ### LSTM, Rolling Window
 
@@ -434,9 +433,15 @@ There are several examples of CNN input structures modified for spherical geomet
 
 ## References and Citations
 
-### 3rd Party Python Packages & Functions
+### 3rd Party Python Packages, Methodology, & Functions
 
 > [[7]](#7) Jaime Ferrando Huertas, https://github.com/jiwidi/time-series-forecasting-with-python
+
+> [[1]](#1)Akash Dubey. "Feature Selection Using Regularisation", 
+<https://towardsdatascience.com/feature-selection-using-regularisation-a3678b71e499>
+
+> [[1]](#1)Jason Brownlee. "Time Series Forecasting with the Long Short-Term Memory Network in Python", 
+<https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/
 
 ### Dataset Citations
 
