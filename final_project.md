@@ -147,11 +147,11 @@ In this section we will focus on time series forecasting methods capable of only
 * Autoregressive integrated moving average (ARIMA)
 * Seasonal Autoregressive moving average (SARIMA)
 
-In an Auto Regressive model the forecasts correspond to a linear combination of past values of the variable. In a Moving Average model, the forecasts correspond to a linear combination of past forecast errors.
+"In an Auto Regressive model the forecasts correspond to a linear combination of past values of the variable. In a Moving Average model, the forecasts correspond to a linear combination of past forecast errors.
 
 Basically, the ARIMA models combine these two approaches. Since they require the time series to be stationary, differencing (Integrating) the time series was a necessary step i.e. considering the time series of the differences instead of the original one.
 
-The SARIMA model (Seasonal ARIMA) extends the ARIMA by adding a linear combination of seasonal past values and/or forecast errors. 
+The SARIMA model (Seasonal ARIMA) extends the ARIMA by adding a linear combination of seasonal past values and/or forecast errors."[[7]](#7) 
 The following plots show the predictions on or 36 months test data by using Auto Regression (AR) and SARIMA models.
 
 ##### **Auto Regression (AR)**
