@@ -296,19 +296,19 @@ Jaime Ferrando Huertas, https://github.com/jiwidi/time-series-forecasting-with-p
 > [[1]](#1)Davide Bruba. "An overview of time series forecasting models", 
 https://towardsdatascience.com/an-overview-of-time-series-forecasting-models-a2fa7a358fcb
 
-> [[2]] (#2)Athul Anish. “Time Series Analysis”,
+> [[2]](#2)Athul Anish. “Time Series Analysis”,
 https://medium.com/swlh/time-series-analysis-7006ea1c3326
 
-> [[3]] (#3)Statworx Blog. “Time series forecasting with random forest”,
+> [[3]](#3)Statworx Blog. “Time series forecasting with random forest”,
 https://medium.com/@statworx_blog/time-series-forecasting-part-i-e30a16bac58a
 
-> [[4]] (#4)Indraneel Dutta Baruah, Analytics Vidya. “Combining Time Series Analysis with Artificial Intelligence: the future of forecasting”,
+> [[4]](#4)Indraneel Dutta Baruah, Analytics Vidya. “Combining Time Series Analysis with Artificial Intelligence: the future of forecasting”,
 https://medium.com/analytics-vidhya/combining-time-series-analysis-with-artificial-intelligence-the-future-of-forecasting-5196f57db913
 
-> [[5]] (#5)Aman Arora, “Why Random Forests can’t predict trends and how to overcome this problem?”,
+> [[5]](#5)Aman Arora, “Why Random Forests can’t predict trends and how to overcome this problem?”,
 https://medium.datadriveninvestor.com/why-wont-time-series-data-and-random-forests-work-very-well-together-3c9f7b271631
 
-> [[6]] (#6)Jason Browniee, “How to Decompose Time Series Data into Trend and Seasonality”
+> [[6]](#6)Jason Browniee, “How to Decompose Time Series Data into Trend and Seasonality”
 https://machinelearningmastery.com/decompose-time-series-data-trend-seasonality/
 
 
