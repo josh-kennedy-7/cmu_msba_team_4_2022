@@ -259,7 +259,7 @@ The advantage of using Machine Learning instead of applying Fourier Series direc
 Additionally to the harmonics, two price related covariates were added to the dataset: the price average for the last 6 periods and the change in price between t-2 and t-1. 
 * **Establishing a network that could generalize a large set of features.** A CNN based on LeNet’s architecture was used to train the model. The input for this model were the resulting 16 main components after applying PCA plus the additional 8 variables. This was arranged in a 3 X 8 input matrix. The temporal split between the train and the test sets was made at 65/35% to ensure that the cycle described by the first harmonic was completely included in the training set. Data was randomized only for the train set after the split. The results of this model were better that the previous attempts, and a RMSE of 399 was obtained (for context, the average price was $1,577), with a correlation of 0.80.  
 
-![pic1](images/PredictLeNet.png)
+![pic1](images/PredictLeNet2.png)
 
 **Fig. 14** - *Performance of LeNet Network*
 
