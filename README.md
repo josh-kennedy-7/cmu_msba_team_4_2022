@@ -3,7 +3,7 @@
 
 This repository houses all of the code related to the Class of 2022 Group 4 ML for Business Applications 1 Final Project.
 
-### Built With
+## Built With
 
 The models, research, and findings were developed using the following packages:
 
@@ -21,20 +21,13 @@ Josh Kennedy - jtkenned@tepper.cmu.edu <br>
 Reed Abraham - aaabraha@tepper.cmu.edu <br>
 Roopa Bharadwaj - rbharadw@tepper.cmu.edu
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/josh-kennedy-7/cmu_msba_team_4_2022](https://github.com/josh-kennedy-7/cmu_msba_team_4_2022)
 
 
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Img Shields](https://shields.io)
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Pages](https://pages.github.com)
-* [Animate.css](https://daneden.github.io/animate.css)
-* [Loaders.css](https://connoratherton.com/loaders)
-* [Slick Carousel](https://kenwheeler.github.io/slick)
-* [Smooth Scroll](https://github.com/cferdinandi/smooth-scroll)
-* [Sticky Kit](http://leafo.net/sticky-kit)
-* [JVectorMap](http://jvectormap.com)
-* [Font Awesome](https://fontawesome.com)
+* [Our Professor, Zach Lipton](http://zacklipton.com/)
+* [Kyra Gan](https://www.andrew.cmu.edu/user/jgan1/)
+* [Readme Template](https://github.com/othneildrew/Best-README-Template)
+* [d2l](http://d2l.ai/)
