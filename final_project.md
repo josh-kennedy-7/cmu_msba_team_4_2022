@@ -226,8 +226,11 @@ Lasso @Josh
  - does not adequately capture periodicity
 
 #### Classification Transform
-@Hugo
- - Failure (Hugo comments?)
+The problem was transformed from a continuous to a discrete output to try to improve the performance of the model. This experiment had two variations: the first distributed the prices in equal sized buckets (with trials for 3, 4 and 5). The second model was binary and only provided directionality in terms of price increase or decrease with respect to the previous period. The dispersion and range of prices within any given training and testing set was very similar, so to avoid recalculating the buckets on each trial, the whole set was. Since the dataset was shuffled, the risk of bias remained very low. 
+In the price bucket variety, classification accuracy decreased as the number of buckets increased. At the same time, an estimated RMSE loss was reduced (the estimated RMSE was based on the difference of the averages of the buckets instead of the difference of the average of the bucket and the actual price, so the estimated RMSE is lower that the actual RMSE). This can be seen in the following confusion matrix:
+The price directionality variety model was sub-par. The model selected only one of the labels for the entire dataset (it was not consistent in the election, since both labels has an occurrence probability of 50%).
+The three main limitations of a discrete approach to the problem were the implication that price was limited to a fixed range known in advance, inaccurate classification, and the rigidity of a discrete prediction. Furthermore, the decrease of the estimated RMSE as the number of buckets increased, is a strong indicator to keep the model as a continuous approach. 
+Finally, since trials were made shuffling the whole set, instead of predicting the future, the model was filling voids in the past. This realization was taken into account in the next models so that data was split by time rather than volume.
 
 #### LeNet Adaptation
 A challenge to train with the available data was that the number of features (484) was greater than the number of examples (121). Furthermore, the existing number of features did not show explanatory power in previous models. To deal with this, four different alternatives were explored, and those that were successful were merged into a model:
