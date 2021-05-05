@@ -53,13 +53,17 @@ Federal Reserve Economic Data (FRED) provided a number of datasets related to co
 ## Model Data Sources
 As a result of the available data, the majority of our model inputs are monthly aggregations of environmental factors. A detailed summary of the various inputs can be found here:
 
-**NOAA:** Monthly land-ocean temperature datasets were compiled via ASCII Time Series Data Access. Source: https://www.ncdc.noaa.gov/noaa-merged-land-ocean-global-surface-temperature-analysis-noaaglobaltemp-v5
+**NOAA:** Monthly land-ocean temperature datasets were compiled via ASCII Time Series Data Access.
+> https://www.ncdc.noaa.gov/noaa-merged-land-ocean-global-surface-temperature-analysis-noaaglobaltemp-v5
 
-**Copernicus:** Our broad Monthly Sea Dataset was compiled via the "Climate Data Store" in GRIB format. We then used the Pygrib package to extract, transform, and join to our NOAA dataset. Source: https://cds.climate.copernicus.eu/cdsapp#!/home
+**Copernicus:** Our broad Monthly Sea Dataset was compiled via the "Climate Data Store" in GRIB format. We then used the Pygrib package to extract, transform, and join to our NOAA dataset. 
+> https://cds.climate.copernicus.eu/cdsapp#!/home
 
-**NSIDC:** Our Monthly Sea Ice Dataset was compiled via FTP. Source: https://nsidc.org/data/g02135
+**NSIDC:** Our Monthly Sea Ice Dataset was compiled via FTP. 
+> https://nsidc.org/data/g02135
 
-**FRED:** A number of features were collected from FRED (Source: https://fred.stlouisfed.org/):
+**FRED:** A number of features were collected from FRED.
+> https://fred.stlouisfed.org/
 
  - Seafood Product Preparation & Packaging Producer Price Index
  - Fish and Seafood Markets Producer Price Index
@@ -69,27 +73,149 @@ As a result of the available data, the majority of our model inputs are monthly 
 
 All of these sources were filtered and joined together via custom Python E/T job.
 
-## Roopa's Time Series Analysis & Insights
-Pending @Roopa - please rename section also
+## Linear Forecasting Baseline
 
+### Time Series Forecasting
+
+A time series is usually modelled through a stochastic process `Y(t)`, i.e. a sequence of random variables. In a forecasting setting we find ourselves at time t and we are interested in estimating `Y(t+h)`, using only information available at time t.
+
+The usage of time series models here is twofold:
+* Obtain an understanding of the underlying forces and structure that produced the data
+* Fit a model and proceed to forecast.
+
+Time series analysis provides a ton of techniques to better understand a dataset. The most useful of these is the splitting of time series into 4 parts:
+1. **Level**: The base value for the series if it were a straight line.
+1. **Trend**: The linear increasing or decreasing behavior of the series over time.
+1. **Seasonality**: The repeating patterns or cycles of behavior over time.
+1. **Noise:** The variability in the observations that cannot be explained by the model.
+
+All-time series generally have a level, noise, while trend and seasonality are optional. The main features of many time series are trends and seasonal variation. 
+
+These components combine in some way to provide the observed time series. For example, they may be added together to form a model such as:
+
+`Y = levels + trends + seasonality + noise`
+
+### Automatic Time Series Decomposition
+
+Statsmodel python library provides a function seasonal_compose() to automatically decompose a time series. We use additive model as our quick peek at the time series shows linear trend and seasonality.
+
+![pic1](images/roopa1.png)
+**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
+
+We also generated a model using manual polynomial fitting to find the seasonalities in our data.
+
+![pic1](images/roopa2.png)
+**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
+
+This shows that seasonalities are present in our data.
+
+### Stationarity
+
+Stationarity is an important characteristic of time series. A time series is stationary if it has constant mean and variance over time. Most models work only with stationary data as this makes it easier to model. 
+
+Often, stock prices are not a stationary process, since we might see a growing trend, or its volatility might increase over time (meaning that variance is changing).
+
+#### Check for Stationarity
+
+We use autocorrelation and partial autocorrelation plots to show how correlated are values at time t with the next values in time `t+1, t+2, ..., t+n`.
+
+If the data would be non-stationary the autocorrelation values will be highly correlated with distant points in time showing possible seasonalities or trends. Stationary series autocorrelation values will quickly decrease over time t. This shows us that information is carried over time and then the series will not constant over time.
+
+We also used augmented Dickey-Fuller test, which is a type of statistical test called a unit root test. The intuition behind a unit root test is that it determines how strongly a time series is defined by a trend. There are a number of unit root tests and the Augmented Dickey-Fuller may be one of the more widely used. It uses an autoregressive model and optimizes an information criterion across multiple different lag values.
+
+The null hypothesis of the test is that the time series can be represented by a unit root, that it is not stationary (has some time-dependent structure). The alternate hypothesis (rejecting the null hypothesis) is that the time series is stationary.
+
+![pic1](images/roopa3.png)
+**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
+
+
+With a p value of 0.23, we apply methods to make our target series stationary like log scale transformation or smoothing.
+
+### Methods for Time Series Forecasting
+
+There are many methods that we could have used for time series forecasting and there is not a clear winner. Model selection depended on how the data looked. Some models were more robust against outliers but performed worse than the more sensible.
+
+When looking at your data the main split is whether we have extra regressors (features) to our time series or just the series. Based on this we can start exploring different methods for forecasting and their performance in different metrics.
+
+We split our data into test training sets having 85 months of training data and 36 months of testing data.
+
+#### Univariate Time Series Analysis
+
+In this section we will focus on time series forecasting methods capable of only looking at the target variable. This means no other regressors (more variables) can be added into the model. We tried three univariate time series models as follows -
+
+* Auto Regression (AR)
+* Autoregressive integrated moving average (ARIMA)
+* Seasonal Autoregressive moving average (SARIMA)
+
+In an Auto Regressive model the forecasts correspond to a linear combination of past values of the variable. In a Moving Average model, the forecasts correspond to a linear combination of past forecast errors.
+
+Basically, the ARIMA models combine these two approaches. Since they require the time series to be stationary, differencing (Integrating) the time series was a necessary step i.e. considering the time series of the differences instead of the original one.
+
+The SARIMA model (Seasonal ARIMA) extends the ARIMA by adding a linear combination of seasonal past values and/or forecast errors. 
+The following plots show the predictions on or 36 months test data by using Auto Regression (AR) and SARIMA models.
+
+##### **Auto Regression (AR)**
+![pic1](images/roopa4.png)
+**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
+
+##### **Seasonal Autoregressive Integrated Moving-Average (SARIMA)**
+![pic1](images/roopa5.png)
+**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
+
+#### Multivariate Time Series Analysis
+
+In this section we attempted to use methods like Random Forest and XGBoost for time series forecasting. 
+##### **Random Forest (RF)**
+
+Random forest is an ensemble of decision tree algorithms. A number of decision trees are created where each tree is created from a different sample. It can be used for both classification and regression. In our case the final prediction is the average prediction across the decision trees (we used 5). 
+
+![pic1](images/roopa6.png)
+**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
+
+##### **XGBoost**
+
+XGBoost (Extreme Gradient Boost) provides a high-performance implementation of gradient boosted decision trees. Rather than training all of the models in isolation of one another like random forest, XG Boost trains models in succession
+
+![pic1](images/roopa7.png)
+**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
+### Evaluation Metrics
+
+There are many measures that can be used to analyze the performance of our prediction so we will be using the top 4 most used metrics for time series forecasting. 
+
+* Mean Absolute Error (MAE)
+* Mean Absolute Percentage Error (MAPE)
+* Root Mean Squared Error (RMSE)
+* R2 Coefficient of Determination (r2)
+
+![pic1](images/roopa8.png)
+**Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
+
+For any data, that a Random Forest/XGBoost has not seen before, at best, it can predict an average of training values that it has seen before. If the Validation set consists of data points that are greater or less than the training data points, a Random Forest will provide us with Average results as it is not able to Extrapolate and understand the growing/decreasing trend in our data. 
+
+Therefore, a Random Forest model does not scale very well for time-series data and might need to be constantly updated in Production or trained with some Random data that lies outside our range of Training set.
+
+Answering questions like “What would the price of SkipJack Tuna be for next Year?”, “What would the population of China be after 5 years?”, “What would the global temperature be in 50 years from now?” or “How many units am I expected to sell for gloves in the next three months?” becomes really difficult when using Random Forests.
+### Conclusions
+
+Fitting a Linear Model or a Neural Net, in this case, might be sufficient to predict data which has an increasing or decreasing trends. 
 ## Model Selection and ML Thought Process
 @Reed
 #### Data Characteristics / Input Generation
-Placeholder text
+`Placeholder text`
 #### Time Step Asynchronicity
-Placeholder text
+`Placeholder text`
 #### High Colinearity
-Placeholder text
+`Placeholder text`
 #### GeoSpatial & Time Series Combination
-Placeholder text
+`Placeholder text`
 #### Feature Count vs. Sample Size
-Placeholder text 
+`Placeholder text `
 
 ## ML Technologies of Interest
 #### Modern RNN Implementations
-Placeholder text
+`Placeholder text`
 #### Multi Modal Deep Learning
-Placeholder text
+`Placeholder text`
 
 ## Model Build, Test, and Analysis (rename header?)
 #### Feature Selection
@@ -147,25 +273,25 @@ Lasso @Josh
 Placeholder 
 
 #### Dataset Citations
-Hersbach, H., Bell, B., Berrisford, P., Biavati, G., Horányi, A., Muñoz Sabater, J., Nicolas, J., Peubey, C., Radu, R., Rozum, I., Schepers, D., Simmons, A., Soci, C., Dee, D., Thépaut, J-N. (2019): ERA5 monthly averaged data on single levels from 1979 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS). (Accessed on [01-MAY-2021]), https://10.24381/cds.f17050d7
+> [[1]](#1) Hersbach, H., Bell, B., Berrisford, P., Biavati, G., Horányi, A., Muñoz Sabater, J., Nicolas, J., Peubey, C., Radu, R., Rozum, I., Schepers, D., Simmons, A., Soci, C., Dee, D., Thépaut, J-N. (2019): ERA5 monthly averaged data on single levels from 1979 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS). (Accessed on [01-MAY-2021]), https://10.24381/cds.f17050d7
 
-Zhang, H.-M., B. Huang, J. Lawrimore, M. Menne, Thomas M. Smith, NOAA Global Surface Temperature Dataset (NOAAGlobalTemp), Version 4.0. NOAA National Centers for Environmental Information. doi: https://10.7289/V5FN144H [01-MAY-2021].
+> [[1]](#1) Zhang, H.-M., B. Huang, J. Lawrimore, M. Menne, Thomas M. Smith, NOAA Global Surface Temperature Dataset (NOAAGlobalTemp), Version 4.0. NOAA National Centers for Environmental Information. doi: https://10.7289/V5FN144H [01-MAY-2021].
 
-Fetterer, F., K. Knowles, W. N. Meier, M. Savoie, and A. K. Windnagel. 2017, updated daily. Sea Ice Index, Version 3. Boulder, Colorado USA. NSIDC: National Snow and Ice Data Center. doi: https://doi.org/10.7265/N5K072F8. [01-MAY-2021].
+> [[1]](#1) Fetterer, F., K. Knowles, W. N. Meier, M. Savoie, and A. K. Windnagel. 2017, updated daily. Sea Ice Index, Version 3. Boulder, Colorado USA. NSIDC: National Snow and Ice Data Center. doi: https://doi.org/10.7265/N5K072F8. [01-MAY-2021].
 
-International Monetary Fund, Global price of Fish [PSALMUSDM], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PSALMUSDM, May 2, 2021.
+> [[1]](#1) International Monetary Fund, Global price of Fish [PSALMUSDM], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PSALMUSDM, May 2, 2021.
 
-U.S. Bureau of Labor Statistics, Producer Price Index by Industry: Seafood Product Preparation and Packaging: Fresh and Frozen Seafood Processing [PCU3117103117102], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PCU3117103117102, May 2, 2021.
+> [[1]](#1) U.S. Bureau of Labor Statistics, Producer Price Index by Industry: Seafood Product Preparation and Packaging: Fresh and Frozen Seafood Processing [PCU3117103117102], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PCU3117103117102, May 2, 2021.
 
-U.S. Bureau of Labor Statistics, Producer Price Index by Industry: Specialty Food Stores: Fish and Seafood Markets [PCU445200445200102], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PCU445200445200102, May 2, 2021.
+> [[1]](#1) U.S. Bureau of Labor Statistics, Producer Price Index by Industry: Specialty Food Stores: Fish and Seafood Markets [PCU445200445200102], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PCU445200445200102, May 2, 2021.
 
-U.S. Bureau of Labor Statistics, Tuna, Light, Chunk, Per Lb. (453.6 Gm) in U.S. City Average [APU0000707111], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/APU0000707111, May 2, 2021.
+> [[1]](#1) U.S. Bureau of Labor Statistics, Tuna, Light, Chunk, Per Lb. (453.6 Gm) in U.S. City Average [APU0000707111], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/APU0000707111, May 2, 2021.
 
-U.S. Bureau of Labor Statistics, Import Price Index (End Use): Fish and Shellfish [IR01000], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/IR01000, May 2, 2021.
+> [[1]](#1) U.S. Bureau of Labor Statistics, Import Price Index (End Use): Fish and Shellfish [IR01000], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/IR01000, May 2, 2021.
 
-U.S. Bureau of Labor Statistics, Export Price Index (End Use): Fish and Shellfish [IQ01000], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/IQ01000, May 2, 2021.
+> [[1]](#1) U.S. Bureau of Labor Statistics, Export Price Index (End Use): Fish and Shellfish [IQ01000], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/IQ01000, May 2, 2021.
 
-International Monetary Fund, Global price of Shrimp [PSHRIUSDM], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PSHRIUSDM, May 2, 2021.
+> [[1]](#1) International Monetary Fund, Global price of Shrimp [PSHRIUSDM], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PSHRIUSDM, May 2, 2021.
 
 ## Source Code
 We have published all of our source code to a public Github repo:
