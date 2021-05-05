@@ -111,7 +111,7 @@ This shows that seasonalities are present in our data.
 
 ### Stationarity
 
-Stationarity is an important characteristic of time series. A time series is stationary if it has constant mean and variance over time. Most models work only with stationary data as this makes it easier to model. 
+"Stationarity is an important characteristic of time series. A time series is stationary if it has constant mean and variance over time. Most models work only with stationary data as this makes it easier to model."[[7]](#7)
 
 Often, stock prices are not a stationary process, since we might see a growing trend, or its volatility might increase over time (meaning that variance is changing).
 
@@ -119,11 +119,11 @@ Often, stock prices are not a stationary process, since we might see a growing t
 
 We use autocorrelation and partial autocorrelation plots to show how correlated are values at time t with the next values in time `t+1, t+2, ..., t+n`.
 
-If the data would be non-stationary the autocorrelation values will be highly correlated with distant points in time showing possible seasonalities or trends. Stationary series autocorrelation values will quickly decrease over time t. This shows us that information is carried over time and then the series will not constant over time.
+"If the data would be non-stationary the autocorrelation values will be highly correlated with distant points in time showing possible seasonalities or trends. Stationary series autocorrelation values will quickly decrease over time t. This shows us that information is carried over time and then the series will not constant over time."[[7]](#7)
 
-We also used augmented Dickey-Fuller test, which is a type of statistical test called a unit root test. The intuition behind a unit root test is that it determines how strongly a time series is defined by a trend. There are a number of unit root tests and the Augmented Dickey-Fuller may be one of the more widely used. It uses an autoregressive model and optimizes an information criterion across multiple different lag values.
+We also used augmented Dickey-Fuller test, which is a type of statistical test called a unit root test. "The intuition behind a unit root test is that it determines how strongly a time series is defined by a trend. There are a number of unit root tests and the Augmented Dickey-Fuller may be one of the more widely used. It uses an autoregressive model and optimizes an information criterion across multiple different lag values.
 
-The null hypothesis of the test is that the time series can be represented by a unit root, that it is not stationary (has some time-dependent structure). The alternate hypothesis (rejecting the null hypothesis) is that the time series is stationary.
+The null hypothesis of the test is that the time series can be represented by a unit root, that it is not stationary (has some time-dependent structure). The alternate hypothesis (rejecting the null hypothesis) is that the time series is stationary." [[7]](#7)
 
 ![pic1](images/roopa3.png)
 **Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
@@ -133,9 +133,9 @@ With a p value of 0.23, we apply methods to make our target series stationary li
 
 ### Methods for Time Series Forecasting
 
-There are many methods that we could have used for time series forecasting and there is not a clear winner. Model selection depended on how the data looked. Some models were more robust against outliers but performed worse than the more sensible.
+"There are many methods that we could have used for time series forecasting and there is not a clear winner. Model selection depended on how the data looked. Some models were more robust against outliers but performed worse than the more sensible.
 
-When looking at your data the main split is whether we have extra regressors (features) to our time series or just the series. Based on this we can start exploring different methods for forecasting and their performance in different metrics.
+When looking at your data the main split is whether we have extra regressors (features) to our time series or just the series. Based on this we can start exploring different methods for forecasting and their performance in different metrics."[[7]](#7)
 
 We split our data into test training sets having 85 months of training data and 36 months of testing data.
 
@@ -167,14 +167,14 @@ The following plots show the predictions on or 36 months test data by using Auto
 In this section we attempted to use methods like Random Forest and XGBoost for time series forecasting. 
 ##### **Random Forest (RF)**
 
-Random forest is an ensemble of decision tree algorithms. A number of decision trees are created where each tree is created from a different sample. It can be used for both classification and regression. In our case the final prediction is the average prediction across the decision trees (we used 5). 
+"Random forest is an ensemble of decision tree algorithms. A number of decision trees are created where each tree is created from a different sample. It can be used for both classification and regression. In our case the final prediction is the average prediction across the decision trees (we used 5)."[[4]](#4)
 
 ![pic1](images/roopa6.png)
 **Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
 
 ##### **XGBoost**
 
-XGBoost (Extreme Gradient Boost) provides a high-performance implementation of gradient boosted decision trees. Rather than training all of the models in isolation of one another like random forest, XG Boost trains models in succession
+"XGBoost (Extreme Gradient Boost) provides a high-performance implementation of gradient boosted decision trees. Rather than training all of the models in isolation of one another like random forest, XG Boost trains models in succession"[[4]](#4)
 
 ![pic1](images/roopa7.png)
 **Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
@@ -190,11 +190,11 @@ There are many measures that can be used to analyze the performance of our predi
 ![pic1](images/roopa8.png)
 **Fig. n** - #TODO: Write Caption *A caption of the figure goes here*
 
-For any data, that a Random Forest/XGBoost has not seen before, at best, it can predict an average of training values that it has seen before. If the Validation set consists of data points that are greater or less than the training data points, a Random Forest will provide us with Average results as it is not able to Extrapolate and understand the growing/decreasing trend in our data. 
+"For any data, that a Random Forest/XGBoost has not seen before, at best, it can predict an average of training values that it has seen before. If the Validation set consists of data points that are greater or less than the training data points, a Random Forest will provide us with Average results as it is not able to Extrapolate and understand the growing/decreasing trend in our data. 
 
-Therefore, a Random Forest model does not scale very well for time-series data and might need to be constantly updated in Production or trained with some Random data that lies outside our range of Training set.
+Therefore, a Random Forest model does not scale very well for time-series data and might need to be constantly updated in Production or trained with some Random data that lies outside our range of Training set."[[5]](#5)
 
-Answering questions like “What would the price of SkipJack Tuna be for next Year?”, “What would the population of China be after 5 years?”, “What would the global temperature be in 50 years from now?” or “How many units am I expected to sell for gloves in the next three months?” becomes really difficult when using Random Forests.
+Answering questions like “What would the price of SkipJack Tuna be for next Year?” becomes really difficult when using Random Forests.
 ### Conclusions
 
 Fitting a Linear Model or a Neural Net, in this case, might be sufficient to predict data which has an increasing or decreasing trends. 
@@ -270,7 +270,7 @@ Lasso @Josh
 
 ## References and Citations
 #### 3rd Party Python Packages & Functions
-Jaime Ferrando Huertas, https://github.com/jiwidi/time-series-forecasting-with-python
+> [[7]](#7) Jaime Ferrando Huertas, https://github.com/jiwidi/time-series-forecasting-with-python
 
 #### Dataset Citations
 > [[1]](#1) Hersbach, H., Bell, B., Berrisford, P., Biavati, G., Horányi, A., Muñoz Sabater, J., Nicolas, J., Peubey, C., Radu, R., Rozum, I., Schepers, D., Simmons, A., Soci, C., Dee, D., Thépaut, J-N. (2019): ERA5 monthly averaged data on single levels from 1979 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS). (Accessed on [01-MAY-2021]), https://10.24381/cds.f17050d7
