@@ -228,6 +228,19 @@ Lasso @Josh
 #### Classification Transform
 The problem was transformed from a continuous to a discrete output to try to improve the performance of the model. This experiment had two variations: the first distributed the prices in equal sized buckets (with trials for 3, 4 and 5). The second model was binary and only provided directionality in terms of price increase or decrease with respect to the previous period. The dispersion and range of prices within any given training and testing set was very similar, so to avoid recalculating the buckets on each trial, the whole set was. Since the dataset was shuffled, the risk of bias remained very low. 
 In the price bucket variety, classification accuracy decreased as the number of buckets increased. At the same time, an estimated RMSE loss was reduced (the estimated RMSE was based on the difference of the averages of the buckets instead of the difference of the average of the bucket and the actual price, so the estimated RMSE is lower that the actual RMSE). This can be seen in the following confusion matrix:
+
+![pic1](images/ConfusionMatrixB5.png)
+
+**Fig. 9** - *Confusion Matrix and Estimated Error for k = 5*
+
+![pic1](images/ConfusionMatrixB4.png)
+
+**Fig. 10** - *Confusion Matrix and Estimated Error for k = 4*
+
+![pic1](images/ConfusionMatrixB3.png)
+
+**Fig. 11** - *Confusion Matrix and Estimated Error for k = 3*
+
 The price directionality variety model was sub-par. The model selected only one of the labels for the entire dataset (it was not consistent in the election, since both labels has an occurrence probability of 50%).
 The three main limitations of a discrete approach to the problem were the implication that price was limited to a fixed range known in advance, inaccurate classification, and the rigidity of a discrete prediction. Furthermore, the decrease of the estimated RMSE as the number of buckets increased, is a strong indicator to keep the model as a continuous approach. 
 Finally, since trials were made shuffling the whole set, instead of predicting the future, the model was filling voids in the past. This realization was taken into account in the next models so that data was split by time rather than volume.
@@ -237,9 +250,19 @@ A challenge to train with the available data was that the number of features (48
 * **Synthetizing new examples to train the model.** This was done with a PCA encoding that kept the maximum possible amount of components in the whole dataset (including the target), and then random noise was injected into the decoder. However, given that the maximum decoding matrix size achievable was 121 X 121, 364 features were lost in the process (producing a loss in variance explanation), and therefore the output was not similar enough to the original dataset to be used as training examples. A manual selection that removed the additional 364 features (using lasso or another method) before applying the PCA encoding and decoding could have solved the problem, however due to time constraints, this approach was not attempted.
 * **Selecting the most significant covariates.** A PCA encoder was used to select the most meaningful components, and train the model using them instead of the actual features. Several trials were made with different  cutoff parameters, and the final decision was to keep the most relevant 16 components (with a loss of 21% in the variance explanation). 
 * **Adding covariates that could complement the existing information.** During exploratory analysis, it was found that tuna prices followed a cyclical pattern, and that prices at a given point in time are related to adjacent historic prices. Time cyclicity was included into the model by breaking the signal into Fourier harmonics. To ensure that low frequencies remained the most relevant, the first harmonic parameters for time offset and length of the period were determined by minimizing MSE. Using those parameters, the six lowest frequencies were calculated and incorporated to the dataset.
+
+![pic1](images/LowFreqHarmonic.png)
+
+**Fig. 12** - *Adjustment of Lowest Frequency Harmonic*
+
 The advantage of using Machine Learning instead of applying Fourier Series directly, was that coefficients for each harmonic could be determined in context with the rest of the covariates.
 Additionally, two price related covariates were added to the dataset: the price average for the last 6 periods and the change in price from t-2 and t-1. 
 * **Establishing a network that could generalize a large set of features.** A CNN based on LeNet’s architecture was used to train the model. The input for this model were the resulting 16 main components after applying PCA plus the additional 8 variables. This was arranged in a 3 X 8 input matrix. The split between the train and the test sets was made at 65/35% to ensure that the cycle described by the first harmonic was completely included in the training set. Data was not randomized to preserve the temporal relevance. The results of this model were better that the previous attempts, and a RMSE of 397 was obtained (for context, the average price was $1,577), with a correlation of 0.76.  
+
+![pic1](images/PredictLeNet.png)
+
+**Fig. 13** - *Performance of LeNet Network*
+
 This model relies on the assumption that the price cyclicity observed will continue in the future, i.e. that it was not a matter of chance. The full cycle encompasses roughly five years, and could be produced by multi-annual weather patterns such as El Niño or La Niña. However, the recurrence of this pattern in the future is uncertain (and outside the scope of this project), and should be further analyzed to assure the applicability of the model in a general context.
 
 #### LSTM
