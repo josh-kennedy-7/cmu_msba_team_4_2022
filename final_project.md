@@ -216,23 +216,37 @@ Fitting a Linear Model or a Neural Net, in this case, might be sufficient to pre
 
 @Reed
 
-### Data Characteristics / Input Generation
+### Data Characteristics
 
-### Time Step Asynchronicity
+#### Non-Uniform Data length
 
-Project data originated from a diverse background of quick
 
-### High Colinearity
+#### High Colinearity
+
+Heterogenous data sources and a "more-is-better" collection approach yielded an initial dataset with very high colinearity. 
+
+![pic1]()
+**Fig. n** - #TODO: Place Image *Josh's colinarity screenshot should go here*
+
+#### GeoSpatial & Time Series Combination
+
+`Placeholder text`
+
+#### Feature Count vs. Sample Size
 
 `Placeholder text`
 
-### GeoSpatial & Time Series Combination
+### Feature Selection and Preprocessing
 
-`Placeholder text`
+#### Lasso Analysis
 
-### Feature Count vs. Sample Size
+Lasso @Josh
 
-`Placeholder text`
+#### Principle Components
+
+PCA @Hugo
+
+Principle component analysis captured ~90% of dataset variability contained within 16 covariates.
 
 ## ML Technologies of Interest
 
@@ -245,10 +259,6 @@ Project data originated from a diverse background of quick
 `Placeholder text`
 
 ## Model Build, Test, and Analysis (rename header?)
-
-### Feature Selection
-
-Lasso @Josh
 
 ### Baseline Results - MLP
 
