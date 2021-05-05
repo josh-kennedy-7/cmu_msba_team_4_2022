@@ -312,7 +312,7 @@ Principle component analysis captured ~90% of dataset variability contained with
 - Limit possibility that network is being trained on the macro trends
 - Failure - implementation too complex, unable to validate true behavior or implement well enough to attempt meta-parameter opimization
 
-
+Known data seasonality and the success of the first LSTM inspired a secondary LSTM approach. Data was restricted to multiple batches of 12-period sequences
 
 ### Temporal Fusion Transformer (TFT)
 
@@ -333,7 +333,7 @@ PyTorch Forecasting's Disadvantages Included:
 
 The Temporal Fusion Transformer is a recently introduced neural network architecture that combines elements of recurrent and convolutional neural nets. [#TODO CITE PAPER HERE]
 
-![pic1]()
+![pic1](images/model_results_tft_diagram_frompaper.png)
 **Fig. n** - #TODO: Place Image *TFT Architecture*[CITE PAPER]
 
 Its advantages include:
@@ -344,12 +344,12 @@ Its advantages include:
 
 TFT implementation used example code from PyTorch Forecasting libraries. Experimental forecasting horizons included 1, 2, 4, and 60 periods (months). Experimental maximum sequence lengths included 6, 12, 20, 24, and 60 periods (months). Training and Validation data were split by witholding the most recent forecasting horizon from the data set (e.g. the last 4 months) and then training on random sequence length selections within the earlier data.
 
-![pic1]()
+![pic1](images/model_results_tft_output_4ahead.png)
 **Fig. n** - #TODO: Place Image *TFT Results 4 period*
 
 As typical with forecasting neural networks accuracy suffered as a strong function of forecast horizon and generally improved when allowed to train on greater sequence lengths.
 
-![pic1]()
+![pic1](images/model_results_tft_output_1ahead.png)
 **Fig. n** - #TODO: Place Image *TFT Results 1 period*
 
 TFT implementation was not robust and hard to validate. True implementation would require examination of Pytorch Forecasting's libraries to prove faithful representation. Additionally, as tested the TFT's accuracy was highly dependent on hyper-parameters. No decomposition or normalization was performed on TFT inputs in order to test the claimed integrated variable selection and scaling routines of PyTorch Forecasting. The TFT's capability to schedule certain weights by "grouping" categories of inputs was not tested.
