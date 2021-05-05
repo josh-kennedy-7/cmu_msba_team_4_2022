@@ -21,7 +21,7 @@ Josh Kennedy - jtkenned@tepper.cmu.edu <br>
 Reed Abraham - aaabraha@tepper.cmu.edu <br>
 Roopa Bharadwaj - rbharadw@tepper.cmu.edu
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/josh-kennedy-7/cmu_msba_team_4_2022](https://github.com/josh-kennedy-7/cmu_msba_team_4_2022)
 
 
 
