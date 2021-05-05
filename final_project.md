@@ -97,7 +97,7 @@ These components combine in some way to provide the observed time series. For ex
 
 ### Automatic Time Series Decomposition
 
-Statsmodel python library provides a function seasonal_compose() to automatically decompose a time series. We use additive model as our quick peek at the time series shows linear trend and seasonality.
+Statsmodel python library provides a function seasonal_compose() to automatically decompose a time series. We used additive model as our quick peek at the time series shows linear trend and seasonality.
 
 ![pic1](images/roopa1.png)
 **Fig. 1** - *Automatic Time Series Decomposition*
@@ -131,9 +131,9 @@ With a p value of 0.23, we apply methods to make our target series stationary li
 
 ### Methods for Time Series Forecasting
 
-"There are many methods that we could have used for time series forecasting and there is not a clear winner. Model selection depended on how the data looked. Some models were more robust against outliers but performed worse than the more sensible.
+"There are many methods that we could have used for time series forecasting and there is not a clear winner. Model selection depended on how the data looked. Some models were more robust against outliers but performed worse than the more sensible ones.
 
-When looking at your data the main split is whether we have extra regressors (features) to our time series or just the series. Based on this we can start exploring different methods for forecasting and their performance in different metrics."[[7]](#7)
+When looking at our data the main split was whether we had extra regressors (features) to our time series or just the series. Based on this we started exploring different methods for forecasting and their performance in different metrics."[[7]](#7)
 
 We split our data into test training sets having 85 months of training data and 36 months of testing data.
 
@@ -145,7 +145,7 @@ In this section we will focus on time series forecasting methods capable of only
 * Autoregressive integrated moving average (ARIMA)
 * Seasonal Autoregressive moving average (SARIMA)
 
-"In an Auto Regressive model the forecasts correspond to a linear combination of past values of the variable. In a Moving Average model, the forecasts correspond to a linear combination of past forecast errors.
+"In an Auto Regressive model, the forecasts correspond to a linear combination of past values of the variable. In a Moving Average model, the forecasts correspond to a linear combination of past forecast errors.
 
 Basically, the ARIMA models combine these two approaches. Since they require the time series to be stationary, differencing (Integrating) the time series was a necessary step i.e. considering the time series of the differences instead of the original one.
 
@@ -195,7 +195,7 @@ Therefore, a Random Forest model does not scale very well for time-series data a
 Answering questions like “What would the price of SkipJack Tuna be for next Year?” becomes really difficult when using Random Forests.
 ### Conclusions
 
-Fitting a Linear Model or a Neural Net, in this case, might be sufficient to predict data which has an increasing or decreasing trends. 
+Fitting a Linear Model or a Neural Net, in this case, might be sufficient to predict data which has increasing or decreasing trends. 
 ## Model Selection and ML Thought Process
 @Reed
 #### Data Characteristics / Input Generation
