@@ -1,7 +1,7 @@
 # Are International Tuna Prices Impacted by Environmental Variables? <br>
-*Hugo Cesar Camou Campoy, Josh Kennedy, Reed Abraham, Roopa Bharadwaj*
-Machine Learning for Business Applications 1
-Tepper School of Business, Carnegie Mellon University
+*Hugo Cesar Camou Campoy, Josh Kennedy, Reed Abraham, Roopa Bharadwaj* <br>
+Machine Learning for Business Applications 1 <br>
+Tepper School of Business, Carnegie Mellon University <br>
 May 5, 2021
 
 The aim of this project is to predict international prices of skipjack tuna given a series of environmental and economic factors.
