@@ -214,11 +214,11 @@ Fitting a Linear Model or a Neural Net, in this case, might be sufficient to pre
 
 ### Data Characteristics
 
-#TODO: Write the summary
-
 #### Non-Uniform Data length
 
-Climate data generally had a longer total history than market data. 
+Climate data generally had a longer total history than market data. Market data itself had an inconsistent total history due to the diversity of sources.
+
+To simplify model implementation the basic data set was truncated at the minimum history length. Techniques such as padding or multi modality were not investigated due to time constaints, but would be a logical next step.
 
 #### High Colinearity
 
@@ -410,7 +410,9 @@ Pricing projection based on diverse inputs is an area of research interest. Give
 
 #### Multi Modal Neural Networks
 
-#TODO write this part blah blah blah data fusion blah blah diverse information inputs etc.
+This project would be well suited to apply a multi modal neural network. The diversity of data sources in length and general characteristics (geospatial vs. abstract) mean there are probably advantages towards separately applying a variety of neural networks to different sources of the data.
+
+
 
 #### Spherical Convolutional Neural Networks
 
@@ -488,6 +490,29 @@ https://medium.datadriveninvestor.com/why-wont-time-series-data-and-random-fores
 
 > [[6]](#6)Jason Browniee, “How to Decompose Time Series Data into Trend and Seasonality”
 https://machinelearningmastery.com/decompose-time-series-data-trend-seasonality/
+
+
+### REED PAPER SCRATCHPAD (#TODO: Fix this)
+
+> Jing Gao, Peng Li, Zhikui Chen, Jianing Zhang; "A Survey on Deep Learning for Multimodal Data Fusion." Neural Comput 2020; 32 (5): 829–864. doi:
+https://direct.mit.edu/neco/article/32/5/829/95591/A-Survey-on-Deep-Learning-for-Multimodal-Data
+
+> DeepSphere: Efficient spherical Convolutional Neural Network with HEALPix sampling for cosmological applications
+https://arxiv.org/abs/1810.12186
+
+> Deep Learning for Spatio - Temporal Data Mining: A Survey
+https://arxiv.org/pdf/1906.04928.pdf
+
+> Spherical CNNs
+https://openreview.net/pdf?id=Hkbd5xZRb
+
+> PyTorch Lightning
+https://pytorch-lightning.readthedocs.io/en/latest/
+
+> PyTorch Forecasting
+https://pytorch-forecasting.readthedocs.io/en/latest/index.html
+
+
 
 ## Source Code
 
