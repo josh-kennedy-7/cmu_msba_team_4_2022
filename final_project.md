@@ -38,7 +38,7 @@ This is aggravated by a lack of international coordination: there is not one sin
 
 The Inter-American-Tropical-Tuna-Commission (IATTC), Western & Central Pacific Fisheries Commission (WCPFC), and the Commission for the Conservation of Southern Bluefin Tuna (CCSBT) establish the norms for the catch, sometimes with overlap in the areas. Even in a regional scale, lack of coordination is evident: in this year, the IATTC did not establish international catch quotas for the eastern Pacific, after its members failed to reach consensus . An accurate and unbiased prediction of prices, paired with other environmental and production models can provide the confidence to work on a global context, and the necessary context to determine the optimal regulatory framework.
 
-Price prediction for commodities in general and food supplies in particular is a topic of common interest. Academic research has intensively proposed price and production (catch) prediction models using traditional statistical analysis [[1]](#1), financial valuation approaches [[2]](#2), random forests and vector machines [[3]](#3), and machine learning [[4]](#4) with different degrees of success. Currently, no method or model is universally accepted as a reliable and standard predictor.
+Price prediction for commodities in general and food supplies in particular is a topic of common interest. Academic research has intensively proposed price and production (catch) prediction models using traditional statistical analysis [[4]](#4), financial valuation approaches [[5]](#5), random forests and vector machines [[6]](#6), and machine learning [[7]](#7) with different degrees of success. Currently, no method or model is universally accepted as a reliable and standard predictor.
 
 
 Machine Learning is an adequate tool to develop a pricing model, and can potentially surpass the prediction accuracy of other methods. Traditional statistical analysis relies on the assumption of invariability in time, which does not hold in the tuna industry context. Juvenile depletion caused by excess catches, global warming effects on the life cycle of tuna, and changes in food consumption preferences can all impact pricing. A machine learning model can deal with these circumstances by continuously getting new information and updating its predictions automatically. In this way, an ML model can remain current for the next prediction horizon.
@@ -108,12 +108,11 @@ All of these sources were filtered and joined together via a [custom Python data
 @Reed
 
 ### Data Characteristics
-Summary statistics & context for Skipjack Tuna can be found below: <br>
+Summary statistics & context for Skipjack Tuna can be found below:
 
-<img src="images/tuna_statistics.png" alt="drawing" width="400" style="float:left"> <br>
+<img src="images/tuna_statistics.png" alt="drawing" width="400" style="float:left"><br>
 
-<img src="images/tuna_price_over_time.png" alt="drawing" width="800" style="float:left">
-
+<img src="images/tuna_price_over_time.png" alt="drawing" width="800" style="float:left"><br>
 
 #### Non-Uniform Data length
 
@@ -125,14 +124,14 @@ To simplify model implementation the basic data set was truncated at the minimum
 
 Heterogenous data sources and a "more-is-better" collection approach yielded an initial dataset with high colinearity.
 
-<img src="images/colinearity_example.png" alt="drawing" width="400"/>
+<img src="images/colinearity_example.png" alt="drawing" width="400"/><br>
 **Fig. n** - *Subset of data graphically representing colinarity.*
 
 All climate data included multiple statistics for each time step. Economic data included common metrics such as maximums, minimums, and variances within the reporting period. While useful for human analysis it is unlikely many of these fields contributed meaningfully to our models. This was quantified through variable selection methods and dimensionality reduction attempts.
 
 #### Feature Count vs. Sample Size
 
-Clipping the data at the minimum available length yielded 121 months of data versus 482 covariates targeting a single output variable (the monthly price of skipjack tuna). A 4 to 1 covariate to history length is unfavorable (**#TODO find some citation on recommended data length**) for deep learning applications.
+Clipping the data at the minimum available length yielded 121 months of data versus 430 covariates targeting a single output variable (the monthly price of skipjack tuna). A 4 to 1 covariate to history length is unfavorable (**#TODO find some citation on recommended data length**) for deep learning applications.
 
 The width vs. depth of our data points to a set of preliminary directions:
 
