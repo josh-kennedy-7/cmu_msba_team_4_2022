@@ -34,7 +34,7 @@ May 5, 2021
 
 International and local efforts are crucial to guarantee the balance between the sustainability of the catch and the worth of the industry. Tuna is most consumed fish and the second most important fish by wild capture in the world (with 5.2 million metric tons in 2018 ), and the industry around it contributes more that 40 billion dollars to the global economy per year. Even when the catch has been increasing year after year, tuna prices have plummeted since 2012 , destroying in the process 1.8 billion dollars in value, not to mention that the increased catch threatens the sustainability of the activity.
 
-This is aggravated by a lack of international coordination: there is not one single sanctioning body that concentrates efforts on a global context. For example, in the Pacific Ocean, the fastest growth and main producing region of tuna, three different international associations 
+This is aggravated by a lack of international coordination: there is not one single sanctioning body that concentrates efforts on a global context. For example, in the Pacific Ocean, the fastest growth and main producing region of tuna, three different international associations (IATTC[[1]](#1), WCPFC[[2]](#2) and the CCSBT[[3]](#3)) establish the norms for the catch, sometimes with overlap in the areas. Even in a regional scale, lack of coordination is evident: in this year, the IATTC did not establish international catch quotas for the eastern Pacific, after its members failed to reach consensus . An accurate and unbiased prediction of prices, paired with other environmental and production models can provide the confidence to work on a global scale, and the necessary context to determine the optimal regulatory framework.
 
 The Inter-American-Tropical-Tuna-Commission (IATTC), Western & Central Pacific Fisheries Commission (WCPFC), and the Commission for the Conservation of Southern Bluefin Tuna (CCSBT) establish the norms for the catch, sometimes with overlap in the areas. Even in a regional scale, lack of coordination is evident: in this year, the IATTC did not establish international catch quotas for the eastern Pacific, after its members failed to reach consensus . An accurate and unbiased prediction of prices, paired with other environmental and production models can provide the confidence to work on a global context, and the necessary context to determine the optimal regulatory framework.
 
@@ -165,15 +165,11 @@ Temporal characteristics were maintained and explored both through use of networ
 Since we began with 433 features with unknown, but certain, relationships, we knew that feature selection would be important to our model. Building a correlation matrix, we can easily see certain elements that would detract from the model (see figure X for colinearity example). By implementing a Ridge regression for regularization, we are able to identify 210 features that could be removed from the data.
 > Inspiration and methodology from Akash Dubey
 
-#### Principle Components
+#### Principal Components
 
-PCA @Hugo
+PCA was another method used for parameter selection. The number of features not only was big when compared to the number of examples, but also had redundant information. This allowed to compress the information these covariates provided and reduce them to 16 while only losing 21% of the explained variability. This also provided the oportunity to include new covariates that could potentially add to the predictability of the model without the concern of the number of features.
 
-**#TODO: consider moving several sections from the LeNet preprocessing up here**
-
-Principle component analysis captured ~90% of dataset variability contained within 16 covariates.
-
-**#TODO: We will probably need a good reason why not all of our models used this preprocessing**
+PCA was effective as a selector of the best variables for the model, but it came on a late phase on our experimentation. Some earlier models that had experienced a poor performance without pre-processing improved once PCA covariate selection was included. However, due to time constraints its inclusion was not exhaustive to all of the experiment branches that were developed.
 
 ## Linear Forecasting Baseline
 
@@ -341,7 +337,7 @@ The problem was transformed from a continuous to a discrete output to try to imp
 The dispersion and range of prices within any given training and testing set was very similar so to avoid recalculating the buckets on each trial the whole set was used. Since the dataset was shuffled, the risk of bias remained very low, however other temporality concerns arose (to be discussed later in the report).
 **#TODO: Sounds like a good candidate to be elaborated upon in the data description lead up**
 
-In the price bucket variety classification accuracy decreased as the number of buckets increased. At the same time an estimated RMSE loss was reduced. The estimated RMSE was based on the difference of the averages of the buckets instead of the difference of the average of the bucket and the actual price making the estimated RMSE lower that the actual RMSE. This can be seen in the following confusion matrix:
+In the price bucket variety classification accuracy decreased as the number of buckets increased. At the same time an estimated RMSE loss was reduced. The estimated RMSE was based on the difference of the averages of the buckets instead of the difference of the average of the bucket and the actual price, making the estimated RMSE lower that the actual RMSE. This can be seen in the following confusion matrix:
 
 ![pic1](images/ConfusionMatrixB5.png)
 
@@ -434,7 +430,7 @@ The Temporal Fusion Transformer is a recently introduced neural network architec
 
 ![pic1](images/model_results_tft_diagram_frompaper.png)
 
-**Fig. n** - : *TFT Architecture* [#TODO: Cite Tft Paper]
+**Fig. n** - : *TFT Architecture* [[27]](#27)
 
 TFT advantages include:
 
@@ -456,7 +452,7 @@ As typical with forecasting neural networks accuracy suffered as a strong functi
 
 **Fig. n** - *TFT Results Predicting Ahead 1 Period Using 23 Previous*
 
-TFT implementation was not robust and hard to validate and evaluate. Use of the single, latest time period for validation **#TODO: Complete this thought Reed*
+TFT implementation was not robust and hard to validate and evaluate. Use of the single, latest time period for validation offered limited insights into TFT prediction capabilities. Attempts to create additional validation points were difficult within the module architecture and would require more time.
 
 True implementation would require examination of Pytorch Forecasting's libraries to prove faithful representation of the design. Additionally the TFT's tested accuracy was highly dependent on hyper-parameters. No decomposition or normalization was performed on TFT inputs in order to test the claimed integrated variable selection and scaling routines of PyTorch Forecasting. The TFT's capability to schedule certain weights by defining "categories" of inputs was not tested.
 
@@ -488,14 +484,45 @@ There are several examples of CNN input structures modified for spherical geomet
 
 ## Summary
 
+### Tabulated Results
+| Model | RMSE | Remarks |
+|-|-|-|
+| Best Linear Time-series |  | XGBoost |
+| Flat MLP | 1.4e4 | Bad |
+| Categorical CNN |  | Converged to Continuous |
+| MLP + Harmonics |  |  |
+| LSTM, Conventional |  |  |
+| LSTM, Rotating | N/A | Never converged |
+| TFT, 1-Ahead |  | Module code unverified |
+
+### Remarks
+
 - Overall broad summary (how does this relate back to the problem space?
 - Broad findings
 - How can this be used in the real world?
 
+### Conclusions
+
 ## References and Citations
 
 ### Introduction
-> <a id="1">[1]</a> Onour, Ibrahim and Sergi, Bruno, Modeling and forecasting volatility in the global food commodity prices (January 1, 2011)
+### Industry References and Definitions
+> <a id="1">[1]</a> Inter-American Tropical Tuna Commission, https://www.iattc.org/
+
+> <a id="2">[2]</a> Western and Central Pacific Fisheries Commission, https://www.wcpfc.int/
+
+> <a id="3">[3]</a> Commission for the Conservation of Southern Bluefin Tuna, https://www.ccsbt.org/
+
+> <a id="4">[4]</a> Onour, Ibrahim and Sergi, Bruno, Modeling and forecasting volatility in the global food commodity prices (January 1, 2011)
+
+> <a id="5">[5]</a> Chen, Yu-Chin and Rogoff, Kenneth S. and Rossi, Barbara, Predicting Agri-Commodity Prices: An Asset Pricing Approach [May 10, 2010].
+
+> <a id="6">[6]</a> Dabin Zhang, Shanyin Cheng, Liwen Ling and Qiang Xia, Forecasting Agricultural Commodity Prices Using Model Selection Framework With Time Series Features and Forecast Horizons [February 4, 2020].
+
+> <a id="7">[7]</a> Jabez Harris, A Machine Learning Approach to Forecasting Consumer Food Prices [August 2017].
+
+
+### 3rd Party Python Packages, Methodology, & Functions
 
 > <a id="2">[2]</a> Chen, Yu-Chin and Rogoff, Kenneth S. and Rossi, Barbara, Predicting Agri-Commodity Prices: An Asset Pricing Approach (May 10, 2010)
 
