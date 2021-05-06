@@ -86,17 +86,13 @@ Federal Reserve Economic Data (FRED) provided a number of datasets related to co
 
 As a result of the available data, the majority of our model inputs are monthly aggregations of environmental factors. A detailed summary of the various inputs can be found here:
 
-**NOAA:** Monthly land-ocean temperature datasets were compiled via ASCII Time Series Data Access. [[5]](#5)
-> https://www.ncdc.noaa.gov/noaa-merged-land-ocean-global-surface-temperature-analysis-noaaglobaltemp-v5
+**Copernicus:** Our broad Monthly Sea Dataset was compiled via the "Climate Data Store" in GRIB format. We then used the Pygrib package to extract, transform, and join to our NOAA dataset. [[5]](#5)
 
-**Copernicus:** Our broad Monthly Sea Dataset was compiled via the "Climate Data Store" in GRIB format. We then used the Pygrib package to extract, transform, and join to our NOAA dataset. [[6]](#6)
-> https://cds.climate.copernicus.eu/cdsapp#!/home
+**NOAA:** Monthly land-ocean temperature datasets were compiled via ASCII Time Series Data Access. [[6]](#6)
 
 **NSIDC:** Our Monthly Sea Ice Dataset was compiled via FTP. [[7]](#7)
-> https://nsidc.org/data/g02135
 
 **FRED:** A number of features were collected from FRED. [[8]](#8)
-> https://fred.stlouisfed.org/
 
 - Seafood Product Preparation & Packaging Producer Price Index [[9]](#9)
 - Fish and Seafood Markets Producer Price Index [[10]](#10)
@@ -104,7 +100,7 @@ As a result of the available data, the majority of our model inputs are monthly 
 - Global Shrimp Price Index [[12]](#12)
 - U.S. Fish & Shellfish Import/Export Price Indices [[13]](#13)
 
-All of these sources were filtered and joined together via custom Python E/T job.
+[All of these sources were filtered and joined together via custom Python E/T job.](https://github.com/josh-kennedy-7/cmu_msba_team_4_2022/blob/main/data/dataset_clean_generate_script.py)
 
 **#TODO Debate merits of swapped data section up here**
 ## Data Characteristics and Input Considerations
