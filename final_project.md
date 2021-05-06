@@ -32,7 +32,7 @@ May 5, 2021
 
 ## Introduction & Overview
 
-International and local efforts are crucial to guarantee the balance between the sustainability of the catch and the worth of the industry. Tuna is most consumed fish and the second most important fish by wild capture in the world (with 5.2 million metric tons in 2018 ), and the industry around it contributes more that 40 billion dollars to the global economy per year. Even when the catch has been increasing year after year, tuna prices have plummeted since 2012 , destroying in the process 1.8 billion dollars in value, not to mention that the increased catch threatens the sustainability of the activity.
+International and local efforts are crucial to guarantee the balance between the sustainability of the catch and the worth of the industry. Tuna is most consumed fish and the second most important fish by wild capture in the world (with 5.2 million metric tons in 2018 ), and the industry around it contributes more that 40 billion dollars to the global economy per year. Even when the catch has been increasing year after year, tuna prices have plummeted since 2012 (down ~48%) [[100]](#100), destroying in the process 1.8 billion dollars in value, not to mention that the increased catch threatens the sustainability of the activity.
 
 This is aggravated by a lack of international coordination: there is not one single sanctioning body that concentrates efforts on a global context. For example, in the Pacific Ocean, the fastest growth and main producing region of tuna, three different international associations (IATTC[[1]](#1), WCPFC[[2]](#2) and the CCSBT[[3]](#3)) establish the norms for the catch, sometimes with overlap in the areas. Even in a regional scale, lack of coordination is evident: in this year, the IATTC did not establish international catch quotas for the eastern Pacific, after its members failed to reach consensus . An accurate and unbiased prediction of prices, paired with other environmental and production models can provide the confidence to work on a global scale, and the necessary context to determine the optimal regulatory framework.
 
@@ -78,13 +78,7 @@ The data collection process was designed for agnosticism to biases towards assum
 
 In practice, much of the tuna & fishing specific data was found to be proprietary and sparse. Available fishing data was dispersed across each government's networks and there was no global organization to consolidate and distribute the data.
 
-The richest datasets were related to environmental factors. The National Oceanic and Atmospheric Administration (NOAA) provides robust datasets related to temperatures. The European Commission funds a "Climate Data Store" (Copernicus) that provides a wealth of data.
-
-Federal Reserve Economic Data (FRED) provided a number of datasets related to commercial & economic data.
-
-## Model Data Sources
-
-As a result of the available data, the majority of our model inputs are monthly aggregations of environmental factors. A detailed summary of the various inputs can be found here:
+The richest datasets were related to environmental factors. The National Oceanic and Atmospheric Administration (NOAA) provides robust datasets related to temperatures. The European Commission funds a "Climate Data Store" (Copernicus) that provides a wealth of data. Federal Reserve Economic Data (FRED) provided a number of datasets related to commercial & economic data. As a result of the available data, the majority of our model inputs are monthly aggregations of environmental factors. A detailed summary of the various inputs can be found here:
 
 **Copernicus:** Our broad Monthly Sea Dataset was compiled via the "Climate Data Store" in GRIB format. We then used the Pygrib package to extract, transform, and join to our NOAA dataset. [[5]](#5)
 
@@ -516,6 +510,8 @@ Flattening the data and hoping for the best led to performance worse than tradit
 
 
 > <a id="14">[14]</a> International Monetary Fund, Global price of Shrimp [PSHRIUSDM], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PSHRIUSDM, May 2, 2021.
+
+> <a id="100">[100]</a> Thai Union, Monthly Frozen (Whole) Skipjack Tuna Raw Material Prices; https://investor.thaiunion.com/raw_material.html, May 2, 2021.
 
 ### 3rd Party Python Packages, Methodology, & Functions
 
