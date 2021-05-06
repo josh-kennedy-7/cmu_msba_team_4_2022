@@ -527,9 +527,6 @@ Flattening the data and hoping for the best led to performance worse than tradit
 
 > <a id="17">[17]</a> Jason Brownlee. "Time Series Forecasting with the Long Short-Term Memory Network in Python", 
 <https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/
-
-> [[1]](#1) Yann Le Cun, Léon Bottou, Yoshua Bengio, and Patrick Haffner, Gradient-Based Learning Applied to Document Recognition, IEEE [November 1998]. 
-
 ### Time Series Citations
 
 > <a id="18">[18]</a> Davide Bruba. "An overview of time series forecasting models", 
@@ -552,7 +549,7 @@ https://machinelearningmastery.com/decompose-time-series-data-trend-seasonality/
 
 ### Model Development Citations
 
-> <a id="24">[24]</a> Reserved LENET PAPER
+> <a id="24">[24]</a> Yann Le Cun, Léon Bottou, Yoshua Bengio, and Patrick Haffner, Gradient-Based Learning Applied to Document Recognition, IEEE [November 1998]
 
 > <a id="25">[25]</a> PyTorch Lightning
 https://pytorch-lightning.readthedocs.io/en/latest/
@@ -560,7 +557,8 @@ https://pytorch-lightning.readthedocs.io/en/latest/
 > <a id="26">[26]</a> PyTorch Forecasting
 https://pytorch-forecasting.readthedocs.io/en/latest/index.html
 
-> <a id="27">[27]</a> Reserved for TFT Paper
+> <a id="27">[27]</a> Bryan Lim, Sercan O. Arik, Nicolas Loeff, Tomas Pfister, "Temporal Fusion Transformers for Interpretable Multi-horizon Time Series Forecasting";
+https://arxiv.org/pdf/1912.09363.pdf
 
 > <a id="28">[28]</a> Jing Gao, Peng Li, Zhikui Chen, Jianing Zhang; "A Survey on Deep Learning for Multimodal Data Fusion." Neural Comput 2020; 32 (5): 829–864. doi:
 https://direct.mit.edu/neco/article/32/5/829/95591/A-Survey-on-Deep-Learning-for-Multimodal-Data
@@ -571,7 +569,7 @@ https://arxiv.org/abs/1810.12186
 > <a id="30">[30]</a> Deep Learning for Spatio - Temporal Data Mining: A Survey
 https://arxiv.org/pdf/1906.04928.pdf
 
-> <a id="31">[31]</a> Spherical CNNs
+> <a id="31">[31]</a> Taco S. Cohen, Mario Geiger, Jonas Köhler, Max Welling: "Spherical CNNs"; ICLR 2018.
 https://openreview.net/pdf?id=Hkbd5xZRb
 
 
