@@ -398,7 +398,7 @@ Geospatial Multi Modal applications in general are an area of active research.[[
 
 The structural information inherent in the climate information based on the data location was ignored for all models in this project. Traditional convolutional neural networks would not capture the structural information appropriately due to the 2-dimensional rectilinear structure of their inputs. For example 180 degrees West would be interpreted as maximum distance from 180 degrees East.
 
-There are several examples of CNN input structures modified for spherical geometry data. [[31]](#31) There are additional examples of spherical CNNs being modified for geospatial data. [[#30]](#29) Optimal modeling of the climate data would include a pass through a spherical CNN.
+There are several examples of CNN input structures modified for spherical geometry data. [[31]](#31) There are additional examples of spherical CNNs being modified for geospatial data. [[30]](#29) Optimal modeling of the climate data would include a pass through a spherical CNN.
 
 ## Results and Summary
 ### Tabulated Results
@@ -428,8 +428,6 @@ Given coursework progress versus the current state-of-the-art of machine learnin
 Based on the success of the Harmonic Input MLP and the Conventional LSTM on an extremely limited timeframe the possibility of using more developed ML techniques to predict skipjack tuna prices seems high.
 
 ## References and Citations
-
-### Introduction
 ### Industry References and Definitions
 > <a id="1">[1]</a> Inter-American Tropical Tuna Commission, https://www.iattc.org/
 
