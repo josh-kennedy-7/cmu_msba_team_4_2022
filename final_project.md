@@ -481,9 +481,24 @@ There are several examples of CNN input structures modified for spherical geomet
 
 ## Summary
 
+### Tabulated Results
+| Model | RMSE | Remarks |
+|-|-|-|
+| Best Linear Time-series |  | XGBoost |
+| Flat MLP | 1.4e4 | Bad |
+| Categorical CNN |  | Converged to Continuous |
+| MLP + Harmonics |  |  |
+| LSTM, Conventional |  |  |
+| LSTM, Rotating | N/A | Never converged |
+| TFT, 1-Ahead |  | Module code unverified |
+
+### Remarks
+
 - Overall broad summary (how does this relate back to the problem space?
 - Broad findings
 - How can this be used in the real world?
+
+### Conclusions
 
 ## References and Citations
 
