@@ -36,12 +36,9 @@ International and local efforts are crucial to guarantee the balance between the
 
 This is aggravated by a lack of international coordination: there is not one single sanctioning body that concentrates efforts on a global context. For example, in the Pacific Ocean, the fastest growth and main producing region of tuna, three different international associations 
 
-**#TODO: Should we define these acronyms?** 
+(IATTC[[1]](#1), WCPFC[[2]](#2) and the CCSBT[[3]](#3)) establish the norms for the catch, sometimes with overlap in the areas. Even in a regional scale, lack of coordination is evident: in this year, the IATTC did not establish international catch quotas for the eastern Pacific, after its members failed to reach consensus . An accurate and unbiased prediction of prices, paired with other environmental and production models can provide the confidence to work on a global context, and the necessary context to determine the optimal regulatory framework.
 
-(IATTC , WCPFC and the CCSBT ) establish the norms for the catch, sometimes with overlap in the areas. Even in a regional scale, lack of coordination is evident: in this year, the IATTC did not establish international catch quotas for the eastern Pacific, after its members failed to reach consensus . An accurate and unbiased prediction of prices, paired with other environmental and production models can provide the confidence to work on a global context, and the necessary context to determine the optimal regulatory framework.
-
-Price prediction for commodities in general and food supplies in particular is a topic of common interest. Academic research has intensively proposed price and production (catch) prediction models using traditional statistical analysis [[1]](#1), financial valuation approaches [[2]](#2), random forests and vector machines [[3]](#3), and machine learning [[4]](#4) with different degrees of success. Currently, no method or model is universally accepted as a reliable and standard predictor.
-
+Price prediction for commodities in general and food supplies in particular is a topic of common interest. Academic research has intensively proposed price and production (catch) prediction models using traditional statistical analysis [[4]](#4), financial valuation approaches [[5]](#5), random forests and vector machines [[6]](#6), and machine learning [[7]](#7) with different degrees of success. Currently, no method or model is universally accepted as a reliable and standard predictor.
 
 Machine Learning is an adequate tool to develop a pricing model, and can potentially surpass the prediction accuracy of other methods. Traditional statistical analysis relies on the assumption of invariability in time, which does not hold in the tuna industry context. Juvenile depletion caused by excess catches, global warming effects on the life cycle of tuna, and changes in food consumption preferences can all impact pricing. A machine learning model can deal with these circumstances by continuously getting new information and updating its predictions automatically. In this way, an ML model can remain current for the next prediction horizon.
 
@@ -497,6 +494,25 @@ There are several examples of CNN input structures modified for spherical geomet
 
 ### Introduction
 > <a id="1">[1]</a> Onour, Ibrahim and Sergi, Bruno, Modeling and forecasting volatility in the global food commodity prices (January 1, 2011)
+### Industry References and Definitions
+> [[1]](#1) Inter-American Tropical Tuna Commission, https://www.iattc.org/
+
+> [[2]](#2) Western and Central Pacific Fisheries Commission, https://www.wcpfc.int/
+
+> [[3]](#3) Commission for the Conservation of Southern Bluefin Tuna, https://www.ccsbt.org/
+
+> [[4]](#4) Onour, Ibrahim and Sergi, Bruno, Modeling and forecasting volatility in the global food commodity prices [January 1, 2011].
+
+> [[5]](#5) Chen, Yu-Chin and Rogoff, Kenneth S. and Rossi, Barbara, Predicting Agri-Commodity Prices: An Asset Pricing Approach [May 10, 2010].
+
+> [[6]](#6) Dabin Zhang, Shanyin Cheng, Liwen Ling and Qiang Xia, Forecasting Agricultural Commodity Prices Using Model Selection Framework With Time Series Features and Forecast Horizons [February 4, 2020].
+
+> [[7]](#7) Jabez Harris, A Machine Learning Approach to Forecasting Consumer Food Prices [August 2017].
+
+
+### 3rd Party Python Packages, Methodology, & Functions
+
+> [[7]](#7) Jaime Ferrando Huertas, https://github.com/jiwidi/time-series-forecasting-with-python
 
 > <a id="2">[2]</a> Chen, Yu-Chin and Rogoff, Kenneth S. and Rossi, Barbara, Predicting Agri-Commodity Prices: An Asset Pricing Approach (May 10, 2010)
 
