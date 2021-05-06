@@ -256,26 +256,28 @@ The following plots show the predictions on or 36 months test data by using Auto
 ![pic1](images/roopa5.png)
 **Fig. 5** -*Seasonal Autoregressive Integrated Moving-Average (SARIMA) model*
 
+Both models did a decent job of predicting on the validation set.
+
 #### Multivariate Time Series Analysis
 
-Random Forest and XGBoost multivariate methods were also applied to the data to assess performance.
-
+In order to better understand and use the relationship between several variables and for describing the dynamic behavior of the data for better forecasting results, we also tried some multivariable time series models like Random Forest and XGBoost.
 
 ##### **Random Forest (RF)**
 
-**#TODO: Style choice - are we ok with the direct quote? Generally citations are attached to a relevant paraphrase**
-"Random forest is an ensemble of decision tree algorithms. A number of decision trees are created where each tree is created from a different sample. It can be used for both classification and regression. In our case the final prediction is the average prediction across the decision trees (we used 5)."[[4]](#4)
+A number of decision trees (in our case we used 5) are created where each tree is created from a different sample.
 
 ![pic1](images/roopa6.png)
 **Fig. 6** - *Random Forest model*
 
 ##### **XGBoost**
 
-**#TODO: Style choice - are we ok with the direct quote? Generally citations are attached to a relevant paraphrase**
-"XGBoost (Extreme Gradient Boost) provides a high-performance implementation of gradient boosted decision trees. Rather than training all of the models in isolation of one another like random forest, XG Boost trains models in succession"[[4]](#4)
+Rather than training all of the models in isolation of one another like random forest, we tried an XG Boost model to train models in succession.
 
 ![pic1](images/roopa7.png)
 **Fig. 7** *XGBoost model*
+
+Random Forest/XGBoost at best, can predict an average of previously seen training values. Random Forest/ XG Boost is not providing desired results as it is unable to extrapolate to understand the decreasing trend in our data. Because of this, answering questions like “What would the price of SkipJack Tuna be for next Year?” becomes really difficult when using Random Forests/XG Boost.
+
 ### Evaluation Metrics
 
 There are many measures that can be used to analyze the performance of our prediction so we will be using the top 4 most used metrics for time series forecasting.
@@ -288,16 +290,11 @@ There are many measures that can be used to analyze the performance of our predi
 ![pic1](images/roopa8.png)
 **Fig. 8** - *Result metrics*
 
-**#TODO: Style choice - are we ok with the direct quote? Generally citations are attached to a relevant paraphrase**
-"For any data, that a Random Forest/XGBoost has not seen before, at best, it can predict an average of training values that it has seen before. If the Validation set consists of data points that are greater or less than the training data points, a Random Forest will provide us with Average results as it is not able to Extrapolate and understand the growing/decreasing trend in our data. 
-
-Therefore, a Random Forest model does not scale well for time-series data and might need to be constantly updated in Production or trained with some Random data that lies outside our range of Training set."[[5]](#5)
-
-Answering questions like “What would the price of SkipJack Tuna be for next Year?” becomes really difficult when using Random Forests.
 
 ### Conclusions
 
-Fitting a Linear Model or a Neural Net, in this case, might be sufficient to predict data which has increasing or decreasing trends.
+Although, linear models is a standard method for time series forecasting, it is hard to model nonlinear relationship using them. We have ensured we have exhausted classical time series forecating methods nonetheless, to test our forecasting problem prior to exploring machine larning methods. Other techniques of forecasting like Neural Nets overcome some of the limitations of Classical methods. 
+
 
 ## Machine Learning / Deep Learning Model Results
 
