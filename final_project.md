@@ -432,7 +432,7 @@ The Temporal Fusion Transformer is a recently introduced neural network architec
 
 ![pic1](images/model_results_tft_diagram_frompaper.png)
 
-**Fig. n** - : *TFT Architecture* [#TODO: Cite Tft Paper]
+**Fig. n** - : *TFT Architecture* [[27]](#27)
 
 TFT advantages include:
 
@@ -454,7 +454,7 @@ As typical with forecasting neural networks accuracy suffered as a strong functi
 
 **Fig. n** - *TFT Results Predicting Ahead 1 Period Using 23 Previous*
 
-TFT implementation was not robust and hard to validate and evaluate. Use of the single, latest time period for validation **#TODO: Complete this thought Reed*
+TFT implementation was not robust and hard to validate and evaluate. Use of the single, latest time period for validation offered limited insights into TFT prediction capabilities. Attempts to create additional validation points were difficult within the module architecture and would require more time.
 
 True implementation would require examination of Pytorch Forecasting's libraries to prove faithful representation of the design. Additionally the TFT's tested accuracy was highly dependent on hyper-parameters. No decomposition or normalization was performed on TFT inputs in order to test the claimed integrated variable selection and scaling routines of PyTorch Forecasting. The TFT's capability to schedule certain weights by defining "categories" of inputs was not tested.
 
@@ -493,26 +493,23 @@ There are several examples of CNN input structures modified for spherical geomet
 ## References and Citations
 
 ### Introduction
-> <a id="1">[1]</a> Onour, Ibrahim and Sergi, Bruno, Modeling and forecasting volatility in the global food commodity prices (January 1, 2011)
 ### Industry References and Definitions
-> [[1]](#1) Inter-American Tropical Tuna Commission, https://www.iattc.org/
+> <a id="1">[1]</a> Inter-American Tropical Tuna Commission, https://www.iattc.org/
 
-> [[2]](#2) Western and Central Pacific Fisheries Commission, https://www.wcpfc.int/
+> <a id="2">[2]</a> Western and Central Pacific Fisheries Commission, https://www.wcpfc.int/
 
-> [[3]](#3) Commission for the Conservation of Southern Bluefin Tuna, https://www.ccsbt.org/
+> <a id="3">[3]</a> Commission for the Conservation of Southern Bluefin Tuna, https://www.ccsbt.org/
 
-> [[4]](#4) Onour, Ibrahim and Sergi, Bruno, Modeling and forecasting volatility in the global food commodity prices [January 1, 2011].
+> <a id="4">[4]</a> Onour, Ibrahim and Sergi, Bruno, Modeling and forecasting volatility in the global food commodity prices (January 1, 2011)
 
-> [[5]](#5) Chen, Yu-Chin and Rogoff, Kenneth S. and Rossi, Barbara, Predicting Agri-Commodity Prices: An Asset Pricing Approach [May 10, 2010].
+> <a id="5">[5]</a> Chen, Yu-Chin and Rogoff, Kenneth S. and Rossi, Barbara, Predicting Agri-Commodity Prices: An Asset Pricing Approach [May 10, 2010].
 
-> [[6]](#6) Dabin Zhang, Shanyin Cheng, Liwen Ling and Qiang Xia, Forecasting Agricultural Commodity Prices Using Model Selection Framework With Time Series Features and Forecast Horizons [February 4, 2020].
+> <a id="6">[6]</a> Dabin Zhang, Shanyin Cheng, Liwen Ling and Qiang Xia, Forecasting Agricultural Commodity Prices Using Model Selection Framework With Time Series Features and Forecast Horizons [February 4, 2020].
 
-> [[7]](#7) Jabez Harris, A Machine Learning Approach to Forecasting Consumer Food Prices [August 2017].
+> <a id="7">[7]</a> Jabez Harris, A Machine Learning Approach to Forecasting Consumer Food Prices [August 2017].
 
 
 ### 3rd Party Python Packages, Methodology, & Functions
-
-> [[7]](#7) Jaime Ferrando Huertas, https://github.com/jiwidi/time-series-forecasting-with-python
 
 > <a id="2">[2]</a> Chen, Yu-Chin and Rogoff, Kenneth S. and Rossi, Barbara, Predicting Agri-Commodity Prices: An Asset Pricing Approach (May 10, 2010)
 
