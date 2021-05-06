@@ -357,8 +357,7 @@ Finally, since trials were made shuffling the whole set, the model was filling v
 **#TODO: Should we rename this since it's not actually leNet?**
 ### LeNet Adaptation
 
-**#TODO: Feature number consistency, how many do we actually have?**
-A challenge to train with the available data was that the number of features (484) was greater than the number of examples (121). Furthermore, the existing number of features did not show sufficient explanatory power in previous models. To deal with this, four different alternatives were explored, and those that were successful were merged into a model:
+A challenge to train with the available data was that the number of features (430) was greater than the number of examples (121). Furthermore, the existing number of features did not show sufficient explanatory power in previous models. To deal with this, four different alternatives were explored, and those that were successful were merged into a model:
 
 **#TODO: Should we consider moving this up into the data exploration section and then noting in here that X dataset was used on this model to good effect?**
 #### **Synthetizing new examples to train the model.** 
