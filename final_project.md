@@ -359,7 +359,7 @@ Results were inconclusive as the project ended prior to full implementation.
 
 ### Temporal Fusion Transformer (TFT)
 
-Data complexity led to an investigation of open source libraries and tools designed to perform time series analysis on targets with many covariates. PyTorch Forecasting [#TODO CITE ME], an extension of PyTorch Lightning [#TODO CITE ME] emerged as a candidate for open source application. 
+Data complexity led to an investigation of open source libraries and tools designed to perform time series analysis on targets with many covariates. PyTorch Forecasting [[#TODO CITE: PyTorch Forecasting]], an extension of PyTorch Lightning [#TODO CITE: PyTorch Lightning] emerged as a candidate for open source application. 
 
 PyTorch Forecasting's Advantages Included:
 
@@ -372,11 +372,11 @@ PyTorch Forecasting's Disadvantages Included:
 - Low-visibility into pre-written routines and methods.
 - Coding and structural conventions and practices are time-consuming to learn.
 
-The Temporal Fusion Transformer is a recently introduced neural network architecture that combines elements of recurrent and convolutional neural nets. [#TODO CITE PAPER HERE]
+The Temporal Fusion Transformer is a recently introduced neural network architecture that combines elements of recurrent and convolutional neural nets. [#TODO CITE: Tft Paper]
 
 ![pic1](images/model_results_tft_diagram_frompaper.png)
 
-**Fig. n** - #TODO: Place Image *TFT Architecture*[CITE PAPER]
+**Fig. n** - : *TFT Architecture* [#TODO: Cite Tft Paper]
 
 Its advantages include:
 
@@ -390,13 +390,13 @@ The TFT's recurrent block was analyzed using a hyper-parameter optimizer. Hidden
 
 ![pic1](images/model_results_tft_output_4ahead.png)
 
-**Fig. n** - #TODO: Place Image *TFT Results 4 period*
+**Fig. n** - *TFT Results Predicting Ahead 4 Periods Using 20 Previous*
 
 As typical with forecasting neural networks accuracy suffered as a strong function of forecast horizon and generally improved when allowed to train on greater sequence lengths.
 
 ![pic1](images/model_results_tft_output_1ahead.png)
 
-**Fig. n** - #TODO: Place Image *TFT Results 1 period*
+**Fig. n** - *TFT Results Predicting Ahead 1 Period Using 23 Previous*
 
 TFT implementation was not robust and hard to validate and evaluate. Use of the single, latest time period for validation
 
@@ -412,7 +412,7 @@ Pricing projection based on diverse inputs is an area of research interest. Give
 
 This project would be well suited to apply a multi modal neural network. The diversity of data sources in length and general characteristics (geospatial vs. abstract) mean there are probably advantages towards separately applying a variety of neural networks to different sources of the data.
 
-
+Geospatial Multi Modal applications in general are an area of active research.
 
 #### Spherical Convolutional Neural Networks
 
