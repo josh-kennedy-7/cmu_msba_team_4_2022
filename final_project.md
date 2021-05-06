@@ -42,15 +42,6 @@ This is aggravated by a lack of international coordination: there is not one sin
 
 Price prediction for commodities in general and food supplies in particular is a topic of common interest. Academic research has intensively proposed price and production (catch) prediction models using traditional statistical analysis [[1]](#1), financial valuation approaches [[2]](#2), random forests and vector machines [[3]](#3), and machine learning [[4]](#4) with different degrees of success. Currently, no method or model is universally accepted as a reliable and standard predictor.
 
-# TODO: Move to citation block
-> [[1]](#1) Onour, Ibrahim and Sergi, Bruno, Modeling and forecasting volatility in the global food commodity prices (January 1, 2011)
-
-> [[2]](#2) Chen, Yu-Chin and Rogoff, Kenneth S. and Rossi, Barbara, Predicting Agri-Commodity Prices: An Asset Pricing Approach (May 10, 2010)
-
-> [[3]](#3) Dabin Zhang, Shanyin Cheng, Liwen Ling and Qiang Xia, Forecasting Agricultural Commodity Prices Using Model Selection Framework With Time Series Features and Forecast Horizons (February 4, 2020)
-
-> [[4]](#4) Jabez Harris, A Machine Learning Approach to Forecasting Consumer Food Prices (August 2017)
-
 
 Machine Learning is an adequate tool to develop a pricing model, and can potentially surpass the prediction accuracy of other methods. Traditional statistical analysis relies on the assumption of invariability in time, which does not hold in the tuna industry context. Juvenile depletion caused by excess catches, global warming effects on the life cycle of tuna, and changes in food consumption preferences can all impact pricing. A machine learning model can deal with these circumstances by continuously getting new information and updating its predictions automatically. In this way, an ML model can remain current for the next prediction horizon.
 
@@ -99,23 +90,23 @@ Federal Reserve Economic Data (FRED) provided a number of datasets related to co
 
 As a result of the available data, the majority of our model inputs are monthly aggregations of environmental factors. A detailed summary of the various inputs can be found here:
 
-**NOAA:** Monthly land-ocean temperature datasets were compiled via ASCII Time Series Data Access.
+**NOAA:** Monthly land-ocean temperature datasets were compiled via ASCII Time Series Data Access. [[5]](#5)
 > https://www.ncdc.noaa.gov/noaa-merged-land-ocean-global-surface-temperature-analysis-noaaglobaltemp-v5
 
-**Copernicus:** Our broad Monthly Sea Dataset was compiled via the "Climate Data Store" in GRIB format. We then used the Pygrib package to extract, transform, and join to our NOAA dataset.
+**Copernicus:** Our broad Monthly Sea Dataset was compiled via the "Climate Data Store" in GRIB format. We then used the Pygrib package to extract, transform, and join to our NOAA dataset. [[6]](#6)
 > https://cds.climate.copernicus.eu/cdsapp#!/home
 
-**NSIDC:** Our Monthly Sea Ice Dataset was compiled via FTP.
+**NSIDC:** Our Monthly Sea Ice Dataset was compiled via FTP. [[7]](#7)
 > https://nsidc.org/data/g02135
 
-**FRED:** A number of features were collected from FRED.
+**FRED:** A number of features were collected from FRED. [[8]](#8)
 > https://fred.stlouisfed.org/
 
-- Seafood Product Preparation & Packaging Producer Price Index
-- Fish and Seafood Markets Producer Price Index
-- Global Fish Price Index
-- Global Shrimp Price Index
-- U.S. Fish & Shellfish Import/Export Price Indices
+- Seafood Product Preparation & Packaging Producer Price Index [[9]](#9)
+- Fish and Seafood Markets Producer Price Index [[10]](#10)
+- Global Fish Price Index [[11]](#11)
+- Global Shrimp Price Index [[12]](#12)
+- U.S. Fish & Shellfish Import/Export Price Indices [[13]](#13)
 
 All of these sources were filtered and joined together via custom Python E/T job.
 
@@ -139,7 +130,7 @@ To simplify model implementation the basic data set was truncated at the minimum
 Heterogenous data sources and a "more-is-better" collection approach yielded an initial dataset with high colinearity.
 
 <img src="images/colinearity_example.png" alt="drawing" width="400"/>
-**Fig. n** - #TODO: Place Image *Josh's colinarity screenshot should go here*
+**Fig. n** - *Subset of data graphically representing colinarity.*
 
 All climate data included multiple statistics for each time step. Economic data included common metrics such as maximums, minimums, and variances within the reporting period. While useful for human analysis it is unlikely many of these fields contributed meaningfully to our models. This was quantified through variable selection methods and dimensionality reduction attempts.
 
@@ -191,7 +182,7 @@ Principle component analysis captured ~90% of dataset variability contained with
 
 **#TODO: What voice do we want to assume in this paper? I.e., do we need this overview of time series forecasting?**
 
-"A time series is usually modelled through a stochastic process `Y(t)`, i.e. a sequence of random variables. In a forecasting setting we find ourselves at time t and we are interested in estimating `Y(t+h)`, using only information available at time t."[[1]](#1)
+"A time series is usually modelled through a stochastic process `Y(t)`, i.e. a sequence of random variables. In a forecasting setting we find ourselves at time t and we are interested in estimating `Y(t+h)`, using only information available at time t."[[18]](#18)
 
 The usage of time series models here is twofold:
 
@@ -203,7 +194,7 @@ The usage of time series models here is twofold:
 1. **Level**: The base value for the series if it were a straight line.
 1. **Trend**: The linear increasing or decreasing behavior of the series over time.
 1. **Seasonality**: The repeating patterns or cycles of behavior over time.
-1. **Noise:** The variability in the observations that cannot be explained by the model."[[2]](#2)
+1. **Noise:** The variability in the observations that cannot be explained by the model."[[19]](#19)
 
 All-time series generally have a level, noise, while trend and seasonality are optional. The main features of many time series are trends and seasonal variation.
 
@@ -236,14 +227,14 @@ Stationarity is an important characteristic of time series. A time series is sta
 Autocorrelation and partial autocorrelation plots show how correlated values are at time `t` with the next values in times `t+1, t+2, ..., t+n`.
 
 **#TODO: Style choice - are we ok with the direct quote? Generally citations are attached to a relevant paraphrase**
-"If the data would be non-stationary the autocorrelation values will be highly correlated with distant points in time showing possible seasonalities or trends. Stationary series autocorrelation values will quickly decrease over time t. This shows us that information is carried over time and then the series will not constant over time."[[7]](#7)
+"If the data would be non-stationary the autocorrelation values will be highly correlated with distant points in time showing possible seasonalities or trends. Stationary series autocorrelation values will quickly decrease over time t. This shows us that information is carried over time and then the series will not constant over time."[[20]](#20)
 
 An augmented *Dickey-Fuller* test was used to perform unit root testing.
 
 **#TODO: Style choice - are we ok with the direct quote? Generally citations are attached to a relevant paraphrase**
 "The intuition behind a unit root test is that it determines how strongly a time series is defined by a trend. There are a number of unit root tests and the Augmented Dickey-Fuller may be one of the more widely used. It uses an autoregressive model and optimizes an information criterion across multiple different lag values.
 
-The null hypothesis of the test is that the time series can be represented by a unit root, that it is not stationary (has some time-dependent structure). The alternate hypothesis (rejecting the null hypothesis) is that the time series is stationary." [[7]](#7)
+The null hypothesis of the test is that the time series can be represented by a unit root, that it is not stationary (has some time-dependent structure). The alternate hypothesis (rejecting the null hypothesis) is that the time series is stationary." [[21]](#21)
 
 ![pic1](images/roopa3.png)
 **Fig. 3** - *Dickey-Fuller test, Auto and Partial Correlation, Rolling mean and standard deviation*
@@ -255,7 +246,7 @@ With a p value of 0.23 indicates this series is a candidate for methods to make 
 **#TODO: Style choice - are we ok with the direct quote? Generally citations are attached to a relevant paraphrase**
 "There are many methods that we could have used for time series forecasting and there is not a clear winner. Model selection depended on how the data looked. Some models were more robust against outliers but performed worse than the more sensible ones.
 
-When looking at our data the main split was whether we had extra regressors (features) to our time series or just the series. Based on this we started exploring different methods for forecasting and their performance in different metrics."[[7]](#7)
+When looking at our data the main split was whether we had extra regressors (features) to our time series or just the series. Based on this we started exploring different methods for forecasting and their performance in different metrics."[[22]](#22)
 
 We split our data into test training sets having 85 months of training data and 36 months of testing data.
 
@@ -272,7 +263,7 @@ Three univariate time series models were fitted to the data to assess performanc
 
 Basically, the ARIMA models combine these two approaches. Since they require the time series to be stationary, differencing (Integrating) the time series was a necessary step i.e. considering the time series of the differences instead of the original one.
 
-The SARIMA model (Seasonal ARIMA) extends the ARIMA by adding a linear combination of seasonal past values and/or forecast errors."[[7]](#7) 
+The SARIMA model (Seasonal ARIMA) extends the ARIMA by adding a linear combination of seasonal past values and/or forecast errors."[[15]](#15) 
 The following plots show the predictions on or 36 months test data by using Auto Regression (AR) and SARIMA models.
 
 **#TODO: We spend a lot of prose outlining the various models, but not a lot of discussion is spent weighing the relative qualities or what we are looking to achieve by applying said model to the data.**
@@ -295,7 +286,7 @@ Random Forest and XGBoost multivariate methods were also applied to the data to 
 ##### **Random Forest (RF)**
 
 **#TODO: Style choice - are we ok with the direct quote? Generally citations are attached to a relevant paraphrase**
-"Random forest is an ensemble of decision tree algorithms. A number of decision trees are created where each tree is created from a different sample. It can be used for both classification and regression. In our case the final prediction is the average prediction across the decision trees (we used 5)."[[4]](#4)
+"Random forest is an ensemble of decision tree algorithms. A number of decision trees are created where each tree is created from a different sample. It can be used for both classification and regression. In our case the final prediction is the average prediction across the decision trees (we used 5)."[[22]](#22)
 
 ![pic1](images/roopa6.png)
 **Fig. 6** - *Random Forest model*
@@ -303,7 +294,7 @@ Random Forest and XGBoost multivariate methods were also applied to the data to 
 ##### **XGBoost**
 
 **#TODO: Style choice - are we ok with the direct quote? Generally citations are attached to a relevant paraphrase**
-"XGBoost (Extreme Gradient Boost) provides a high-performance implementation of gradient boosted decision trees. Rather than training all of the models in isolation of one another like random forest, XG Boost trains models in succession"[[4]](#4)
+"XGBoost (Extreme Gradient Boost) provides a high-performance implementation of gradient boosted decision trees. Rather than training all of the models in isolation of one another like random forest, XG Boost trains models in succession"[[22]](#22)
 
 ![pic1](images/roopa7.png)
 **Fig. 7** *XGBoost model*
@@ -322,7 +313,7 @@ There are many measures that can be used to analyze the performance of our predi
 **#TODO: Style choice - are we ok with the direct quote? Generally citations are attached to a relevant paraphrase**
 "For any data, that a Random Forest/XGBoost has not seen before, at best, it can predict an average of training values that it has seen before. If the Validation set consists of data points that are greater or less than the training data points, a Random Forest will provide us with Average results as it is not able to Extrapolate and understand the growing/decreasing trend in our data. 
 
-Therefore, a Random Forest model does not scale well for time-series data and might need to be constantly updated in Production or trained with some Random data that lies outside our range of Training set."[[5]](#5)
+Therefore, a Random Forest model does not scale well for time-series data and might need to be constantly updated in Production or trained with some Random data that lies outside our range of Training set."[[22]](#22)
 
 Answering questions like “What would the price of SkipJack Tuna be for next Year?” becomes really difficult when using Random Forests.
 
@@ -394,7 +385,7 @@ During exploratory analysis, it was found that tuna prices followed a cyclical p
 **Fig. 13** - *Adjustment of Lowest Frequency Harmonic*
 
 The advantage of using Machine Learning instead of applying Fourier Series directly, was that coefficients for each harmonic could be determined in context with the rest of the covariates.
-Additionally to the harmonics, two price related covariates were added to the dataset: the price average for the last 6 periods and the change in price between `t-2` and `t-1`. 
+Additionally to the harmonics, two price related covariates were added to the dataset: the price average for the last 6 periods and the change in price between `t-2` and `t-1`.
 
 #### **Establishing a network that could generalize a large set of features.** 
 
@@ -427,7 +418,7 @@ Results were inconclusive as the project ended prior to completing the implement
 
 ### Temporal Fusion Transformer (TFT)
 
-Data complexity led to an investigation of open source libraries and tools designed to perform time series analysis on targets with many covariates. PyTorch Forecasting [[#TODO CITE: PyTorch Forecasting]], an extension of PyTorch Lightning [#TODO CITE: PyTorch Lightning] emerged as a candidate for open source application.
+Data complexity led to an investigation of open source libraries and tools designed to perform time series analysis on targets with many covariates. PyTorch Forecasting [[26]](#26), an extension of PyTorch Lightning [[25]](#25) emerged as a candidate for open source application.
 
 PyTorch Forecasting's advantages included:
 
@@ -440,7 +431,7 @@ PyTorch Forecasting's Disadvantages Included:
 - Low-visibility into pre-written routines and methods.
 - Coding and structural conventions and practices which were time-consuming to learn.
 
-The Temporal Fusion Transformer is a recently introduced neural network architecture that combines RNN and CNN design elements. [#TODO CITE: Tft Paper]
+The Temporal Fusion Transformer is a recently introduced neural network architecture that combines RNN and CNN design elements. [[27]](#27)
 
 ![pic1](images/model_results_tft_diagram_frompaper.png)
 
@@ -480,13 +471,13 @@ Pricing projection based on diverse inputs is an area of research interest. Give
 
 This project would be well suited to apply a multi modal neural network. The diversity of data sources in length and general characteristics (geospatial vs. abstract) mean there are probably advantages towards separately applying a variety of neural networks to different sources of the data.
 
-Geospatial Multi Modal applications in general are an area of active research.
+Geospatial Multi Modal applications in general are an area of active research.[[28]](#28)
 
 #### Spherical Convolutional Neural Networks
 
 The structural information inherent in the climate information based on the data location was ignored for all models in this project. Traditional convolutional neural networks would not capture the structural information appropriately due to the 2-dimensional rectilinear structure of their inputs. For example 180 degrees West would be interpreted as maximum distance from 180 degrees East.
 
-There are several examples of CNN input structures modified for spherical geometry data. [#TODO PAPER EXAMPLE] There are additional examples of spherical CNNs being modified for geospatial data. Optimal modeling of the climate data would include a pass through a spherical CNN.
+There are several examples of CNN input structures modified for spherical geometry data. [[31]](#31) There are additional examples of spherical CNNs being modified for geospatial data. [[#30]](#29) Optimal modeling of the climate data would include a pass through a spherical CNN.
 
 ## Model Results
 
@@ -504,87 +495,97 @@ There are several examples of CNN input structures modified for spherical geomet
 
 ## References and Citations
 
-### 3rd Party Python Packages, Methodology, & Functions
+### Introduction
+> <a id="1">[1]</a> Onour, Ibrahim and Sergi, Bruno, Modeling and forecasting volatility in the global food commodity prices (January 1, 2011)
 
-> [[7]](#7) Jaime Ferrando Huertas, https://github.com/jiwidi/time-series-forecasting-with-python
+> <a id="2">[2]</a> Chen, Yu-Chin and Rogoff, Kenneth S. and Rossi, Barbara, Predicting Agri-Commodity Prices: An Asset Pricing Approach (May 10, 2010)
 
-> [[1]](#1)Akash Dubey. "Feature Selection Using Regularisation", 
-<https://towardsdatascience.com/feature-selection-using-regularisation-a3678b71e499>
+> <a id="3">[3]</a> Dabin Zhang, Shanyin Cheng, Liwen Ling and Qiang Xia, Forecasting Agricultural Commodity Prices Using Model Selection Framework With Time Series Features and Forecast Horizons (February 4, 2020)
 
-> [[1]](#1)Jason Brownlee. "Time Series Forecasting with the Long Short-Term Memory Network in Python", 
-<https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/
-
+> <a id="4">[4]</a> Jabez Harris, A Machine Learning Approach to Forecasting Consumer Food Prices (August 2017)
 ### Dataset Citations
 
-> [[1]](#1) Hersbach, H., Bell, B., Berrisford, P., Biavati, G., Horányi, A., Muñoz Sabater, J., Nicolas, J., Peubey, C., Radu, R., Rozum, I., Schepers, D., Simmons, A., Soci, C., Dee, D., Thépaut, J-N. (2019): ERA5 monthly averaged data on single levels from 1979 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS). (Accessed on [01-MAY-2021]), https://10.24381/cds.f17050d7
+> <a id="5">[5]</a> Hersbach, H., Bell, B., Berrisford, P., Biavati, G., Horányi, A., Muñoz Sabater, J., Nicolas, J., Peubey, C., Radu, R., Rozum, I., Schepers, D., Simmons, A., Soci, C., Dee, D., Thépaut, J-N. (2019): ERA5 monthly averaged data on single levels from 1979 to present. Copernicus Climate Change Service (C3S) Climate Data Store (CDS). (Accessed on [01-MAY-2021]), https://10.24381/cds.f17050d7
 
 
-> [[1]](#1) Zhang, H.-M., B. Huang, J. Lawrimore, M. Menne, Thomas M. Smith, NOAA Global Surface Temperature Dataset (NOAAGlobalTemp), Version 4.0. NOAA National Centers for Environmental Information. doi: https://10.7289/V5FN144H [01-MAY-2021].
+> <a id="6">[6]</a> Zhang, H.-M., B. Huang, J. Lawrimore, M. Menne, Thomas M. Smith, NOAA Global Surface Temperature Dataset (NOAAGlobalTemp), Version 4.0. NOAA National Centers for Environmental Information. doi: https://10.7289/V5FN144H [01-MAY-2021].
 
 
-> [[1]](#1) Fetterer, F., K. Knowles, W. N. Meier, M. Savoie, and A. K. Windnagel. 2017, updated daily. Sea Ice Index, Version 3. Boulder, Colorado USA. NSIDC: National Snow and Ice Data Center. doi: https://doi.org/10.7265/N5K072F8. [01-MAY-2021].
+> <a id="7">[7]</a> Fetterer, F., K. Knowles, W. N. Meier, M. Savoie, and A. K. Windnagel. 2017, updated daily. Sea Ice Index, Version 3. Boulder, Colorado USA. NSIDC: National Snow and Ice Data Center. doi: https://doi.org/10.7265/N5K072F8. [01-MAY-2021].
 
 
-> [[1]](#1) International Monetary Fund, Global price of Fish [PSALMUSDM], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PSALMUSDM, May 2, 2021.
+> <a id="8">[8]</a> International Monetary Fund, Global price of Fish [PSALMUSDM], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PSALMUSDM, May 2, 2021.
 
 
-> [[1]](#1) U.S. Bureau of Labor Statistics, Producer Price Index by Industry: Seafood Product Preparation and Packaging: Fresh and Frozen Seafood Processing [PCU3117103117102], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PCU3117103117102, May 2, 2021.
+> <a id="9">[9]</a> U.S. Bureau of Labor Statistics, Producer Price Index by Industry: Seafood Product Preparation and Packaging: Fresh and Frozen Seafood Processing [PCU3117103117102], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PCU3117103117102, May 2, 2021.
 
 
-> [[1]](#1) U.S. Bureau of Labor Statistics, Producer Price Index by Industry: Specialty Food Stores: Fish and Seafood Markets [PCU445200445200102], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PCU445200445200102, May 2, 2021.
+> <a id="10">[10]</a> U.S. Bureau of Labor Statistics, Producer Price Index by Industry: Specialty Food Stores: Fish and Seafood Markets [PCU445200445200102], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PCU445200445200102, May 2, 2021.
 
 
-> [[1]](#1) U.S. Bureau of Labor Statistics, Tuna, Light, Chunk, Per Lb. (453.6 Gm) in U.S. City Average [APU0000707111], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/APU0000707111, May 2, 2021.
+> <a id="11">[11]</a> U.S. Bureau of Labor Statistics, Tuna, Light, Chunk, Per Lb. (453.6 Gm) in U.S. City Average [APU0000707111], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/APU0000707111, May 2, 2021.
 
 
-> [[1]](#1) U.S. Bureau of Labor Statistics, Import Price Index (End Use): Fish and Shellfish [IR01000], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/IR01000, May 2, 2021.
+> <a id="12">[12]</a> U.S. Bureau of Labor Statistics, Import Price Index (End Use): Fish and Shellfish [IR01000], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/IR01000, May 2, 2021.
 
 
-> [[1]](#1) U.S. Bureau of Labor Statistics, Export Price Index (End Use): Fish and Shellfish [IQ01000], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/IQ01000, May 2, 2021.
+> <a id="13">[13]</a> U.S. Bureau of Labor Statistics, Export Price Index (End Use): Fish and Shellfish [IQ01000], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/IQ01000, May 2, 2021.
 
 
-> [[1]](#1) International Monetary Fund, Global price of Shrimp [PSHRIUSDM], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PSHRIUSDM, May 2, 2021.
+> <a id="14">[14]</a> International Monetary Fund, Global price of Shrimp [PSHRIUSDM], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PSHRIUSDM, May 2, 2021.
 
+### 3rd Party Python Packages, Methodology, & Functions
+
+> <a id="15">[15]</a> Jaime Ferrando Huertas, https://github.com/jiwidi/time-series-forecasting-with-python
+
+> <a id="16">[16]</a> Akash Dubey. "Feature Selection Using Regularisation", 
+<https://towardsdatascience.com/feature-selection-using-regularisation-a3678b71e499>
+
+> <a id="17">[17]</a> Jason Brownlee. "Time Series Forecasting with the Long Short-Term Memory Network in Python", 
+<https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/
 ### Time Series Citations
 
-> [[1]](#1)Davide Bruba. "An overview of time series forecasting models", 
+> <a id="18">[18]</a> Davide Bruba. "An overview of time series forecasting models", 
 <https://towardsdatascience.com/an-overview-of-time-series-forecasting-models-a2fa7a358fcb>
 
-> [[2]](#2)Athul Anish. “Time Series Analysis”,
+> <a id="19">[19]</a> Athul Anish. “Time Series Analysis”,
 https://medium.com/swlh/time-series-analysis-7006ea1c3326
 
-> [[3]](#3)Statworx Blog, “Time series forecasting with random forest”,
+> <a id="20">[20]</a> Statworx Blog, “Time series forecasting with random forest”,
 https://medium.com/@statworx_blog/time-series-forecasting-part-i-e30a16bac58a
 
-> [[4]](#4)Indraneel Dutta Baruah, Analytics Vidya. “Combining Time Series Analysis with Artificial Intelligence: the future of forecasting”,
+> <a id="21">[21]</a> Indraneel Dutta Baruah, Analytics Vidya. “Combining Time Series Analysis with Artificial Intelligence: the future of forecasting”,
 https://medium.com/analytics-vidhya/combining-time-series-analysis-with-artificial-intelligence-the-future-of-forecasting-5196f57db913
 
-> [[5]](#5)Aman Arora, “Why Random Forests can’t predict trends and how to overcome this problem?”,
+> <a id="22">[22]</a> Aman Arora, “Why Random Forests can’t predict trends and how to overcome this problem?”,
 https://medium.datadriveninvestor.com/why-wont-time-series-data-and-random-forests-work-very-well-together-3c9f7b271631
 
-> [[6]](#6)Jason Browniee, “How to Decompose Time Series Data into Trend and Seasonality”
+> <a id="23">[23]</a> Jason Browniee, “How to Decompose Time Series Data into Trend and Seasonality”
 https://machinelearningmastery.com/decompose-time-series-data-trend-seasonality/
 
+### Model Development Citations
 
-### REED PAPER SCRATCHPAD (#TODO: Fix this)
+> <a id="24">[24]</a> Reserved LENET PAPER
 
-> Jing Gao, Peng Li, Zhikui Chen, Jianing Zhang; "A Survey on Deep Learning for Multimodal Data Fusion." Neural Comput 2020; 32 (5): 829–864. doi:
-https://direct.mit.edu/neco/article/32/5/829/95591/A-Survey-on-Deep-Learning-for-Multimodal-Data
-
-> DeepSphere: Efficient spherical Convolutional Neural Network with HEALPix sampling for cosmological applications
-https://arxiv.org/abs/1810.12186
-
-> Deep Learning for Spatio - Temporal Data Mining: A Survey
-https://arxiv.org/pdf/1906.04928.pdf
-
-> Spherical CNNs
-https://openreview.net/pdf?id=Hkbd5xZRb
-
-> PyTorch Lightning
+> <a id="25">[25]</a> PyTorch Lightning
 https://pytorch-lightning.readthedocs.io/en/latest/
 
-> PyTorch Forecasting
+> <a id="26">[26]</a> PyTorch Forecasting
 https://pytorch-forecasting.readthedocs.io/en/latest/index.html
+
+> <a id="27">[27]</a> Reserved for TFT Paper
+
+> <a id="28">[28]</a> Jing Gao, Peng Li, Zhikui Chen, Jianing Zhang; "A Survey on Deep Learning for Multimodal Data Fusion." Neural Comput 2020; 32 (5): 829–864. doi:
+https://direct.mit.edu/neco/article/32/5/829/95591/A-Survey-on-Deep-Learning-for-Multimodal-Data
+
+> <a id="29">[29]</a> DeepSphere: Efficient spherical Convolutional Neural Network with HEALPix sampling for cosmological applications
+https://arxiv.org/abs/1810.12186
+
+> <a id="30">[30]</a> Deep Learning for Spatio - Temporal Data Mining: A Survey
+https://arxiv.org/pdf/1906.04928.pdf
+
+> <a id="31">[31]</a> Spherical CNNs
+https://openreview.net/pdf?id=Hkbd5xZRb
 
 
 
