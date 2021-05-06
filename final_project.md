@@ -1,4 +1,4 @@
-# Are International Tuna Prices Impacted by Environmental Variables? <br>
+# Tuna's Last Stand: Predicting Skipjack Tuna Prices with Machine Learning <br>
 
 *Hugo Cesar Camou Campoy, Josh Kennedy, Reed Abraham, Roopa Bharadwaj* <br>
 Machine Learning for Business Applications 1 <br>
@@ -124,7 +124,7 @@ It is important to avoid contaminating the dataset with current information that
 
 ### Feature Selection and Preprocessing
 
-#### **Data Synthetization** 
+#### Data Synthetization
 
 Data synthetization was done with a PCA encoding that kept the maximum possible amount of components in the whole dataset (including the target), and then random noise was injected into the decoder. However, given that the maximum decoding matrix size achievable was 121 X 121, 364 features were lost in the process (producing a loss in variance explanation), and therefore the output was not similar enough to the original dataset to be used as a training set. A manual selection that removed the additional 364 features before applying the PCA encoding and decoding could have solved the problem, however due to time constraints, this approach was not attempted.
 
@@ -289,15 +289,15 @@ The three main limitations of a discrete approach to the problem were the implic
 
 Finally, since trials were made shuffling the whole set, the model was filling voids in the past instead of predicting the future. This realization was taken into account in the next models so that data was split by time rather than by volume.
 
-### **CNN Adaptation**
+### CNN Adaptation
 
 A challenge to train with the available data was that the number of features (484: 482 environmental covariates, and the index consisting of year and month) was greater than the number of examples (121). Furthermore, the existing number of features did not show sufficient explanatory power in previous models. To deal with this, three different alternatives were explored, and those that were successful were merged into a model:
 
-#### **Selecting the most significant covariates.**
+#### Selecting the most significant covariates.
 
 A PCA encoder was used to select the most meaningful components, and train the model using them instead of the actual features. Several trials were made with different cutoff parameters, and the final decision was to keep the most relevant 16 components (with a loss of 21% in the variance explanation). 
 
-#### **Adding covariates that could complement the existing information.** 
+#### Adding covariates that could complement the existing information.
 
 During exploratory analysis, it was found that tuna prices followed a cyclical pattern, and that prices at a given point in time are related to adjacent historic prices. Time cyclicity was included into the model by breaking the signal into Fourier harmonics. To ensure that low frequencies remained the most relevant, the first harmonic parameters for time offset and length of the period were determined by minimizing MSE. Using those parameters, the six lowest frequencies were calculated and incorporated to the dataset.
 
