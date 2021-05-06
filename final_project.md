@@ -42,8 +42,6 @@ Price prediction for commodities in general and food supplies in particular is a
 
 Machine Learning is an adequate tool to develop a pricing model, and can potentially surpass the prediction accuracy of other methods. Traditional statistical analysis relies on the assumption of invariability in time, which does not hold in the tuna industry context. Juvenile depletion caused by excess catches, global warming effects on the life cycle of tuna, and changes in food consumption preferences can all impact pricing. A machine learning model can deal with these circumstances by continuously getting new information and updating its predictions automatically. In this way, an ML model can remain current for the next prediction horizon.
 
-![pic1](images/tuna_price_over_time.png)
-
 ## Data Collection
 
 ### Starting Point & Data Collection
@@ -113,8 +111,12 @@ All of these sources were filtered and joined together via custom Python E/T job
 @Reed
 
 ### Data Characteristics
+Summary statistics & context for Skipjack Tuna can be found below: <br>
 
-**#TODO: Header section possibly describing data attributes. What is the average Tuna price? What does the tuna price look like over the period we are trying to predict? Give context to the reader when evaluating MSE, etc**
+<img src="images/tuna_statistics.png" alt="drawing" width="400"/> <br>
+
+<img src="images/tuna_price_over_time.png" alt="drawing" width="800"/>
+
 
 #### Non-Uniform Data length
 
