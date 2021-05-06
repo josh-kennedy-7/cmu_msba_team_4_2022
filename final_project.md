@@ -162,15 +162,11 @@ Temporal characteristics were maintained and explored both through use of networ
 Since we began with 433 features with unknown, but certain, relationships, we knew that feature selection would be important to our model. Building a correlation matrix, we can easily see certain elements that would detract from the model (see figure X for colinearity example). By implementing a Ridge regression for regularization, we are able to identify 210 features that could be removed from the data.
 > Inspiration and methodology from Akash Dubey
 
-#### Principle Components
+#### Principal Components
 
-PCA @Hugo
+PCA was another method used for parameter selection. The number of features not only was big when compared to the number of examples, but also had redundant information. This allowed to compress the information these covariates provided and reduce them to 16 while only losing 21% of the explained variability. This also provided the oportunity to include new covariates that could potentially add to the predictability of the model without the concern of the number of features.
 
-**#TODO: consider moving several sections from the LeNet preprocessing up here**
-
-Principle component analysis captured ~90% of dataset variability contained within 16 covariates.
-
-**#TODO: We will probably need a good reason why not all of our models used this preprocessing**
+PCA was effective as a selector of the best variables for the model, but it came on a late phase on our experimentation. Some earlier models that had experienced a poor performance without pre-processing improved once PCA covariate selection was included. However, due to time constraints its inclusion was not exhaustive to all of the experiment branches that were developed.
 
 ## Linear Forecasting Baseline
 
