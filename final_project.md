@@ -443,16 +443,7 @@ The structural information inherent in the climate information based on the data
 
 There are several examples of CNN input structures modified for spherical geometry data. [[31]](#31) There are additional examples of spherical CNNs being modified for geospatial data. [[#30]](#29) Optimal modeling of the climate data would include a pass through a spherical CNN.
 
-## Model Results
-
-@All after model sections are written
-
-- Expectations
-- Results from model(s)
-- Which model is best?
-
-## Summary
-
+## Results and Summary
 ### Tabulated Results
 | Model | RMSE | Remarks |
 |-|-|-|
@@ -462,15 +453,21 @@ There are several examples of CNN input structures modified for spherical geomet
 | MLP + Harmonics |  |  |
 | LSTM, Conventional |  |  |
 | LSTM, Rotating | N/A | Never converged |
-| TFT, 1-Ahead |  | Module code unverified |
+| TFT, 1-Ahead | ~200 | Module code unverified |
 
 ### Remarks
 
-- Overall broad summary (how does this relate back to the problem space?
-- Broad findings
-- How can this be used in the real world?
+Successful models held several common characteristics:
+
+- Incorporated time characteristics whether by hidden layers or flattened information from previous time steps in data.
+- Heavily pre-processed input data to reduce colinarity
+- <third thing that I can't think of right now>
+
+Flattening the data and hoping for the best led to performance worse than traditional statistical models. Given more time it would have been value-added to explore every combination of 
 
 ### Conclusions
+
+**#TODO: Write with Team**
 
 ## References and Citations
 
