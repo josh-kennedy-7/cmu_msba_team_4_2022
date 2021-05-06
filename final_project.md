@@ -150,6 +150,10 @@ The latter (geospatial covariates) was identified as being significantly harder 
 
 Temporal characteristics were maintained and explored both through use of networks with memory (recurrent neural networks, long short term memory) and including time harmonics in the same example for input into multi-layer perceptrons.
 
+#### Temporality Concerns
+
+It is important to avoid contaminating the dataset with current information that in practice would not be available. For example, the data table was built in such a way that prices reflect an offset of one period with respect to the covariates, and special care was taken to ensure that the aggregated metrics (such as average, minimum and maximum within a period) never included the price to be predicted. Another concern with respect to the testing of the data is that its data set should provide an horizon outside of the training data, to simulate real life conditions. In this sense, a proper assesment of a model should be conducted by extrapolating instead of interpolating in time. Within this framework of dividing training and testing sets by a temporal condition, the training set was shuffled after the split to ensure a better gradient descent convergence.
+
 ### Feature Selection and Preprocessing
 
 #### **Data Synthetization** 
