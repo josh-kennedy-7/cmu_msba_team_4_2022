@@ -366,7 +366,7 @@ This model relies on the assumption that the price cyclicity observed will conti
 
 The target variable's seasonality and time-based nature points to a LSTM network as well suited. Strong results were found when applying a standard implementation of this type of model: loss of 0.00509 over 3,000 epochs with lr of 0.03
 
-![pic1](images/lstm_output.png)
+![pic1](images/lstm_output_2.png)
 
 ### LSTM, Rolling Window
 
@@ -447,7 +447,7 @@ There are several examples of CNN input structures modified for spherical geomet
 | Flat MLP | 1.4e4 | Bad |
 | Categorical CNN |  | Converged to Continuous |
 | MLP + Harmonics |  |  |
-| LSTM, Conventional |  |  |
+| LSTM, Conventional | 5.1e-3 | Strong Model |
 | LSTM, Rotating | N/A | Never converged |
 | TFT, 1-Ahead | ~200 | Module code unverified |
 
