@@ -377,9 +377,7 @@ Additionally to the harmonics, two price related covariates were added to the da
 
 #### **Establishing a network that could generalize a large set of features.** 
 
-
-**#TODO: Need a citation to the original LeNet paper**
-A CNN based on LeNet’s architecture was used to train the model. The input for this model were the resulting 16 main components after applying PCA plus the additional 8 variables. This was arranged in a 3 X 8 input matrix. The temporal split between the train and the test sets was made at 65/35% to ensure that the cycle described by the first harmonic was completely included in the training set. Data was randomized only for the train set after the split. The results of this model were better than the previous attempts, and a RMSE of 397 was obtained (for context, the average price was $1,577), with a correlation of 0.76.  
+A CNN based on LeNet’s architecture [[1]](#1) was used to train the model. The input for this model were the resulting 16 main components after applying PCA plus the additional 8 variables. This was arranged in a 3 X 8 input matrix. The temporal split between the train and the test sets was made at 65/35% to ensure that the cycle described by the first harmonic was completely included in the training set. Data was randomized only for the train set after the split. The results of this model were better than the previous attempts, and a RMSE of 397 was obtained (for context, the average price was $1,577), with a correlation of 0.76.  
 
 ![pic1](images/PredictLeNet.png)
 
@@ -539,6 +537,8 @@ There are several examples of CNN input structures modified for spherical geomet
 
 
 > [[1]](#1) International Monetary Fund, Global price of Shrimp [PSHRIUSDM], retrieved from FRED, Federal Reserve Bank of St. Louis; https://fred.stlouisfed.org/series/PSHRIUSDM, May 2, 2021.
+
+> [[1]](#1) Yann Le Cun, Léon Bottou, Yoshua Bengio, and Patrick Haffner, Gradient-Based Learning Applied to Document Recognition, IEEE [November 1998]. 
 
 ### Time Series Citations
 
