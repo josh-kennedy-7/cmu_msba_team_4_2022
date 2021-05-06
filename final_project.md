@@ -338,7 +338,6 @@ The problem was transformed from a continuous to a discrete output to try to imp
 2. Binary: provide directionality in terms of price increase or decrease with respect to the previous period.
 
 The dispersion and range of prices within any given training and testing set was very similar so to avoid recalculating the buckets on each trial the whole set was used. Since the dataset was shuffled, the risk of bias remained very low, however other temporality concerns arose (to be discussed later in the report).
-**#TODO: Sounds like a good candidate to be elaborated upon in the data description lead up**
 
 In the price bucket variety classification accuracy decreased as the number of buckets increased. At the same time an estimated RMSE loss was reduced. The estimated RMSE was based on the difference of the averages of the buckets instead of the difference of the average of the bucket and the actual price, making the estimated RMSE lower that the actual RMSE. This can be seen in the following confusion matrix:
 
