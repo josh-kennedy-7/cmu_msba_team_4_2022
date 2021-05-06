@@ -432,7 +432,7 @@ There are several examples of CNN input structures modified for spherical geomet
 ### Tabulated Results
 | Model | RMSE | Remarks |
 |-|-|-|
-| Best Linear Time-series |  | XGBoost |
+| Best Linear Time-series |  149.42 | Auto Regression |
 | Flat MLP | 1.4e4 | Bad |
 | Categorical CNN |  | Converged to Continuous |
 | MLP + Harmonics |  |  |
