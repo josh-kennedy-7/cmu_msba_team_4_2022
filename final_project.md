@@ -119,7 +119,7 @@ To simplify model implementation the basic data set was truncated at the minimum
 Heterogenous data sources and a "more-is-better" collection approach yielded an initial dataset with high colinearity.
 
 <img src="images/colinearity_example.png" alt="drawing" width="400"/><br>
-**Fig. n** - *Subset of data graphically representing colinarity.*
+**Fig. 1** - *Subset of data graphically representing colinarity.*
 
 All climate data included multiple statistics for each time step. Economic data included common metrics such as maximums, minimums, and variances within the reporting period. While useful for human analysis it is unlikely many of these fields contributed meaningfully to our models. This was quantified through variable selection methods and dimensionality reduction attempts.
 
@@ -158,7 +158,7 @@ Data synthetization was done with a PCA encoding that kept the maximum possible 
 
 **#TODO: Final feature count verification + time history count verify**
 
-Since we began with 433 features with unknown, but certain, relationships, we knew that feature selection would be important to our model. Building a correlation matrix, we can easily see certain elements that would detract from the model (see figure X for colinearity example). By implementing a Ridge regression for regularization [[16]](#16), we are able to identify 210 features that could be removed from the data.
+Since we began with 433 features with unknown, but certain, relationships, we knew that feature selection would be important to our model. Building a correlation matrix, we can easily see certain elements that would detract from the model (see figure 1 for colinearity example). By implementing a Ridge regression for regularization [[16]](#16), we are able to identify 210 features that could be removed from the data.
 
 #### Principal Components
 
@@ -181,7 +181,7 @@ Time series analysis is the splitting of time series into 4 parts:
 1. **Level**: Long-term gradual changes in the series.
 1. **Trend**: The increase or decrease in data over a period of time.
 1. **Seasonality**: When time series is affected by seasonal factors, a seasonal pattern occurs.
-1. **Noise:** The variability in the observations that cannot be explained by the model.
+1. **Noise:** The variability in the observations that cannot be explained by the model.[[1]](#1)[[2]](#2)
 
 These components combine in some way to provide the observed time series. For example, they may be added together to form a model such as:
 
@@ -192,12 +192,12 @@ These components combine in some way to provide the observed time series. For ex
 The Statsmodel python library provides a function `seasonal_compose()` to automatically decompose a time series. The additive model was used for preliminary assessment of time series linear trending and seasonality.
 
 ![pic1](images/roopa1.png)
-**Fig. 1** - *Automatic Time Series Decomposition*
+**Fig. 2** - *Automatic Time Series Decomposition*
 
 Seasonalities were also assessed using a manual polynomial fit.
 
 ![pic1](images/roopa2.png)
-**Fig. 2** - *Polynomial fit to find seasonalities*
+**Fig. 3** - *Polynomial fit to find seasonalities*
 
 We can see how the model to find a seasonality fits well to our data.
 
@@ -208,7 +208,7 @@ As a test for checking Stationarity, we used both Autocorrelation and partial au
 The null hypothesis of the test is that the time series can be represented by a unit root and has some time-dependent structure. The alternate hypothesis (rejecting the null hypothesis) is that the time series is stationary. [[7]](#7)
 
 ![pic1](images/roopa3.png)
-**Fig. 3** - *Dickey-Fuller test, Auto and Partial Correlation, Rolling mean and standard deviation*
+**Fig. 4** - *Dickey-Fuller test, Auto and Partial Correlation, Rolling mean and standard deviation*
 
 With a p value of 0.23 indicates this series is a candidate for methods to make the target series stationary such as log scale transformation or smoothing.
 
@@ -231,12 +231,12 @@ The following plots show the predictions on or 36 months test data by using Auto
 ##### **Auto Regression (AR)**
 
 ![pic1](images/roopa4.png)
-**Fig. 4** - *Auto Regression model*
+**Fig. 5** - *Auto Regression model*
 
 ##### **Seasonal Autoregressive Integrated Moving-Average (SARIMA)**
 
 ![pic1](images/roopa5.png)
-**Fig. 5** -*Seasonal Autoregressive Integrated Moving-Average (SARIMA) model*
+**Fig. 6** -*Seasonal Autoregressive Integrated Moving-Average (SARIMA) model*
 
 Both models did a decent job of predicting on the validation set.
 
@@ -246,19 +246,19 @@ In order to better understand and use the relationship between several variables
 
 ##### **Random Forest (RF)**
 
-A number of decision trees (in our case we used 5) are created where each tree is created from a different sample.
+A number of decision trees (in our case we used 5) are created where each tree is created from a different sample.[[4]](#4)
 
 ![pic1](images/roopa6.png)
-**Fig. 6** - *Random Forest model*
+**Fig. 7** - *Random Forest model*
 
 ##### **XGBoost**
 
-Rather than training all of the models in isolation of one another like random forest, we tried an XG Boost model to train models in succession.
+Rather than training all of the models in isolation of one another like random forest, we tried an XG Boost model to train models in succession.[[4]](#4)
 
 ![pic1](images/roopa7.png)
-**Fig. 7** *XGBoost model*
+**Fig. 8** *XGBoost model*
 
-Random Forest/XGBoost at best, can predict an average of previously seen training values. Random Forest/ XG Boost is not providing desired results as it is unable to extrapolate to understand the decreasing trend in our data. Because of this, answering questions like “What would the price of SkipJack Tuna be for next Year?” becomes really difficult when using Random Forests/XG Boost.
+Random Forest/XGBoost at best, can predict an average of previously seen training values[[5]](#5). Random Forest/ XG Boost is not providing desired results as it is unable to extrapolate to understand the decreasing trend in our data. Because of this, answering questions like “What would the price of SkipJack Tuna be for next Year?” becomes really difficult when using Random Forests/XG Boost.
 
 ### Evaluation Metrics
 
@@ -270,12 +270,12 @@ There are many measures that can be used to analyze the performance of our predi
 - R2 Coefficient of Determination (r2)
 
 ![pic1](images/roopa8.png)
-**Fig. 8** - *Result metrics*
+**Fig. 9** - *Result metrics*
 
 
 ### Conclusions
 
-Although, linear models is a standard method for time series forecasting, it is hard to model nonlinear relationship using them. We have ensured we have exhausted classical time series forecating methods nonetheless, to test our forecasting problem prior to exploring machine larning methods. Other techniques of forecasting like Neural Nets overcome some of the limitations of Classical methods. 
+Although, linear models is a standard method for time series forecasting, it is hard to model nonlinear relationship using them.[[5]](#5) We have ensured we have exhausted classical time series forecating methods nonetheless, to test our forecasting problem prior to exploring machine larning methods. Other techniques of forecasting like Neural Nets overcome some of the limitations of Classical methods. 
 
 
 ## Machine Learning / Deep Learning Model Results
@@ -286,7 +286,7 @@ An attempt was made at training a flat model without filtering the features and 
 
 ![pic1](images/Baseline.png)
 
-**Fig. 9** - *Confusion Matrix and Estimated Error for k = 5*
+**Fig. 10** - *Confusion Matrix and Estimated Error for k = 5*
 
 ### Classification Transform
 
@@ -301,15 +301,15 @@ In the price bucket variety classification accuracy decreased as the number of b
 
 ![pic1](images/ConfusionMatrixB5.png)
 
-**Fig. 10** - *Confusion Matrix and Estimated Error for k = 5*
+**Fig. 11** - *Confusion Matrix and Estimated Error for k = 5*
 
 ![pic1](images/ConfusionMatrixB4.png)
 
-**Fig. 11** - *Confusion Matrix and Estimated Error for k = 4*
+**Fig. 12** - *Confusion Matrix and Estimated Error for k = 4*
 
 ![pic1](images/ConfusionMatrixB3.png)
 
-**Fig. 12** - *Confusion Matrix and Estimated Error for k = 3*
+**Fig. 13** - *Confusion Matrix and Estimated Error for k = 3*
 
 The price directionality variety model was sub-par. The model selected only one of the labels for the entire dataset. Additionally it was not consistent in the election since both labels have an occurrence probability of 50%.
 
@@ -331,7 +331,7 @@ During exploratory analysis, it was found that tuna prices followed a cyclical p
 
 ![pic1](images/LowFreqHarmonic.png)
 
-**Fig. 13** - *Adjustment of Lowest Frequency Harmonic*
+**Fig. 14** - *Adjustment of Lowest Frequency Harmonic*
 
 The advantage of using Machine Learning instead of applying Fourier Series directly, was that coefficients for each harmonic could be determined in context with the rest of the covariates.
 Additionally to the harmonics, two price related covariates were added to the dataset: the price average for the last 6 periods and the change in price between `t-2` and `t-1`.
@@ -342,7 +342,7 @@ A CNN based on LeNet’s architecture [[1]](#1) was used to train the model. The
 
 ![pic1](images/PredictLeNet.png)
 
-**Fig. 14** - *Performance of LeNet Network*
+**Fig. 15** - *Performance of LeNet Network*
 
 This model relies on the assumption that the price cyclicity observed will continue in the future, i.e. that it was not a matter of chance. The full cycle encompasses roughly five years, and could be produced by multi-annual weather patterns such as El Niño or La Niña. However, the recurrence of this pattern in the future is uncertain (and outside the scope of this project), and should be further analyzed to assure the applicability of the model in a general context.
 
@@ -384,7 +384,7 @@ The Temporal Fusion Transformer is a recently introduced neural network architec
 
 ![pic1](images/model_results_tft_diagram_frompaper.png)
 
-**Fig. n** - : *TFT Architecture* [[27]](#27)
+**Fig. 16** - : *TFT Architecture* [[27]](#27)
 
 TFT advantages include:
 
@@ -398,13 +398,13 @@ The TFT's recurrent block was examined using a hyper-parameter optimizer. Hidden
 
 ![pic1](images/model_results_tft_output_4ahead.png)
 
-**Fig. n** - *TFT Results Predicting Ahead 4 Periods Using 20 Previous*
+**Fig. 17** - *TFT Results Predicting Ahead 4 Periods Using 20 Previous*
 
 As typical with forecasting neural networks accuracy suffered as a strong function of forecast horizon and generally improved with training on greater sequence lengths.
 
 ![pic1](images/model_results_tft_output_1ahead.png)
 
-**Fig. n** - *TFT Results Predicting Ahead 1 Period Using 23 Previous*
+**Fig. 18** - *TFT Results Predicting Ahead 1 Period Using 23 Previous*
 
 TFT implementation was not robust and hard to validate and evaluate. Use of the single, latest time period for validation offered limited insights into TFT prediction capabilities. Attempts to create additional validation points were difficult within the module architecture and would require more time.
 
@@ -434,25 +434,26 @@ There are several examples of CNN input structures modified for spherical geomet
 |-|-|-|
 | Best Linear Time-series |  149.42 | Auto Regression |
 | Flat MLP | 1.4e4 | Bad |
-| Categorical CNN |  | Converged to Continuous |
-| MLP + Harmonics |  |  |
+| Categorical CNN | N/A | Converged to Continuous |
+| MLP + Harmonics | ~397 |  |
 | LSTM, Conventional | 5.1e-3 | Strong Model |
 | LSTM, Rotating | N/A | Never converged |
 | TFT, 1-Ahead | ~200 | Module code unverified |
 
-### Remarks
+### Conclusions
 
 Successful models held several common characteristics:
 
 - Incorporated time characteristics whether by hidden layers or flattened information from previous time steps in data.
-- Heavily pre-processed input data to reduce colinarity
+- Heavily pre-processed input data to reduce colinearity
 - Pragmatic approach to width vs depth of the dataset (3.5x more features than examples)
+- **Occam's Razor** - simpler models tended to succeed more often than complex ones
 
-Flattening the data and hoping for the best led to performance worse than traditional statistical models. Given more time it would have been value-added to explore every combination of 
+Flattening the data and hoping for the best led to performance worse than traditional statistical models. Given more time it would have been value-added to explore every combination of processed inputs and network structures.
 
-### Conclusions
+Given coursework progress versus the current state-of-the-art of machine learning, it is worth considering that modern ML techniques likely have solutions to many if not all of the problems with this dataset. Researchers with more experience would be well advised to apply these techniques to this problem.
 
-**#TODO: Write with Team**
+Based on the success of the Harmonic Input MLP and the Conventional LSTM on an extremely limited timeframe the possibility of using more developed ML techniques to predict skipjack tuna prices seems high.
 
 ## References and Citations
 
@@ -530,17 +531,12 @@ Flattening the data and hoping for the best led to performance worse than tradit
 > <a id="19">[19]</a> Athul Anish. “Time Series Analysis”,
 https://medium.com/swlh/time-series-analysis-7006ea1c3326
 
-> <a id="20">[20]</a> Statworx Blog, “Time series forecasting with random forest”,
-https://medium.com/@statworx_blog/time-series-forecasting-part-i-e30a16bac58a
-
-> <a id="21">[21]</a> Indraneel Dutta Baruah, Analytics Vidya. “Combining Time Series Analysis with Artificial Intelligence: the future of forecasting”,
+> [[4]](#4)Indraneel Dutta Baruah, Analytics Vidya. “Combining Time Series Analysis with Artificial Intelligence: the future of forecasting”,
 https://medium.com/analytics-vidhya/combining-time-series-analysis-with-artificial-intelligence-the-future-of-forecasting-5196f57db913
 
 > <a id="22">[22]</a> Aman Arora, “Why Random Forests can’t predict trends and how to overcome this problem?”,
 https://medium.datadriveninvestor.com/why-wont-time-series-data-and-random-forests-work-very-well-together-3c9f7b271631
 
-> <a id="23">[23]</a> Jason Browniee, “How to Decompose Time Series Data into Trend and Seasonality”
-https://machinelearningmastery.com/decompose-time-series-data-trend-seasonality/
 
 ### Model Development Citations
 
