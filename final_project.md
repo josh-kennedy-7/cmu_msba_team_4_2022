@@ -30,6 +30,14 @@ May 5, 2021
       5. flat / standardized with harmonics
       6. PCA with harmonics?
 
+## Table of Contents  
+[Headers](#headers)  
+[Emphasis](#emphasis)  
+...snip...    
+<a name="headers"/>
+## Headers
+
+
 ## Introduction & Overview
 
 International and local efforts are crucial to guarantee the balance between the sustainability of the catch and the worth of the industry. Tuna is most consumed fish and the second most important fish by wild capture in the world (with 5.2 million metric tons in 2018 ), and the industry around it contributes more that 40 billion dollars to the global economy per year. Even when the catch has been increasing year after year, tuna prices have plummeted since 2012 , destroying in the process 1.8 billion dollars in value, not to mention that the increased catch threatens the sustainability of the activity.
@@ -44,8 +52,6 @@ Price prediction for commodities in general and food supplies in particular is a
 
 
 Machine Learning is an adequate tool to develop a pricing model, and can potentially surpass the prediction accuracy of other methods. Traditional statistical analysis relies on the assumption of invariability in time, which does not hold in the tuna industry context. Juvenile depletion caused by excess catches, global warming effects on the life cycle of tuna, and changes in food consumption preferences can all impact pricing. A machine learning model can deal with these circumstances by continuously getting new information and updating its predictions automatically. In this way, an ML model can remain current for the next prediction horizon.
-
-![pic1](images/tuna_price_over_time.png)
 
 ## Data Collection
 
@@ -116,8 +122,10 @@ All of these sources were filtered and joined together via custom Python E/T job
 @Reed
 
 ### Data Characteristics
+![pic1](images/tuna_statistics.png)
+![pic1](images/tuna_price_over_time.png)
+**Skipjack Tuna Price **
 
-**#TODO: Header section possibly describing data attributes. What is the average Tuna price? What does the tuna price look like over the period we are trying to predict? Give context to the reader when evaluating MSE, etc**
 
 #### Non-Uniform Data length
 
