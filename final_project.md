@@ -223,7 +223,7 @@ Climate data generally had a longer total history than market data.
 
 Heterogenous data sources and a "more-is-better" collection approach yielded an initial dataset with high colinearity.
 
-<img src="images/colinearity_example.png" alt="drawing" width="200"/>
+<img src="images/colinearity_example.png" alt="drawing" width="400"/>
 **Fig. n** - #TODO: Place Image *Josh's colinarity screenshot should go here*
 
 All climate data included a variety of statistics for every collection time step. Economic data frequently included common metrics such as maximums, minimums, and variances within the reporting period. While useful for human analysis it is unlikely many of these fields contributed meaningfully to our models. This was quantified through variable selection methods and dimensionality reduction attempts.
