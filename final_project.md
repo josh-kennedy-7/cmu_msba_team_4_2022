@@ -36,7 +36,9 @@ International and local efforts are crucial to guarantee the balance between the
 
 This is aggravated by a lack of international coordination: there is not one single sanctioning body that concentrates efforts on a global context. For example, in the Pacific Ocean, the fastest growth and main producing region of tuna, three different international associations (IATTC[[1]](#1), WCPFC[[2]](#2) and the CCSBT[[3]](#3)) establish the norms for the catch, sometimes with overlap in the areas. Even in a regional scale, lack of coordination is evident: in this year, the IATTC did not establish international catch quotas for the eastern Pacific, after its members failed to reach consensus . An accurate and unbiased prediction of prices, paired with other environmental and production models can provide the confidence to work on a global scale, and the necessary context to determine the optimal regulatory framework.
 
-Price prediction for commodities in general and food supplies in particular is a topic of common interest. Academic research has intensively proposed price and production (catch) prediction models using traditional statistical analysis [[1]](#1), financial valuation approaches [[2]](#2), random forests and vector machines [[3]](#3), and machine learning [[4]](#4) with different degrees of success. Currently, no method or model is universally accepted as a reliable and standard predictor.
+The Inter-American-Tropical-Tuna-Commission (IATTC), Western & Central Pacific Fisheries Commission (WCPFC), and the Commission for the Conservation of Southern Bluefin Tuna (CCSBT) establish the norms for the catch, sometimes with overlap in the areas. Even in a regional scale, lack of coordination is evident: in this year, the IATTC did not establish international catch quotas for the eastern Pacific, after its members failed to reach consensus . An accurate and unbiased prediction of prices, paired with other environmental and production models can provide the confidence to work on a global context, and the necessary context to determine the optimal regulatory framework.
+
+Price prediction for commodities in general and food supplies in particular is a topic of common interest. Academic research has intensively proposed price and production (catch) prediction models using traditional statistical analysis [[4]](#4), financial valuation approaches [[5]](#5), random forests and vector machines [[6]](#6), and machine learning [[7]](#7) with different degrees of success. Currently, no method or model is universally accepted as a reliable and standard predictor.
 
 
 Machine Learning is an adequate tool to develop a pricing model, and can potentially surpass the prediction accuracy of other methods. Traditional statistical analysis relies on the assumption of invariability in time, which does not hold in the tuna industry context. Juvenile depletion caused by excess catches, global warming effects on the life cycle of tuna, and changes in food consumption preferences can all impact pricing. A machine learning model can deal with these circumstances by continuously getting new information and updating its predictions automatically. In this way, an ML model can remain current for the next prediction horizon.
@@ -100,12 +102,11 @@ All of these sources were filtered and joined together via a [custom Python data
 @Reed
 
 ### Data Characteristics
-Summary statistics & context for Skipjack Tuna can be found below: <br>
+Summary statistics & context for Skipjack Tuna can be found below:
 
-<img src="images/tuna_statistics.png" alt="drawing" width="400" style="float:left"> <br>
+<img src="images/tuna_statistics.png" alt="drawing" width="400" style="float:left"><br>
 
-<img src="images/tuna_price_over_time.png" alt="drawing" width="800" style="float:left">
-
+<img src="images/tuna_price_over_time.png" alt="drawing" width="800" style="float:left"><br>
 
 #### Non-Uniform Data length
 
@@ -117,14 +118,14 @@ To simplify model implementation the basic data set was truncated at the minimum
 
 Heterogenous data sources and a "more-is-better" collection approach yielded an initial dataset with high colinearity.
 
-<img src="images/colinearity_example.png" alt="drawing" width="400"/>
+<img src="images/colinearity_example.png" alt="drawing" width="400"/><br>
 **Fig. n** - *Subset of data graphically representing colinarity.*
 
 All climate data included multiple statistics for each time step. Economic data included common metrics such as maximums, minimums, and variances within the reporting period. While useful for human analysis it is unlikely many of these fields contributed meaningfully to our models. This was quantified through variable selection methods and dimensionality reduction attempts.
 
 #### Feature Count vs. Sample Size
 
-Clipping the data at the minimum available length yielded 121 months of data versus 432 covariates targeting a single output variable (the monthly price of skipjack tuna). A 4 to 1 covariate to history length is unfavorable (**#TODO find some citation on recommended data length**) for deep learning applications.
+Clipping the data at the minimum available length yielded 121 months of data versus 430 covariates targeting a single output variable (the monthly price of skipjack tuna). A 4 to 1 covariate to history length is unfavorable (**#TODO find some citation on recommended data length**) for deep learning applications.
 
 The width vs. depth of our data points to a set of preliminary directions:
 
@@ -143,7 +144,15 @@ The latter (geospatial covariates) was identified as being significantly harder 
 
 Temporal characteristics were maintained and explored both through use of networks with memory (recurrent neural networks, long short term memory) and including time harmonics in the same example for input into multi-layer perceptrons.
 
+#### Temporality Concerns
+
+It is important to avoid contaminating the dataset with current information that in practice would not be available. For example, the data table was built in such a way that prices reflect an offset of one period with respect to the covariates, and special care was taken to ensure that the aggregated metrics (such as average, minimum and maximum within a period) never included the price to be predicted. Another concern with respect to the testing of the data is that its data set should provide an horizon outside of the training data, to simulate real life conditions. In this sense, a proper assesment of a model should be conducted by extrapolating instead of interpolating in time. Within this framework of dividing training and testing sets by a temporal condition, the training set was shuffled after the split to ensure a better gradient descent convergence.
+
 ### Feature Selection and Preprocessing
+
+#### **Data Synthetization** 
+
+Data synthetization was done with a PCA encoding that kept the maximum possible amount of components in the whole dataset (including the target), and then random noise was injected into the decoder. However, given that the maximum decoding matrix size achievable was 121 X 121, 364 features were lost in the process (producing a loss in variance explanation), and therefore the output was not similar enough to the original dataset to be used as a training set. A manual selection that removed the additional 364 features before applying the PCA encoding and decoding could have solved the problem, however due to time constraints, this approach was not attempted.
 
 #### Ridge Regularization
 
@@ -231,26 +240,28 @@ The following plots show the predictions on or 36 months test data by using Auto
 ![pic1](images/roopa5.png)
 **Fig. 5** -*Seasonal Autoregressive Integrated Moving-Average (SARIMA) model*
 
+Both models did a decent job of predicting on the validation set.
+
 #### Multivariate Time Series Analysis
 
-Random Forest and XGBoost multivariate methods were also applied to the data to assess performance.
-
+In order to better understand and use the relationship between several variables and for describing the dynamic behavior of the data for better forecasting results, we also tried some multivariable time series models like Random Forest and XGBoost.
 
 ##### **Random Forest (RF)**
 
-**#TODO: Style choice - are we ok with the direct quote? Generally citations are attached to a relevant paraphrase**
-"Random forest is an ensemble of decision tree algorithms. A number of decision trees are created where each tree is created from a different sample. It can be used for both classification and regression. In our case the final prediction is the average prediction across the decision trees (we used 5)."[[22]](#22)
+A number of decision trees (in our case we used 5) are created where each tree is created from a different sample.
 
 ![pic1](images/roopa6.png)
 **Fig. 6** - *Random Forest model*
 
 ##### **XGBoost**
 
-**#TODO: Style choice - are we ok with the direct quote? Generally citations are attached to a relevant paraphrase**
-"XGBoost (Extreme Gradient Boost) provides a high-performance implementation of gradient boosted decision trees. Rather than training all of the models in isolation of one another like random forest, XG Boost trains models in succession"[[22]](#22)
+Rather than training all of the models in isolation of one another like random forest, we tried an XG Boost model to train models in succession.
 
 ![pic1](images/roopa7.png)
 **Fig. 7** *XGBoost model*
+
+Random Forest/XGBoost at best, can predict an average of previously seen training values. Random Forest/ XG Boost is not providing desired results as it is unable to extrapolate to understand the decreasing trend in our data. Because of this, answering questions like “What would the price of SkipJack Tuna be for next Year?” becomes really difficult when using Random Forests/XG Boost.
+
 ### Evaluation Metrics
 
 There are many measures that can be used to analyze the performance of our prediction so we will be using the top 4 most used metrics for time series forecasting.
@@ -263,16 +274,11 @@ There are many measures that can be used to analyze the performance of our predi
 ![pic1](images/roopa8.png)
 **Fig. 8** - *Result metrics*
 
-**#TODO: Style choice - are we ok with the direct quote? Generally citations are attached to a relevant paraphrase**
-"For any data, that a Random Forest/XGBoost has not seen before, at best, it can predict an average of training values that it has seen before. If the Validation set consists of data points that are greater or less than the training data points, a Random Forest will provide us with Average results as it is not able to Extrapolate and understand the growing/decreasing trend in our data. 
-
-Therefore, a Random Forest model does not scale well for time-series data and might need to be constantly updated in Production or trained with some Random data that lies outside our range of Training set."[[22]](#22)
-
-Answering questions like “What would the price of SkipJack Tuna be for next Year?” becomes really difficult when using Random Forests.
 
 ### Conclusions
 
-Fitting a Linear Model or a Neural Net, in this case, might be sufficient to predict data which has increasing or decreasing trends.
+Although, linear models is a standard method for time series forecasting, it is hard to model nonlinear relationship using them. We have ensured we have exhausted classical time series forecating methods nonetheless, to test our forecasting problem prior to exploring machine larning methods. Other techniques of forecasting like Neural Nets overcome some of the limitations of Classical methods. 
+
 
 ## Machine Learning / Deep Learning Model Results
 
@@ -292,7 +298,6 @@ The problem was transformed from a continuous to a discrete output to try to imp
 2. Binary: provide directionality in terms of price increase or decrease with respect to the previous period.
 
 The dispersion and range of prices within any given training and testing set was very similar so to avoid recalculating the buckets on each trial the whole set was used. Since the dataset was shuffled, the risk of bias remained very low, however other temporality concerns arose (to be discussed later in the report).
-**#TODO: Sounds like a good candidate to be elaborated upon in the data description lead up**
 
 In the price bucket variety classification accuracy decreased as the number of buckets increased. At the same time an estimated RMSE loss was reduced. The estimated RMSE was based on the difference of the averages of the buckets instead of the difference of the average of the bucket and the actual price, making the estimated RMSE lower that the actual RMSE. This can be seen in the following confusion matrix:
 
@@ -314,15 +319,9 @@ The three main limitations of a discrete approach to the problem were the implic
 
 Finally, since trials were made shuffling the whole set, the model was filling voids in the past instead of predicting the future. This realization was taken into account in the next models so that data was split by time rather than by volume.
 
-**#TODO: Should we rename this since it's not actually leNet?**
-### LeNet Adaptation
+### **CNN Adaptation**
 
-A challenge to train with the available data was that the number of features (430) was greater than the number of examples (121). Furthermore, the existing number of features did not show sufficient explanatory power in previous models. To deal with this, four different alternatives were explored, and those that were successful were merged into a model:
-
-**#TODO: Should we consider moving this up into the data exploration section and then noting in here that X dataset was used on this model to good effect?**
-#### **Synthetizing new examples to train the model.** 
-
-This was done with a PCA encoding that kept the maximum possible amount of components in the whole dataset (including the target), and then random noise was injected into the decoder. However, given that the maximum decoding matrix size achievable was 121 X 121, 364 features were lost in the process (producing a loss in variance explanation), and therefore the output was not similar enough to the original dataset to be used as a training set. A manual selection that removed the additional 364 features before applying the PCA encoding and decoding could have solved the problem, however due to time constraints, this approach was not attempted.
+A challenge to train with the available data was that the number of features (484: 482 environmental covariates, and the index consisting of year and month) was greater than the number of examples (121). Furthermore, the existing number of features did not show sufficient explanatory power in previous models. To deal with this, three different alternatives were explored, and those that were successful were merged into a model:
 
 #### **Selecting the most significant covariates.**
 
@@ -341,9 +340,7 @@ Additionally to the harmonics, two price related covariates were added to the da
 
 #### **Establishing a network that could generalize a large set of features.** 
 
-
-**#TODO: Need a citation to the original LeNet paper**
-A CNN based on LeNet’s architecture was used to train the model. The input for this model were the resulting 16 main components after applying PCA plus the additional 8 variables. This was arranged in a 3 X 8 input matrix. The temporal split between the train and the test sets was made at 65/35% to ensure that the cycle described by the first harmonic was completely included in the training set. Data was randomized only for the train set after the split. The results of this model were better than the previous attempts, and a RMSE of 397 was obtained (for context, the average price was $1,577), with a correlation of 0.76.  
+A CNN based on LeNet’s architecture [[1]](#1) was used to train the model. The input for this model were the resulting 16 main components after applying PCA plus the additional 8 variables. This was arranged in a 3 X 8 input matrix. The temporal split between the train and the test sets was made at 65/35% to ensure that the cycle described by the first harmonic was completely included in the training set. Data was randomized only for the train set after the split. The results of this model were better than the previous attempts, and a RMSE of 397 was obtained (for context, the average price was $1,577), with a correlation of 0.76.  
 
 ![pic1](images/PredictLeNet.png)
 
@@ -547,7 +544,7 @@ https://machinelearningmastery.com/decompose-time-series-data-trend-seasonality/
 
 ### Model Development Citations
 
-> <a id="24">[24]</a> Reserved LENET PAPER
+> <a id="24">[24]</a> Yann Le Cun, Léon Bottou, Yoshua Bengio, and Patrick Haffner, Gradient-Based Learning Applied to Document Recognition, IEEE [November 1998]
 
 > <a id="25">[25]</a> PyTorch Lightning
 https://pytorch-lightning.readthedocs.io/en/latest/
@@ -555,7 +552,8 @@ https://pytorch-lightning.readthedocs.io/en/latest/
 > <a id="26">[26]</a> PyTorch Forecasting
 https://pytorch-forecasting.readthedocs.io/en/latest/index.html
 
-> <a id="27">[27]</a> Reserved for TFT Paper
+> <a id="27">[27]</a> Bryan Lim, Sercan O. Arik, Nicolas Loeff, Tomas Pfister, "Temporal Fusion Transformers for Interpretable Multi-horizon Time Series Forecasting";
+https://arxiv.org/pdf/1912.09363.pdf
 
 > <a id="28">[28]</a> Jing Gao, Peng Li, Zhikui Chen, Jianing Zhang; "A Survey on Deep Learning for Multimodal Data Fusion." Neural Comput 2020; 32 (5): 829–864. doi:
 https://direct.mit.edu/neco/article/32/5/829/95591/A-Survey-on-Deep-Learning-for-Multimodal-Data
@@ -566,7 +564,7 @@ https://arxiv.org/abs/1810.12186
 > <a id="30">[30]</a> Deep Learning for Spatio - Temporal Data Mining: A Survey
 https://arxiv.org/pdf/1906.04928.pdf
 
-> <a id="31">[31]</a> Spherical CNNs
+> <a id="31">[31]</a> Taco S. Cohen, Mario Geiger, Jonas Köhler, Max Welling: "Spherical CNNs"; ICLR 2018.
 https://openreview.net/pdf?id=Hkbd5xZRb
 
 
