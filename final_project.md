@@ -457,7 +457,7 @@ Successful models held several common characteristics:
 
 - Incorporated time characteristics whether by hidden layers or flattened information from previous time steps in data.
 - Heavily pre-processed input data to reduce colinarity
-- <third thing that I can't think of right now>
+- Pragmatic approach to width vs depth of the dataset (3.5x more features than examples)
 
 Flattening the data and hoping for the best led to performance worse than traditional statistical models. Given more time it would have been value-added to explore every combination of 
 
