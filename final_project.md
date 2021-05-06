@@ -351,9 +351,11 @@ This model relies on the assumption that the price cyclicity observed will conti
 
 ### LSTM
 
-The target variable's seasonality and time-based nature points to a LSTM network as well suited. Strong results were found when applying a standard implementation of this type of model: loss of 0.00509 over 3,000 epochs with lr of 0.03
+The target variable's seasonality and time-based nature points to a LSTM network as well suited. The network was implemented using 5 sequences per batch and 70% of data used for testing. Strong results were found when applying a standard implementation of this type of model: loss of 0.00509 over 3,000 epochs with lr of 0.03
 
 ![pic1](images/lstm_output_2.png)
+
+**Fig. n** - *Performance of LSTM Network - Standard Implementation*
 
 ### LSTM, Rolling Window
 
