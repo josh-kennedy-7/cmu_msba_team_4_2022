@@ -30,7 +30,7 @@ Project Link: [https://github.com/josh-kennedy-7/cmu_msba_team_4_2022](https://g
 
 <!-- ACKNOWLEDGEMENTS -->
 ## Acknowledgements
-* [Our Professor, Zach Lipton](http://zacklipton.com/)
-* [Kyra Gan](https://www.andrew.cmu.edu/user/jgan1/)
+* [Zach Lipton, Professor](http://zacklipton.com/)
+* [Kyra Gan, TA](https://www.andrew.cmu.edu/user/jgan1/)
 * [Readme Template](https://github.com/othneildrew/Best-README-Template)
-* [d2l](http://d2l.ai/)
+* [d2l Textbook](http://d2l.ai/)
