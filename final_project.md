@@ -36,8 +36,6 @@ International and local efforts are crucial to guarantee the balance between the
 
 This is aggravated by a lack of international coordination: there is not one single sanctioning body that concentrates efforts on a global context. For example, in the Pacific Ocean, the fastest growth and main producing region of tuna, three different international associations 
 
-**#TODO: Should we define these acronyms?** 
-
 (IATTC[[1]](#1), WCPFC[[2]](#2) and the CCSBT[[3]](#3)) establish the norms for the catch, sometimes with overlap in the areas. Even in a regional scale, lack of coordination is evident: in this year, the IATTC did not establish international catch quotas for the eastern Pacific, after its members failed to reach consensus . An accurate and unbiased prediction of prices, paired with other environmental and production models can provide the confidence to work on a global context, and the necessary context to determine the optimal regulatory framework.
 
 Price prediction for commodities in general and food supplies in particular is a topic of common interest. Academic research has intensively proposed price and production (catch) prediction models using traditional statistical analysis [[4]](#4), financial valuation approaches [[5]](#5), random forests and vector machines [[6]](#6), and machine learning [[7]](#7) with different degrees of success. Currently, no method or model is universally accepted as a reliable and standard predictor.
