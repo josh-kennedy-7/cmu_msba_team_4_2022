@@ -407,8 +407,8 @@ There are several examples of CNN input structures modified for spherical geomet
 | Best Linear Time-series |  149.42 | Auto Regression |
 | Flat MLP | 1.4e4 | Bad |
 | Categorical CNN | N/A | Converged to Continuous |
-| MLP + Harmonics | ~397 |  |
-| LSTM, Conventional | 5.1e-3 | Strong Model |
+| MLP + Harmonics | ~397 | Promising Results w/o hidden layer |
+| LSTM, Conventional | 5.1e-3 | Promising Results |
 | LSTM, Rotating | N/A | Never converged |
 | TFT, 1-Ahead | ~200 | Module code unverified |
 
