@@ -183,7 +183,7 @@ Time series analysis is the splitting of time series into 4 parts:
 1. **Level**: Long-term gradual changes in the series.
 1. **Trend**: The increase or decrease in data over a period of time.
 1. **Seasonality**: When time series is affected by seasonal factors, a seasonal pattern occurs.
-1. **Noise:** The variability in the observations that cannot be explained by the model.
+1. **Noise:** The variability in the observations that cannot be explained by the model.[[1]](#1)[[2]](#2)
 
 These components combine in some way to provide the observed time series. For example, they may be added together to form a model such as:
 
@@ -248,19 +248,19 @@ In order to better understand and use the relationship between several variables
 
 ##### **Random Forest (RF)**
 
-A number of decision trees (in our case we used 5) are created where each tree is created from a different sample.
+A number of decision trees (in our case we used 5) are created where each tree is created from a different sample.[[4]](#4)
 
 ![pic1](images/roopa6.png)
 **Fig. 6** - *Random Forest model*
 
 ##### **XGBoost**
 
-Rather than training all of the models in isolation of one another like random forest, we tried an XG Boost model to train models in succession.
+Rather than training all of the models in isolation of one another like random forest, we tried an XG Boost model to train models in succession.[[4]](#4)
 
 ![pic1](images/roopa7.png)
 **Fig. 7** *XGBoost model*
 
-Random Forest/XGBoost at best, can predict an average of previously seen training values. Random Forest/ XG Boost is not providing desired results as it is unable to extrapolate to understand the decreasing trend in our data. Because of this, answering questions like “What would the price of SkipJack Tuna be for next Year?” becomes really difficult when using Random Forests/XG Boost.
+Random Forest/XGBoost at best, can predict an average of previously seen training values[[5]](#5). Random Forest/ XG Boost is not providing desired results as it is unable to extrapolate to understand the decreasing trend in our data. Because of this, answering questions like “What would the price of SkipJack Tuna be for next Year?” becomes really difficult when using Random Forests/XG Boost.
 
 ### Evaluation Metrics
 
@@ -277,7 +277,7 @@ There are many measures that can be used to analyze the performance of our predi
 
 ### Conclusions
 
-Although, linear models is a standard method for time series forecasting, it is hard to model nonlinear relationship using them. We have ensured we have exhausted classical time series forecating methods nonetheless, to test our forecasting problem prior to exploring machine larning methods. Other techniques of forecasting like Neural Nets overcome some of the limitations of Classical methods. 
+Although, linear models is a standard method for time series forecasting, it is hard to model nonlinear relationship using them.[[5]](#5) We have ensured we have exhausted classical time series forecating methods nonetheless, to test our forecasting problem prior to exploring machine larning methods. Other techniques of forecasting like Neural Nets overcome some of the limitations of Classical methods. 
 
 
 ## Machine Learning / Deep Learning Model Results
@@ -530,17 +530,12 @@ Flattening the data and hoping for the best led to performance worse than tradit
 > <a id="19">[19]</a> Athul Anish. “Time Series Analysis”,
 https://medium.com/swlh/time-series-analysis-7006ea1c3326
 
-> <a id="20">[20]</a> Statworx Blog, “Time series forecasting with random forest”,
-https://medium.com/@statworx_blog/time-series-forecasting-part-i-e30a16bac58a
-
-> <a id="21">[21]</a> Indraneel Dutta Baruah, Analytics Vidya. “Combining Time Series Analysis with Artificial Intelligence: the future of forecasting”,
+> [[4]](#4)Indraneel Dutta Baruah, Analytics Vidya. “Combining Time Series Analysis with Artificial Intelligence: the future of forecasting”,
 https://medium.com/analytics-vidhya/combining-time-series-analysis-with-artificial-intelligence-the-future-of-forecasting-5196f57db913
 
 > <a id="22">[22]</a> Aman Arora, “Why Random Forests can’t predict trends and how to overcome this problem?”,
 https://medium.datadriveninvestor.com/why-wont-time-series-data-and-random-forests-work-very-well-together-3c9f7b271631
 
-> <a id="23">[23]</a> Jason Browniee, “How to Decompose Time Series Data into Trend and Seasonality”
-https://machinelearningmastery.com/decompose-time-series-data-trend-seasonality/
 
 ### Model Development Citations
 
