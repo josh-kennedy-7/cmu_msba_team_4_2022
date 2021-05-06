@@ -7,29 +7,6 @@ May 5, 2021
 
 **The aim of this project is to predict international prices of skipjack tuna given a series of environmental and economic factors.**
 
-## **TOP TO DO LIST**
-
-1. Citations pass
-   1. Do citations have unique numbers
-   2. Do the citations link to the appropriate reference
-2. Figures pass
-   1. Are all figures labeled and captioned
-   2. Do figure numbers ascend properly
-3. Tense pass
-   1. Is everything uniformly 3rd person?
-   2. Numbers: do we write out single digits "one" or use numerics? "1"
-4. Conclusion draft
-5. Pass for redundancy to check whether we are redundant in anything
-6. Feature count pass
-   1. we have a bunch of places that call out different features
-   2. Do we need a section in the data overview that talks about different data sets?
-      1. Raw
-      2. flat / standardized
-      3. Lasso fit
-      4. PCA
-      5. flat / standardized with harmonics
-      6. PCA with harmonics?
-
 ## Introduction & Overview
 
 International and local efforts are crucial to guarantee the balance between the sustainability of the catch and the worth of the industry. Tuna is most consumed fish and the second most important fish by wild capture in the world (with 5.2 million metric tons in 2018 ), and the industry around it contributes more that 40 billion dollars to the global economy per year. Even when the catch has been increasing year after year, tuna prices have plummeted since 2012 (down ~48%) [[100]](#100), destroying in the process 1.8 billion dollars in value, not to mention that the increased catch threatens the sustainability of the activity.
@@ -96,10 +73,7 @@ The richest datasets were related to environmental factors. The National Oceanic
 
 All of these sources were filtered and joined together via a [custom Python data cleaning script.](https://github.com/josh-kennedy-7/cmu_msba_team_4_2022/blob/main/data/dataset_clean_generate_script.py)
 
-**#TODO Debate merits of swapped data section up here**
 ## Data Characteristics and Input Considerations
-
-@Reed
 
 ### Data Characteristics
 Summary statistics & context for Skipjack Tuna can be found below:
@@ -125,12 +99,12 @@ All climate data included multiple statistics for each time step. Economic data 
 
 #### Feature Count vs. Sample Size
 
-Clipping the data at the minimum available length yielded 121 months of data versus 430 covariates targeting a single output variable (the monthly price of skipjack tuna). A 4 to 1 covariate to history length is unfavorable (**#TODO find some citation on recommended data length**) for deep learning applications.
+Clipping the data at the minimum available length yielded 121 months of data versus 430 covariates targeting a single output variable (the monthly price of skipjack tuna). A 4 to 1 covariate to history length is unfavorable for deep learning applications.
 
 The width vs. depth of our data points to a set of preliminary directions:
 
 - Using dimensionality reduction methods
-- Avoiding deep or nested networks (**#TODO - does this statement disqualify any of our good models?**)
+- Avoiding deep or nested networks
 - Exploiting other information contained in the series structure or pattern
 
 #### GeoSpatial & Time Series Combination
@@ -155,8 +129,6 @@ It is important to avoid contaminating the dataset with current information that
 Data synthetization was done with a PCA encoding that kept the maximum possible amount of components in the whole dataset (including the target), and then random noise was injected into the decoder. However, given that the maximum decoding matrix size achievable was 121 X 121, 364 features were lost in the process (producing a loss in variance explanation), and therefore the output was not similar enough to the original dataset to be used as a training set. A manual selection that removed the additional 364 features before applying the PCA encoding and decoding could have solved the problem, however due to time constraints, this approach was not attempted.
 
 #### Ridge Regularization
-
-**#TODO: Final feature count verification + time history count verify**
 
 Since we began with 433 features with unknown, but certain, relationships, we knew that feature selection would be important to our model. Building a correlation matrix, we can easily see certain elements that would detract from the model (see figure 1 for colinearity example). By implementing a Ridge regression for regularization [[16]](#16), we are able to identify 210 features that could be removed from the data.
 
@@ -355,7 +327,7 @@ The target variable's seasonality and time-based nature points to a LSTM network
 
 ![pic1](images/lstm_output_2.png)
 
-**Fig. n** - *Performance of LSTM Network - Standard Implementation*
+**Fig. 16** - *Performance of LSTM Network - Standard Implementation*
 
 ### LSTM, Rolling Window
 
@@ -384,7 +356,7 @@ The Temporal Fusion Transformer is a recently introduced neural network architec
 
 ![pic1](images/model_results_tft_diagram_frompaper.png)
 
-**Fig. 16** - : *TFT Architecture* [[27]](#27)
+**Fig. 17** - : *TFT Architecture* [[27]](#27)
 
 TFT advantages include:
 
@@ -398,13 +370,13 @@ The TFT's recurrent block was examined using a hyper-parameter optimizer. Hidden
 
 ![pic1](images/model_results_tft_output_4ahead.png)
 
-**Fig. 17** - *TFT Results Predicting Ahead 4 Periods Using 20 Previous*
+**Fig. 18** - *TFT Results Predicting Ahead 4 Periods Using 20 Previous*
 
 As typical with forecasting neural networks accuracy suffered as a strong function of forecast horizon and generally improved with training on greater sequence lengths.
 
 ![pic1](images/model_results_tft_output_1ahead.png)
 
-**Fig. 18** - *TFT Results Predicting Ahead 1 Period Using 23 Previous*
+**Fig. 19** - *TFT Results Predicting Ahead 1 Period Using 23 Previous*
 
 TFT implementation was not robust and hard to validate and evaluate. Use of the single, latest time period for validation offered limited insights into TFT prediction capabilities. Attempts to create additional validation points were difficult within the module architecture and would require more time.
 
