@@ -173,26 +173,20 @@ PCA was effective as a selector of the best variables for the model, but it came
 
 ## Linear Forecasting Baseline
 
-**#TODO: Section introducing why we have a whole segment on linear forecasting (To metric capabilities of NNs)**
+Traditionally most time series analysis are univariate in approach. Other variables are not incorporated because the features themselves may have predicted values which will propagate to the time series variable being predicted. We wanted to test this approach of time series forecasting to to see if they perform better on predictions than those using features.
+
 ### Time Series Forecasting
-
-**#TODO: What voice do we want to assume in this paper? I.e., do we need this overview of time series forecasting?**
-
-"A time series is usually modelled through a stochastic process `Y(t)`, i.e. a sequence of random variables. In a forecasting setting we find ourselves at time t and we are interested in estimating `Y(t+h)`, using only information available at time t."[[18]](#18)
 
 The usage of time series models here is twofold:
 
 - Obtain an understanding of the underlying forces and structure that produced the data
 - Fit a model and proceed to forecast.
 
-**#TODO: Style choice - are we ok with the direct quote? Generally citations are attached to a relevant paraphrase**
-"Time series analysis provides a ton of techniques to better understand a dataset. The most useful of these is the splitting of time series into 4 parts:
-1. **Level**: The base value for the series if it were a straight line.
-1. **Trend**: The linear increasing or decreasing behavior of the series over time.
-1. **Seasonality**: The repeating patterns or cycles of behavior over time.
-1. **Noise:** The variability in the observations that cannot be explained by the model."[[19]](#19)
-
-All-time series generally have a level, noise, while trend and seasonality are optional. The main features of many time series are trends and seasonal variation.
+Time series analysis is the splitting of time series into 4 parts:
+1. **Level**: Long-term gradual changes in the series.
+1. **Trend**: The increase or decrease in data over a period of time.
+1. **Seasonality**: When time series is affected by seasonal factors, a seasonal pattern occurs.
+1. **Noise:** The variability in the observations that cannot be explained by the model.
 
 These components combine in some way to provide the observed time series. For example, they may be added together to form a model such as:
 
@@ -210,27 +204,13 @@ Seasonalities were also assessed using a manual polynomial fit.
 ![pic1](images/roopa2.png)
 **Fig. 2** - *Polynomial fit to find seasonalities*
 
-**#TODO: which metrics in the figure show that seasonalities are present? It may not be inherently obvious to anyone looking at the figure**
-This shows that seasonalities are present in our data.
+We can see how the model to find a seasonality fits well to our data.
 
 ### Stationarity
 
-**#TODO: consider deleting definition since we already defined it in the section header**
-Stationarity is an important characteristic of time series. A time series is stationary if it has constant mean and variance over time. Most models work only with stationary data as this makes it easier to model.
+As a test for checking Stationarity, we used both Autocorrelation and partial autocorrelation plots as well as *Dickey-Fuller* test. The purpose of using a Dickey-fuller test was to see how strongly our time series was defined by a trend.
 
-#### Check for Stationarity
-
-Autocorrelation and partial autocorrelation plots show how correlated values are at time `t` with the next values in times `t+1, t+2, ..., t+n`.
-
-**#TODO: Style choice - are we ok with the direct quote? Generally citations are attached to a relevant paraphrase**
-"If the data would be non-stationary the autocorrelation values will be highly correlated with distant points in time showing possible seasonalities or trends. Stationary series autocorrelation values will quickly decrease over time t. This shows us that information is carried over time and then the series will not constant over time."[[20]](#20)
-
-An augmented *Dickey-Fuller* test was used to perform unit root testing.
-
-**#TODO: Style choice - are we ok with the direct quote? Generally citations are attached to a relevant paraphrase**
-"The intuition behind a unit root test is that it determines how strongly a time series is defined by a trend. There are a number of unit root tests and the Augmented Dickey-Fuller may be one of the more widely used. It uses an autoregressive model and optimizes an information criterion across multiple different lag values.
-
-The null hypothesis of the test is that the time series can be represented by a unit root, that it is not stationary (has some time-dependent structure). The alternate hypothesis (rejecting the null hypothesis) is that the time series is stationary." [[21]](#21)
+The null hypothesis of the test is that the time series can be represented by a unit root and has some time-dependent structure. The alternate hypothesis (rejecting the null hypothesis) is that the time series is stationary. [[7]](#7)
 
 ![pic1](images/roopa3.png)
 **Fig. 3** - *Dickey-Fuller test, Auto and Partial Correlation, Rolling mean and standard deviation*
@@ -239,10 +219,7 @@ With a p value of 0.23 indicates this series is a candidate for methods to make 
 
 ### Methods for Time Series Forecasting
 
-**#TODO: Style choice - are we ok with the direct quote? Generally citations are attached to a relevant paraphrase**
-"There are many methods that we could have used for time series forecasting and there is not a clear winner. Model selection depended on how the data looked. Some models were more robust against outliers but performed worse than the more sensible ones.
-
-When looking at our data the main split was whether we had extra regressors (features) to our time series or just the series. Based on this we started exploring different methods for forecasting and their performance in different metrics."[[22]](#22)
+When looking at our data the main split was whether we had extra regressors (features) to our time series or just the series. Based on this we started exploring different methods for forecasting and their performance in different metrics.[[7]](#7)
 
 We split our data into test training sets having 85 months of training data and 36 months of testing data.
 
@@ -251,18 +228,10 @@ We split our data into test training sets having 85 months of training data and 
 Three univariate time series models were fitted to the data to assess performance:
 
 - Auto Regression (AR)
-- Autoregressive integrated moving average (ARIMA)
-- Seasonal Autoregressive moving average (SARIMA)
+- Autoregressive integrated moving average (ARIMA): Combination of moving average and auto-regression model.
+- Seasonal Autoregressive moving average (SARIMA): Extends ARIMA model by adding seasonal past values and/or forecast erros.
 
-**#TODO: Style choice - are we ok with the direct quote? Generally citations are attached to a relevant paraphrase**
-"In an Auto Regressive model, the forecasts correspond to a linear combination of past values of the variable. In a Moving Average model, the forecasts correspond to a linear combination of past forecast errors.
-
-Basically, the ARIMA models combine these two approaches. Since they require the time series to be stationary, differencing (Integrating) the time series was a necessary step i.e. considering the time series of the differences instead of the original one.
-
-The SARIMA model (Seasonal ARIMA) extends the ARIMA by adding a linear combination of seasonal past values and/or forecast errors."[[15]](#15) 
 The following plots show the predictions on or 36 months test data by using Auto Regression (AR) and SARIMA models.
-
-**#TODO: We spend a lot of prose outlining the various models, but not a lot of discussion is spent weighing the relative qualities or what we are looking to achieve by applying said model to the data.**
 
 ##### **Auto Regression (AR)**
 
@@ -277,7 +246,7 @@ The following plots show the predictions on or 36 months test data by using Auto
 #### Multivariate Time Series Analysis
 
 Random Forest and XGBoost multivariate methods were also applied to the data to assess performance.
-**#TODO: We need some action here - what was our intent in applying these models?**
+
 
 ##### **Random Forest (RF)**
 
