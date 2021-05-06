@@ -157,10 +157,8 @@ Data synthetization was done with a PCA encoding that kept the maximum possible 
 #### Ridge Regularization
 
 **#TODO: Final feature count verification + time history count verify**
-**#TODO: check with Josh re. how he wants to shift 1st to 3rd person here**
 
-Since we began with 433 features with unknown, but certain, relationships, we knew that feature selection would be important to our model. Building a correlation matrix, we can easily see certain elements that would detract from the model (see figure X for colinearity example). By implementing a Ridge regression for regularization, we are able to identify 210 features that could be removed from the data.
-> Inspiration and methodology from Akash Dubey
+Since we began with 433 features with unknown, but certain, relationships, we knew that feature selection would be important to our model. Building a correlation matrix, we can easily see certain elements that would detract from the model (see figure X for colinearity example). By implementing a Ridge regression for regularization [[16]](#16), we are able to identify 210 features that could be removed from the data.
 
 #### Principal Components
 
