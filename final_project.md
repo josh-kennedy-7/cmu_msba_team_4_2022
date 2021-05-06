@@ -132,7 +132,7 @@ All climate data included multiple statistics for each time step. Economic data 
 
 #### Feature Count vs. Sample Size
 
-Clipping the data at the minimum available length yielded 121 months of data versus 432 covariates targeting a single output variable (the monthly price of skipjack tuna). A 4 to 1 covariate to history length is unfavorable (**#TODO find some citation on recommended data length**) for deep learning applications.
+Clipping the data at the minimum available length yielded 121 months of data versus 482 covariates targeting a single output variable (the monthly price of skipjack tuna). A 4 to 1 covariate to history length is unfavorable (**#TODO find some citation on recommended data length**) for deep learning applications.
 
 The width vs. depth of our data points to a set of preliminary directions:
 
@@ -152,6 +152,10 @@ The latter (geospatial covariates) was identified as being significantly harder 
 Temporal characteristics were maintained and explored both through use of networks with memory (recurrent neural networks, long short term memory) and including time harmonics in the same example for input into multi-layer perceptrons.
 
 ### Feature Selection and Preprocessing
+
+#### **Data Synthetization** 
+
+Data synthetization was done with a PCA encoding that kept the maximum possible amount of components in the whole dataset (including the target), and then random noise was injected into the decoder. However, given that the maximum decoding matrix size achievable was 121 X 121, 364 features were lost in the process (producing a loss in variance explanation), and therefore the output was not similar enough to the original dataset to be used as a training set. A manual selection that removed the additional 364 features before applying the PCA encoding and decoding could have solved the problem, however due to time constraints, this approach was not attempted.
 
 #### Ridge Regularization
 
@@ -322,15 +326,9 @@ The three main limitations of a discrete approach to the problem were the implic
 
 Finally, since trials were made shuffling the whole set, the model was filling voids in the past instead of predicting the future. This realization was taken into account in the next models so that data was split by time rather than by volume.
 
-**#TODO: Should we rename this since it's not actually leNet?**
-### LeNet Adaptation
+### **CNN Adaptation**
 
-A challenge to train with the available data was that the number of features (430) was greater than the number of examples (121). Furthermore, the existing number of features did not show sufficient explanatory power in previous models. To deal with this, four different alternatives were explored, and those that were successful were merged into a model:
-
-**#TODO: Should we consider moving this up into the data exploration section and then noting in here that X dataset was used on this model to good effect?**
-#### **Synthetizing new examples to train the model.** 
-
-This was done with a PCA encoding that kept the maximum possible amount of components in the whole dataset (including the target), and then random noise was injected into the decoder. However, given that the maximum decoding matrix size achievable was 121 X 121, 364 features were lost in the process (producing a loss in variance explanation), and therefore the output was not similar enough to the original dataset to be used as a training set. A manual selection that removed the additional 364 features before applying the PCA encoding and decoding could have solved the problem, however due to time constraints, this approach was not attempted.
+A challenge to train with the available data was that the number of features (484: 482 environmental covariates, and the index consisting of year and month) was greater than the number of examples (121). Furthermore, the existing number of features did not show sufficient explanatory power in previous models. To deal with this, three different alternatives were explored, and those that were successful were merged into a model:
 
 #### **Selecting the most significant covariates.**
 
@@ -349,9 +347,7 @@ Additionally to the harmonics, two price related covariates were added to the da
 
 #### **Establishing a network that could generalize a large set of features.** 
 
-
-**#TODO: Need a citation to the original LeNet paper**
-A CNN based on LeNet’s architecture was used to train the model. The input for this model were the resulting 16 main components after applying PCA plus the additional 8 variables. This was arranged in a 3 X 8 input matrix. The temporal split between the train and the test sets was made at 65/35% to ensure that the cycle described by the first harmonic was completely included in the training set. Data was randomized only for the train set after the split. The results of this model were better than the previous attempts, and a RMSE of 397 was obtained (for context, the average price was $1,577), with a correlation of 0.76.  
+A CNN based on LeNet’s architecture [[1]](#1) was used to train the model. The input for this model were the resulting 16 main components after applying PCA plus the additional 8 variables. This was arranged in a 3 X 8 input matrix. The temporal split between the train and the test sets was made at 65/35% to ensure that the cycle described by the first harmonic was completely included in the training set. Data was randomized only for the train set after the split. The results of this model were better than the previous attempts, and a RMSE of 397 was obtained (for context, the average price was $1,577), with a correlation of 0.76.  
 
 ![pic1](images/PredictLeNet.png)
 
@@ -531,6 +527,9 @@ Flattening the data and hoping for the best led to performance worse than tradit
 
 > <a id="17">[17]</a> Jason Brownlee. "Time Series Forecasting with the Long Short-Term Memory Network in Python", 
 <https://machinelearningmastery.com/time-series-forecasting-long-short-term-memory-network-python/
+
+> [[1]](#1) Yann Le Cun, Léon Bottou, Yoshua Bengio, and Patrick Haffner, Gradient-Based Learning Applied to Document Recognition, IEEE [November 1998]. 
+
 ### Time Series Citations
 
 > <a id="18">[18]</a> Davide Bruba. "An overview of time series forecasting models", 
