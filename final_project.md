@@ -115,8 +115,10 @@ All of these sources were filtered and joined together via custom Python E/T job
 
 ### Data Characteristics
 Summary statistics & context for Skipjack Tuna can be found below:
-<img src="images/tuna_statistics.png" alt="drawing" width="400"/>
-<img src="images/tuna_price_over_time.png" alt="drawing" width="400"/>
+
+<img src="images/tuna_statistics.png" alt="drawing" width="200"/>
+
+<img src="images/tuna_price_over_time.png" alt="drawing" width="200"/>
 
 
 #### Non-Uniform Data length
