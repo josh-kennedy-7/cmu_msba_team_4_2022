@@ -150,6 +150,10 @@ The latter (geospatial covariates) was identified as being significantly harder 
 
 Temporal characteristics were maintained and explored both through use of networks with memory (recurrent neural networks, long short term memory) and including time harmonics in the same example for input into multi-layer perceptrons.
 
+#### Temporality Concerns
+
+It is important to avoid contaminating the dataset with current information that in practice would not be available. For example, the data table was built in such a way that prices reflect an offset of one period with respect to the covariates, and special care was taken to ensure that the aggregated metrics (such as average, minimum and maximum within a period) never included the price to be predicted. Another concern with respect to the testing of the data is that its data set should provide an horizon outside of the training data, to simulate real life conditions. In this sense, a proper assesment of a model should be conducted by extrapolating instead of interpolating in time. Within this framework of dividing training and testing sets by a temporal condition, the training set was shuffled after the split to ensure a better gradient descent convergence.
+
 ### Feature Selection and Preprocessing
 
 #### **Data Synthetization** 
@@ -303,7 +307,6 @@ The problem was transformed from a continuous to a discrete output to try to imp
 2. Binary: provide directionality in terms of price increase or decrease with respect to the previous period.
 
 The dispersion and range of prices within any given training and testing set was very similar so to avoid recalculating the buckets on each trial the whole set was used. Since the dataset was shuffled, the risk of bias remained very low, however other temporality concerns arose (to be discussed later in the report).
-**#TODO: Sounds like a good candidate to be elaborated upon in the data description lead up**
 
 In the price bucket variety classification accuracy decreased as the number of buckets increased. At the same time an estimated RMSE loss was reduced. The estimated RMSE was based on the difference of the averages of the buckets instead of the difference of the average of the bucket and the actual price, making the estimated RMSE lower that the actual RMSE. This can be seen in the following confusion matrix:
 
