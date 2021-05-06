@@ -100,7 +100,7 @@ As a result of the available data, the majority of our model inputs are monthly 
 - Global Shrimp Price Index [[12]](#12)
 - U.S. Fish & Shellfish Import/Export Price Indices [[13]](#13)
 
-[All of these sources were filtered and joined together via custom Python E/T job.](https://github.com/josh-kennedy-7/cmu_msba_team_4_2022/blob/main/data/dataset_clean_generate_script.py)
+All of these sources were filtered and joined together via a [custom Python data cleaning script.](https://github.com/josh-kennedy-7/cmu_msba_team_4_2022/blob/main/data/dataset_clean_generate_script.py)
 
 **#TODO Debate merits of swapped data section up here**
 ## Data Characteristics and Input Considerations
