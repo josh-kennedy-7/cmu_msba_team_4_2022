@@ -31,8 +31,8 @@ May 5, 2021
       6. PCA with harmonics?
 
 ## Table of Contents  
-[Headers](#headers)  
-[Emphasis](#emphasis)  
+[Introduction & Overview](#Introduction & Overview)  
+[Data Collection](#Data Collection)  
 
 
 ## Introduction & Overview
